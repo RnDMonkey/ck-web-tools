@@ -14,6 +14,7 @@ var cachedData = []
 // Table previews
 var previewCells = []
 const maxDims = 500
+const IMAGE_DIMS = 64
 
 var showImageInputs = true
 var showSelections = true
@@ -243,7 +244,7 @@ function processImage() {
         // container.appendChild(image)
 
         let entry = colorDB[key];
-        let preview = createItemPreview(entry, 32); // size adjustable
+        let preview = createItemPreview(entry, IMAGE_DIMS); // size adjustable
 
         container.appendChild(preview);
         container.appendChild(label)
