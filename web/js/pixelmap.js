@@ -153,7 +153,8 @@ function createItemPreview(entry, size = 48) {
             3                 // max lines
         );
 
-        img.replaceWith(canvas);
+        // img.replaceWith(canvas);
+        img.src = canvas.toDataURL(); // convert canvas to PNG
     };
 
     return img;
