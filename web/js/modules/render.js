@@ -5,7 +5,7 @@ function renderPreview() {
     let chunkX = parseInt(chunkInputX.value) - 1
     let chunkY = parseInt(chunkInputY.value) - 1
     // let previewCellsDims = parseInt(gridSizeDOM.value) > 25 ? 25 : parseInt(gridSizeDOM.value)
-    let previewCellsDims = Math.min(parseInt(gridSizeDOM.value), 64);
+    let previewCellsDims = Math.min(parseInt(gridSizeDOM.value), 25);
 
     for (let y = 0, gy = chunkY * previewCellsDims; y < previewCellsDims; y++, gy++) {
         for (let x = 0, gx = chunkX * previewCellsDims; x < previewCellsDims; x++, gx++) {
