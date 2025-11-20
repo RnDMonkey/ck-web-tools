@@ -4,13 +4,23 @@
 function renderPreview() {
     let chunkX = parseInt(chunkInputX.value) - 1
     let chunkY = parseInt(chunkInputY.value) - 1
-    let previewCellsDims = parseInt(gridSizeDOM.value) > 25 ? 25 : parseInt(gridSizeDOM.value)
+    // let previewCellsDims = parseInt(gridSizeDOM.value) > 25 ? 25 : parseInt(gridSizeDOM.value)
+    let previewCellsDims = Math.min(parseInt(gridSizeDOM.value), 64);
+
     for (let y = 0, gy = chunkY * previewCellsDims; y < previewCellsDims; y++, gy++) {
         for (let x = 0, gx = chunkX * previewCellsDims; x < previewCellsDims; x++, gx++) {
             if (gy <= cachedData.length -1 && gx <= cachedData[y].length -1) {
                 let selection = cachedData[gy][gx]
                 previewCells[y][x].style.backgroundColor = "rgba(" + trimBrackets(selection['RGB']) + ", 255)"
-                previewCells[y][x].src = selection['imageSource']
+                
+                // previewCells[y][x].src = selection['imageSource']
+                // Use fallback-aware preview generator for each preview cell
+                const preview = createItemPreview(selection, 30);  // match existing 30px preview grid cells
+                previewCells[y][x].replaceWith(preview);
+                
+                // And update local reference since replaceWith() swaps DOM nodes
+                previewCells[y][x] = preview;
+
             } else {
                 previewCells[y][x].style.backgroundColor = "transparent"
                 previewCells[y][x].src = "images/misc/empty.png"
