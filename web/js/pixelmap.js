@@ -80,6 +80,45 @@ imageUpload.addEventListener("change", function () {
 // #endregion
 
 // #region Core Functions
+
+// Generates an <img> OR a fallback <canvas> with the Name drawn over the RGB background
+function createItemPreview(entry, size = 32) {
+    const img = document.createElement("img");
+    img.src = entry.imageSource;
+    img.alt = entry.Name;
+    img.width = size;
+    img.height = size;
+
+    img.onerror = function () {
+        // Replace broken image with a drawn canvas fallback
+        const canvas = document.createElement("canvas");
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext("2d");
+
+        // Background = item's mapped RGB
+        const rgb = entry.RGB || [128, 128, 128];
+        ctx.fillStyle = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+        ctx.fillRect(0, 0, size, size);
+
+        // Text
+        ctx.fillStyle = "white";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        // Auto-fit font size based on preview size
+        let fontSize = Math.floor(size / 3);
+        ctx.font = `bold ${fontSize}px sans-serif`;
+
+        // Draw name
+        ctx.fillText(entry.Name, size / 2, size / 2);
+
+        img.replaceWith(canvas);
+    };
+
+    return img;
+}
+
 function processImage() {
     itemCountersDOM.innerHTML = ''
     if (imgDom.naturalWidth > maxDims || imgDom.naturalHeight > maxDims) {  
@@ -196,11 +235,10 @@ function processImage() {
         container.setAttribute("class", "item-counter")
         let label = document.createElement("label")
 
-        let image = document.createElement("img")
-        image.src = colorDB[key]["imageSource"]
-        image.style.backgroundColor = "rgba(" + trimBrackets(colorDB[key]['RGB']) + ", 255)"
+        let entry = colorDB[key];
+        let preview = createItemPreview(entry, 32); // size adjustable
 
-        container.appendChild(image)
+        container.appendChild(preview);
         container.appendChild(label)
         itemCountersDOM.appendChild(container)
 
