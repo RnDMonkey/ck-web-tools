@@ -84,6 +84,37 @@ imageUpload.addEventListener("change", function () {
 
 // #region Core Functions
 
+function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight, maxLines = 3) {
+    const words = text.split(/\s+/);
+    let lines = [];
+    let line = "";
+
+    for (let i = 0; i < words.length; i++) {
+        const testLine = line + words[i] + " ";
+        const { width } = ctx.measureText(testLine);
+
+        if (width > maxWidth && line !== "") {
+            lines.push(line.trim());
+            line = words[i] + " ";
+            if (lines.length >= maxLines) break;
+        } else {
+            line = testLine;
+        }
+    }
+
+    if (lines.length < maxLines && line.trim() !== "") {
+        lines.push(line.trim());
+    }
+
+    // Center vertically
+    const totalHeight = lines.length * lineHeight;
+    let startY = y - totalHeight / 2 + lineHeight / 2;
+
+    lines.forEach((ln, idx) => {
+        ctx.fillText(ln, x, startY + idx * lineHeight);
+    });
+}
+
 // Generates an <img> OR a fallback <canvas> with the Name drawn over the RGB background
 function createItemPreview(entry, size = 48) {
     const img = document.createElement("img");
@@ -105,16 +136,22 @@ function createItemPreview(entry, size = 48) {
         ctx.fillRect(0, 0, size, size);
 
         // Text
+        const fontSize = Math.floor(size / 5);   // smaller font for wrapping
         ctx.fillStyle = "white";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-
-        // Auto-fit font size based on preview size
-        let fontSize = Math.floor(size / 3);
         ctx.font = `bold ${fontSize}px sans-serif`;
 
-        // Draw name
-        ctx.fillText(entry.Name, size / 2, size / 2);
+        // Wrapped fallback text
+        drawWrappedText(
+            ctx,
+            entry.Name,
+            size / 2,
+            size / 2,
+            size - 4,         // max width
+            fontSize + 2,     // line height
+            3                 // max lines
+        );
 
         img.replaceWith(canvas);
     };
