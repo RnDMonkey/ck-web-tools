@@ -235,6 +235,11 @@ function processImage() {
         container.setAttribute("class", "item-counter")
         let label = document.createElement("label")
 
+        // let image = document.createElement("img")
+        // image.src = colorDB[key]["imageSource"]
+        // image.style.backgroundColor = "rgba(" + trimBrackets(colorDB[key]['RGB']) + ", 255)"
+        // container.appendChild(image)
+
         let entry = colorDB[key];
         let preview = createItemPreview(entry, 32); // size adjustable
 
