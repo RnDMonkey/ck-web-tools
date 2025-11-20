@@ -85,7 +85,7 @@ imageUpload.addEventListener("change", function () {
 // #region Core Functions
 
 // Generates an <img> OR a fallback <canvas> with the Name drawn over the RGB background
-function createItemPreview(entry, size = 32) {
+function createItemPreview(entry, size = 48) {
     const img = document.createElement("img");
     img.src = entry.imageSource;
     img.alt = entry.Name;
