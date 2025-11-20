@@ -15,7 +15,7 @@ function renderPreview() {
                 
                 // previewCells[y][x].src = selection['imageSource']
                 // Use fallback-aware preview generator for each preview cell
-                const preview = createItemPreview(selection, 64);  // replace 30px preview grid cells
+                const preview = createItemPreview(selection, IMAGE_DIMS);  // replace 30px preview grid cells
                 previewCells[y][x].replaceWith(preview);
                 
                 // And update local reference since replaceWith() swaps DOM nodes
@@ -47,7 +47,7 @@ function generateItemSelection (db) {
 
         // container.appendChild(image)
 
-        let preview = createItemPreview(element, 32);  // 32px icon size
+        let preview = createItemPreview(element, IMAGE_DIMS);  // was 32px icon size
         container.appendChild(preview);
 
         container.appendChild(checkBox)
