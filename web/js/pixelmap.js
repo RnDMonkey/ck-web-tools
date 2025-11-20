@@ -43,7 +43,7 @@ function Initialize() {
     generateItemSelection(colorDB)
 
     // let previewCellsDims = parseInt(gridSizeDOM.value) > 25 ? 25 : parseInt(gridSizeDOM.value)
-    let previewCellsDims = Math.min(parseInt(gridSizeDOM.value), 64);
+    let previewCellsDims = Math.min(parseInt(gridSizeDOM.value), 25);
 
     // populate previewCells
     for (let y = 0; y < previewCellsDims; y++) {
