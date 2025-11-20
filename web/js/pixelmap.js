@@ -116,7 +116,7 @@ function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight, maxLines = 3) {
 }
 
 // Generates an <img> OR a fallback <canvas> with the Name drawn over the RGB background
-function createItemPreview(entry, size = 48) {
+function createItemPreview(entry, size = IMAGE_DIMS) {
     const img = document.createElement("img");
     img.src = entry.imageSource;
     img.alt = entry.Name;
