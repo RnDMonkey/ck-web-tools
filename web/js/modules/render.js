@@ -31,11 +31,15 @@ function generateItemSelection (db) {
         checkBox.setAttribute("name", "item-selection")
         checkBox.setAttribute("guid", element["GUID"])
 
-        let image = document.createElement("img")
-        image.src = element["imageSource"]
-        image.style.backgroundColor = "rgba(" + trimBrackets(element['RGB']) + ", 255)"
+        // let image = document.createElement("img")
+        // image.src = element["imageSource"]
+        // image.style.backgroundColor = "rgba(" + trimBrackets(element['RGB']) + ", 255)"
 
-        container.appendChild(image)
+        // container.appendChild(image)
+
+        let preview = createItemPreview(element, 32);  // 32px icon size
+        container.appendChild(preview);
+
         container.appendChild(checkBox)
         container.appendChild(label)
         itemSelectionsDOM.appendChild(container)
