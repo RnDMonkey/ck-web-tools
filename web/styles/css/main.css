@@ -107,7 +107,7 @@ input[type=checkbox] {
 }
 
 .item-selection > img {
-    max-height: 3.15em;
+    /*max-height: 3.15em;*/
     padding: 0.3em;
     image-rendering: auto;
     image-rendering: crisp-edges;
@@ -128,7 +128,7 @@ input[type=checkbox] {
 }
 
 .item-counter > img {
-    max-height: 3.15em;
+    /*max-height: 3.15em;*/
     padding: 0.3em;
     image-rendering: auto;
     image-rendering: crisp-edges;
