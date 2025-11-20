@@ -15,7 +15,7 @@ function renderPreview() {
                 
                 // previewCells[y][x].src = selection['imageSource']
                 // Use fallback-aware preview generator for each preview cell
-                const preview = createItemPreview(selection, 30);  // match existing 30px preview grid cells
+                const preview = createItemPreview(selection, 64);  // replace 30px preview grid cells
                 previewCells[y][x].replaceWith(preview);
                 
                 // And update local reference since replaceWith() swaps DOM nodes
