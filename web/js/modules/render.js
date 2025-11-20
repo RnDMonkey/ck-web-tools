@@ -1,6 +1,38 @@
 // in charge of drawing DOM elements
 
 //TODO remove onclick and instead add event listeners
+
+function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight, maxLines = 3) {
+    const words = text.split(" ");
+    let line = "";
+    let lines = [];
+    
+    for (let n = 0; n < words.length; n++) {
+        const testLine = line + words[n] + " ";
+        const metrics = ctx.measureText(testLine);
+        const testWidth = metrics.width;
+
+        if (testWidth > maxWidth && n > 0) {
+            lines.push(line.trim());
+            line = words[n] + " ";
+            if (lines.length >= maxLines) break;
+        } else {
+            line = testLine;
+        }
+    }
+    if (lines.length < maxLines) {
+        lines.push(line.trim());
+    }
+
+    // Center vertically around y
+    const totalHeight = lines.length * lineHeight;
+    let offsetY = y - totalHeight / 2 + lineHeight / 2;
+
+    for (let i = 0; i < lines.length; i++) {
+        ctx.fillText(lines[i], x, offsetY + i * lineHeight);
+    }
+}
+
 function renderPreview() {
     let chunkX = parseInt(chunkInputX.value) - 1
     let chunkY = parseInt(chunkInputY.value) - 1
