@@ -42,7 +42,9 @@ function Initialize() {
     // should this be async?
     generateItemSelection(colorDB)
 
-    let previewCellsDims = parseInt(gridSizeDOM.value) > 25 ? 25 : parseInt(gridSizeDOM.value)
+    // let previewCellsDims = parseInt(gridSizeDOM.value) > 25 ? 25 : parseInt(gridSizeDOM.value)
+    let previewCellsDims = Math.min(parseInt(gridSizeDOM.value), 64);
+
     // populate previewCells
     for (let y = 0; y < previewCellsDims; y++) {
         for (let x = 0; x < previewCellsDims; x++) {
