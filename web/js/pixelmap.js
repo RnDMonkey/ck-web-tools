@@ -79,6 +79,23 @@ async function Initialize() {
     // should this be async?
     generateItemSelection(colorDB)
 
+    const processModeSelect = document.getElementById("process-options");
+    
+    // Restore saved mode
+    const savedMode = localStorage.getItem("cktool-process-mode");
+    if (savedMode) {
+        processModeSelect.value = savedMode;
+    }
+    
+    // Save mode + auto-reprocess when changed
+    processModeSelect.addEventListener("change", () => {
+        localStorage.setItem("cktool-process-mode", processModeSelect.value);
+    
+        if (imgDom.src && imgDom.naturalWidth > 0) {
+            processImage();   // auto-process like palette checkbox changes
+        }
+    });
+
     // let previewCellsDims = parseInt(gridSizeDOM.value) > 25 ? 25 : parseInt(gridSizeDOM.value)
     let previewCellsDims = Math.min(parseInt(gridSizeDOM.value), 25);
 
@@ -313,7 +330,8 @@ function processImage() {
             let _b = pixel2dArray[y][x][2] //Math.floor(Math.random() * 256)
 
             // TODO optimize by caching already mapped color values instead of doing another loop of getting closest colour    
-            let colorSpace = "RGB"
+            // let colorSpace = "RGB"
+            let colorSpace = document.getElementById("process-options").value;
             let closestValue = getDBClosestValue(colorDBCache, [_r, _g, _b], colorSpace)
             cachedData[y][x] = closestValue
 
