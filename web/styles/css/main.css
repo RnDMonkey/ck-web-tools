@@ -134,3 +134,43 @@ input[type=checkbox] {
     image-rendering: crisp-edges;
     image-rendering: pixelated;
 }
+
+/* ============================
+   Resizable Left Pane
+   ============================ */
+
+#layout {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Left sidebar */
+#left-pane {
+    flex: 0 0 25%;
+    min-width: 150px;
+    max-width: 600px;
+    overflow-y: auto;
+    background-color: #2f2d57;
+    padding: 10px;
+    box-sizing: border-box;
+    border-right: 2px solid #222;
+}
+
+/* draggable separator */
+#drag-bar {
+    width: 6px;
+    background-color: #1f1e3f;
+    cursor: ew-resize;
+}
+
+/* Right pane */
+#right-pane {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
