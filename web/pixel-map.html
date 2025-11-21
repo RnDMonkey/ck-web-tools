@@ -53,8 +53,15 @@
   </div>
 
   <div class="d-flex justify-content-center">
-    <table id="preview-table2"></table>
+    <table id="preview-table"></table>
   </div>
+  <div class="d-flex justify-content-center align-items-center  inputs">
+    <span>Tile Preview: Navigation (starts from the top left)</span>
+    <span>X: <input type="number" class="dark-text" value="1" id="chunk-input-x" min="1"></span>
+    <span>Y: <input type="number" class="dark-text" value="1" id="chunk-input-y" min="1"></span>
+    <button type="submit" onclick="renderPreview()">Draw Grid Preview</button>
+  </div>
+
 
   <div id="item-selections-container">
     <button type="submit" onclick="toggleColorSelection()">Toggle Item Selection</button> Item Selections: 
@@ -78,16 +85,9 @@
     <canvas width="0" height="0" class="image-canvas viewer-image" id="output-canvas"></canvas>
   </div>
 
-  <div class="d-flex justify-content-center align-items-center  inputs">
-    <span>Tile Preview: Navigation (starts from the top left)</span>
-    <span>X: <input type="number" class="dark-text" value="1" id="chunk-input-x" min="1"></span>
-    <span>Y: <input type="number" class="dark-text" value="1" id="chunk-input-y" min="1"></span>
-    <button type="submit" onclick="renderPreview()">Draw Grid Preview</button>
-  </div>
-
 
   <div class="d-flex justify-content-center">
-    <table id="preview-table">
+    <table id="preview-table2">
       <tr id="preview-row-0">
         <td><img id="cell-0-0" class="preview-cell" style="background-color: transparent;" src="images/misc/empty.png" /></td>
         <td><img id="cell-1-0" class="preview-cell" style="background-color: transparent;" src="images/misc/empty.png" /></td>
