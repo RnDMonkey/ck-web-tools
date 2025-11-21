@@ -98,7 +98,7 @@ function Initialize() {
 }
 
 document.addEventListener("DOMContentLoaded", function(){
-     Initialize()
+     Initialize();
 })
 
 imageUpload.addEventListener("change", function () {
