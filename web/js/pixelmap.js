@@ -71,7 +71,7 @@ function buildPreviewTable(tableDims = 25) {
 // #region Initialization and Hooked Event Listeners
 function Initialize() {
     // Build dynamic table BEFORE collecting previewCells
-    buildPreviewTable(25);
+    // buildPreviewTable(25);
 
     colorDB = getColorDB()
     // should this be async?
