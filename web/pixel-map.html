@@ -824,6 +824,35 @@
   <script src="js/modules/colordb.js"></script>
   <script src="js/modules/render.js"></script>
 
+  <script>
+    const leftPane = document.getElementById("left-pane");
+    const dragBar = document.getElementById("drag-bar");
+    const layout = document.getElementById("layout");
+
+    let isDragging = false;
+
+    dragBar.addEventListener("mousedown", () => {
+        isDragging = true;
+        document.body.style.cursor = "ew-resize";
+    });
+
+    window.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+
+        const newWidth = e.clientX;
+
+        // Clamp between min and max width
+        if (newWidth > 150 && newWidth < 600) {
+            leftPane.style.flexBasis = newWidth + "px";
+        }
+    });
+
+    window.addEventListener("mouseup", () => {
+        isDragging = false;
+        document.body.style.cursor = "default";
+    });
+</script>
+  
 </body>
 
 </html>
