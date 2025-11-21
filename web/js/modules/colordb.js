@@ -1,10 +1,11 @@
 // export { getColorDict }
 
-function getColorDB (path) {
+async function getColorDB (path) {
     var data = null;
     if (path) {
         const response = await fetch(path);
-        data = JSON.parse(path);
+        data = await response.json();
+        // data = JSON.parse(path);
     } else {
         data = JSON.parse(colordb);
     } 
