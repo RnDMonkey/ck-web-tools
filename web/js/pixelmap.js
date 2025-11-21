@@ -39,7 +39,7 @@ const itemCountersDOM = document.getElementById("item-counters")
 
 // #region preview table construction
 function buildPreviewTable(tableDims = 25) {
-    const tbl = document.getElementById("preview-table2");
+    const tbl = document.getElementById("preview-table");
     tbl.innerHTML = ""; // clear existing
 
     for (let y = 0; y < tableDims; y++) {
