@@ -383,36 +383,28 @@ function processImage() {
     // iterate over 2d matrix and print each pixel after mapping 
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-            // let _r = pixel2dArray[y][x][0] //Math.floor(Math.random() * 256)
-            // let _g = pixel2dArray[y][x][1] //Math.floor(Math.random() * 256)
-            // let _b = pixel2dArray[y][x][2] //Math.floor(Math.random() * 256)
-
-            // TODO optimize by caching already mapped color values instead of doing another loop of getting closest colour    
-            // let colorSpace = "RGB"
+    
             let colorSpace = document.getElementById("process-options").value;
+    
+            // Fast lookup from cached color-space arrays
             let inputColor =
-                (colorSpace === "RGB")  ? pixelRGB[y][x]   :
-                (colorSpace === "HSL")  ? pixelHSL[y][x]   :
-                (colorSpace === "HSV")  ? pixelHSV[y][x]   :
-                (colorSpace === "CAM02")? pixelCAM02[y][x] :
-                                          pixelRGB[y][x];  // fallback
-
-            // let closestValue = getDBClosestValue(colorDBCache, [_r, _g, _b], colorSpace)
+                (colorSpace === "RGB")   ? pixelRGB[y][x]   :
+                (colorSpace === "HSL")   ? pixelHSL[y][x]   :
+                (colorSpace === "HSV")   ? pixelHSV[y][x]   :
+                (colorSpace === "CAM02") ? pixelCAM02[y][x] :
+                                           pixelRGB[y][x];
+    
+            // Find best palette match
             let closestValue = getDBClosestValue(colorDBCache, inputColor, colorSpace);
-
-            cachedData[y][x] = closestValue
-
-            // Fill in canvas preview
-            octx.fillStyle = "rgba(" + trimBrackets(closestValue[colorSpace]) + ", 255)"
-            octx.fillRect(x * pixelSize, y * pixelSize, 1 * pixelSize, 1 * pixelSize)
-
-            // Increment the item counter
-            let guid = closestValue["GUID"]
-            if (guid in counters) {
-                counters[guid] = counters[guid] += 1 
-            } else {
-                counters[guid] = 1
-            }
+            cachedData[y][x] = closestValue;
+    
+            // Fill preview canvas
+            octx.fillStyle = "rgba(" + trimBrackets(closestValue[colorSpace]) + ", 255)";
+            octx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+    
+            // Count items
+            let guid = closestValue.GUID;
+            counters[guid] = (counters[guid] || 0) + 1;
         }
     }
 
