@@ -47,7 +47,7 @@ input[type=checkbox] {
     width: 100%;
     height: 100%;
     image-rendering: auto;
-    image-rendering: crisp-edges;
+    /* image-rendering: crisp-edges; */
     image-rendering: pixelated;
 }
 
@@ -108,9 +108,9 @@ input[type=checkbox] {
 
 .item-selection > img {
     /*max-height: 3.15em;*/
-    padding: 0.3em;
+    /* padding: 0.3em; */
     image-rendering: auto;
-    image-rendering: crisp-edges;
+    /* image-rendering: crisp-edges; */
     image-rendering: pixelated;
 }
 
@@ -129,9 +129,9 @@ input[type=checkbox] {
 
 .item-counter > img {
     /*max-height: 3.15em;*/
-    padding: 0.3em;
+    /* padding: 0.3em; */
     image-rendering: auto;
-    image-rendering: crisp-edges;
+    /* image-rendering: crisp-edges; */
     image-rendering: pixelated;
 }
 
