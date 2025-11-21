@@ -37,8 +37,41 @@ const itemCountersDOM = document.getElementById("item-counters")
 
 // #endregion
 
+// #region preview table construction
+function buildPreviewTable(tableDims = 25) {
+    const tbl = document.getElementById("preview-table2");
+    tbl.innerHTML = ""; // clear existing
+
+    for (let y = 0; y < tableDims; y++) {
+        const row = document.createElement("tr");
+
+        for (let x = 0; x < tableDims; x++) {
+            const cell = document.createElement("td");
+
+            const img = document.createElement("img");
+            img.id = `cell-${x}-${y}`;
+            img.className = "preview-cell";
+            img.width = IMAGE_DIMS;
+            img.height = IMAGE_DIMS;
+            img.src = "images/misc/empty.png";
+
+            // Clean layout: no squeeze, no distort
+            img.style.display = "block";
+
+            cell.appendChild(img);
+            row.appendChild(cell);
+        }
+
+        tbl.appendChild(row);
+    }
+}
+// #endregion
+
 // #region Initialization and Hooked Event Listeners
 function Initialize() {
+    // Build dynamic table BEFORE collecting previewCells
+    buildPreviewTable(25);
+
     colorDB = getColorDB()
     // should this be async?
     generateItemSelection(colorDB)
