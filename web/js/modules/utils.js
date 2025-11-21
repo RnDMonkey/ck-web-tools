@@ -46,53 +46,55 @@ function rgbToHSV(r, g, b) {
     return [h, s * 100, v * 100];
 }
 
-// sRGB → XYZ matrix
-const M_CAT02 = [
-    [0.7328, 0.4296, -0.1624],
-    [-0.7036, 1.6975, 0.0061],
-    [0.0030, 0.0136, 0.9834]
-];
-
-// XYZ → LMS (for CAM02)
-const M_HPE = [
-    [0.38971, 0.68898, -0.07868],
-    [-0.22981, 1.18340, 0.04641],
-    [0.00000, 0.00000, 1.00000]
-];
-
+// --- CIECAM02-UCS conversion (J' a' b') ---
 function rgbToCAM02(r, g, b) {
-    // Normalize RGB
-    const sr = r / 255;
-    const sg = g / 255;
-    const sb = b / 255;
 
-    // sRGB → Linear RGB
-    const lin = [sr, sg, sb].map(c =>
-        (c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4))
-    );
+    // 1) Normalize & linearize sRGB ------------------------------
+    const sr = r / 255, sg = g / 255, sb = b / 255;
 
-    // Linear RGB → XYZ (D65)
-    const XYZ = [
-        0.4124564 * lin[0] + 0.3575761 * lin[1] + 0.1804375 * lin[2],
-        0.2126729 * lin[0] + 0.7151522 * lin[1] + 0.0721750 * lin[2],
-        0.0193339 * lin[0] + 0.1191920 * lin[1] + 0.9503041 * lin[2]
-    ];
+    function lin(c) {
+        return (c <= 0.04045)
+            ? c / 12.92
+            : Math.pow((c + 0.055) / 1.055, 2.4);
+    }
 
-    // XYZ → LMS (via CAT02)
-    const LMS = [
-        M_CAT02[0][0] * XYZ[0] + M_CAT02[0][1] * XYZ[1] + M_CAT02[0][2] * XYZ[2],
-        M_CAT02[1][0] * XYZ[0] + M_CAT02[1][1] * XYZ[1] + M_CAT02[1][2] * XYZ[2],
-        M_CAT02[2][0] * XYZ[0] + M_CAT02[2][1] * XYZ[1] + M_CAT02[2][2] * XYZ[2],
-    ];
+    const R = lin(sr), G = lin(sg), B = lin(sb);
 
-    // Apply nonlinearity
-    const FL = 0.2;
-    const LMSp = LMS.map(c => Math.sign(c) * Math.pow(Math.abs(c), 0.42));
+    // 2) Linear RGB to XYZ (D65) ----------------------------------
+    const X = 0.4124564 * R + 0.3575761 * G + 0.1804375 * B;
+    const Y = 0.2126729 * R + 0.7151522 * G + 0.0721750 * B;
+    const Z = 0.0193339 * R + 0.1191920 * G + 0.9503041 * B;
 
-    // J'a'b' (UCS)
-    const Jp = 2.0 * LMSp[0] + LMSp[1] + 0.05 * LMSp[2];
-    const ap = LMSp[0] - LMSp[1];
-    const bp = LMSp[1] - LMSp[2];
+    // 3) XYZ to LMS (CAT02) ---------------------------------------
+    const L =  0.7328 * X + 0.4296 * Y - 0.1624 * Z;
+    const M = -0.7036 * X + 1.6975 * Y + 0.0061 * Z;
+    const S =  0.0030 * X + 0.0136 * Y + 0.9834 * Z;
+
+    // 4) Nonlinear adaptation (forward CIECAM02) -----------------
+    const FL = 1.0; // simplified adapting luminance, matches many palette generators
+    function nonlinCAM(c) {
+        return Math.sign(c) * Math.pow(Math.abs(c), 0.42);
+    }
+    const Lp = nonlinCAM(L);
+    const Mp = nonlinCAM(M);
+    const Sp = nonlinCAM(S);
+
+    // 5) a, b opponent channels (CIECAM02) ------------------------
+    const a =  Lp - Mp;
+    const b2 = Mp - Sp;
+
+    // 6) J (lightness correlate) ---------------------------------
+    const J = (2 * Lp + Mp + 0.05 * Sp);
+
+    // 7) Convert to CAM02-UCS (J' a' b') --------------------------
+    // Luo et al. 2006: scaling factors
+    const c1 = 0.007; 
+    const c2 = 0.0228;
+    const c3 = 1.7;
+
+    const Jp = (c3 * J) / (1 + c1 * J);
+    const ap = c3 * a;
+    const bp = c2 * b2;
 
     return [Jp, ap, bp];
 }
