@@ -174,3 +174,41 @@ input[type=checkbox] {
     box-sizing: border-box;
 }
 
+/* Left panel item layout */
+#item-selections {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Each item selection box */
+.item-selection {
+    width: 160px;               /* pick a width that looks good */
+    padding: 6px;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    /* optional background to help alignment */
+    /* background-color: rgba(255,255,255,0.05); */
+}
+
+/* Image is fixed size */
+.item-selection img {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+}
+
+/* Checkbox stays aligned */
+.item-selection input[type=checkbox] {
+    flex-shrink: 0;
+}
+
+/* Text wraps naturally */
+.item-selection label {
+    white-space: normal;
+    line-height: 1.2em;
+    overflow-wrap: break-word;
+}
