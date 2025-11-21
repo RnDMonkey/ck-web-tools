@@ -3,9 +3,10 @@
 function getColorDB (path) {
     var data = null;
     if (path) {
-        data = JSON.parse(path)
+        const response = await fetch(path);
+        data = JSON.parse(path);
     } else {
-        data = JSON.parse(colordb)
+        data = JSON.parse(colordb);
     } 
 
     // binding data
