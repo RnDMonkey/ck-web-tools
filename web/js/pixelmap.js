@@ -70,7 +70,7 @@ function buildPreviewTable(tableDims = 25) {
 // #endregion
 
 // #region Initialization and Hooked Event Listeners
-function Initialize() {
+async function Initialize() {
     // Build dynamic table BEFORE collecting previewCells
     // buildPreviewTable(25);
 
