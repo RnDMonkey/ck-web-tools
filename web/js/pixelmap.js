@@ -7,6 +7,7 @@
 
 // #region Globals
 var colorDB = null
+var CAM16_J_WEIGHT = 1.0;
 
 // Loaded image's processed data
 var cachedData = []
@@ -39,6 +40,9 @@ const gridSizeDOM = document.getElementById("grid-size")
 const imageInputsDOM = document.getElementById("image-inputs")
 const itemSelectionsDOM = document.getElementById("item-selections")
 const itemCountersDOM = document.getElementById("item-counters")
+const processModeSelect = document.getElementById("process-options");
+const cam16WeightContainer = document.getElementById("cam16-weight-container");
+const cam16WeightInput = document.getElementById("cam16-weight");
 
 // #endregion
 
@@ -83,7 +87,24 @@ async function Initialize() {
     // should this be async?
     generateItemSelection(colorDB)
 
-    const processModeSelect = document.getElementById("process-options");
+    cam16WeightInput.addEventListener("input", () => {  
+        CAM16_J_WEIGHT = parseFloat(cam16WeightInput.value);
+        if (imgDom.src && imgDom.naturalWidth) {
+            processImage();
+        }
+    });
+    
+    cam16WeightInput.addEventListener("change", () => {
+        localStorage.setItem("cktool-cam16-weight", cam16WeightInput.value);
+    
+        // toggle visibility
+        cam16WeightContainer.style.display =
+            (processModeSelect.value === "CAM16") ? "inline-block" : "none";
+    
+        if (imgDom.src && imgDom.naturalWidth) {
+            processImage();
+        }
+    });
     
     // Restore saved mode
     const savedMode = localStorage.getItem("cktool-process-mode");
