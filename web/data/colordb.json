@@ -944,5 +944,49 @@
          "HSV": ""
       },
       "CAM02": ""
+   },
+    {
+      "GUID": 85,
+      "Name": "Coral Floor",
+      "RGB": [213, 109, 183],
+      "Category": "Ground Decoration",
+      "Wiki Link": "",
+      "HSL": {
+         "HSV": ""
+      },
+      "CAM02": ""
+   },
+    {
+      "GUID": 86,
+      "Name": "Gleam Wood Floor",
+      "RGB": [128, 242, 255],
+      "Category": "Ground Decoration",
+      "Wiki Link": "",
+      "HSL": {
+         "HSV": ""
+      },
+      "CAM02": ""
+   },
+    {
+      "GUID": 87,
+      "Name": "Woven Straw Floor",
+      "RGB": [255, 243, 113],
+      "Category": "Ground Decoration",
+      "Wiki Link": "",
+      "HSL": {
+         "HSV": ""
+      },
+      "CAM02": ""
+   },
+    {
+      "GUID": 88,
+      "Name": "Galaxite Floor",
+      "RGB": [197, 197, 197],
+      "Category": "Ground Decoration",
+      "Wiki Link": "",
+      "HSL": {
+         "HSV": ""
+      },
+      "CAM02": ""
    }
 ]
