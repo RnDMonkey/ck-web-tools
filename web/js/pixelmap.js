@@ -295,163 +295,143 @@ function createItemPreview(entry, size = IMAGE_DIMS) {
 }
 
 function processImage() {
-    itemCountersDOM.innerHTML = ''
-    if (imgDom.naturalWidth > maxDims || imgDom.naturalHeight > maxDims) {  
-        console.error("Image too large / not supported!")
-        window.alert("Image too large / not supported!")
-        return
-    }
-    console.log("Processing currently uploaded image")
-    // NAIVE IMPLEMENTATION OF ITEM COUNTER
-    let counters = {} // kvp 
+    itemCountersDOM.innerHTML = '';
 
-    // let previewCellsDims = parseInt(gridSizeDOM.value) > 25 ? 25 : parseInt(gridSizeDOM.value)
+    // Basic image sanity checks
+    if (!imgDom.naturalWidth || !imgDom.naturalHeight) {
+        console.error("No image loaded.");
+        window.alert("Please load an image first.");
+        return;
+    }
+
+    if (imgDom.naturalWidth > maxDims || imgDom.naturalHeight > maxDims) {
+        console.error("Image too large / not supported!");
+        window.alert("Image too large / not supported!");
+        return;
+    }
+
+    console.log("Processing currently uploaded image");
+
+    const width  = imgDom.naturalWidth;
+    const height = imgDom.naturalHeight;
+
+    // Ensure caches exist / match current image size
+    if (!pixelRGB.length ||
+        pixelRGB.length !== height ||
+        pixelRGB[0].length !== width) {
+        console.warn("Pixel caches missing or mismatched – rebuilding.");
+        buildPixelCaches();
+    }
+
+    // Item counters
+    let counters = {};
+
+    // Grid size for overlay
     let previewCellsDims = Math.min(parseInt(gridSizeDOM.value), 25);
 
-    // Rebuild dynamic table when processing image
-    // buildPreviewTable(previewCellsDims);
+    // Output canvas + sizing
+    const outputCanvas = document.getElementById("output-canvas");
+    const octx = outputCanvas.getContext("2d");
 
-    // get the uploaded image from the dom and draw it on a hidden canvas, this is how we get pixel data
-    // uploadedImage.crossOrigin = "Anonymous" // CORS
-    // const hiddenCanvas = document.createElement('canvas')
-    // hiddenCanvas.width = maxDims
-    // hiddenCanvas.height = maxDims
-    // const ictx = hiddenCanvas.getContext('2d')
-    // ictx.drawImage(uploadedImage, 0, 0)
-    // let loadedImageCanvasData = ictx.getImageData(0, 0, uploadedImage.naturalWidth, uploadedImage.naturalHeight);
-    // console.log("Loaded Image data: ")
-    // console.log(loadedImageCanvasData)
+    const pixelSize        = 1 + Math.trunc(2000 / width);
+    const canvasPixelWidth = width  * pixelSize;
+    const canvasPixelHeight = height * pixelSize;
 
-    // let width = loadedImageCanvasData.width
-    // let height = loadedImageCanvasData.height
+    outputCanvas.width  = canvasPixelWidth;
+    outputCanvas.height = canvasPixelHeight;
 
-    // let outputCanvas = document.getElementById("output-canvas")
-    // let octx = outputCanvas.getContext("2d")
-    
-    // fit width for pixel scale
-    // let pixelSize = 1 + Math.trunc(2000 / width)
-    // let canvasPixelWidth = width * pixelSize
-    // let canvasPixelHeight = height * pixelSize
-    // outputCanvas.width = canvasPixelWidth
-    // outputCanvas.height = canvasPixelHeight
+    // Color / item selection filtering
+    let colorIdsToExclude = [];
+    const itemSelectionCheckboxes =
+        document.querySelectorAll("input[type=checkbox][name=item-selection]");
 
-
-    // TODO optimize by just looping pixel data once. 
-    // flatten array to rgb array
-    // let rgbArray = []
-    // for (let i = 0; i < loadedImageCanvasData.data.length; i += 4) {
-    //     rgbArray.push([loadedImageCanvasData.data[i], loadedImageCanvasData.data[i + 1], loadedImageCanvasData.data[i + 2]])
-    // }
-    // console.log("rgbArray")
-    // console.log(rgbArray)
-    
-    // convert to 2d array
-    // let pixel2dArray = convertToMatrix(rgbArray, width)
-    // while(rgbArray.length) pixel2dArray.push(rgbArray.splice(0, width))
-    // console.log("pixel2dArray")
-    // console.log(pixel2dArray)
-    //===== array remap finsih
-
-    // Color/Item selection 
-    //=====================
-    //TODO i dont have time to figure out a solution so doing it this way
-    // items to remove from db by collecting all guid (in reality they are indexes) to remove
-    // this is done by iterating over the checkboxes of the item selection (which should have a guid attribute) and create an array from it
-    // rearrange this array to remove to ascending
-    // then use that arranged idexes to start splicing a copy of the colordb
-    let colorIdsToExclude = []
-    //NOTE I had another idea where instead of looping, you add and remove colors from the exckdue array, but this is fine
-    const itemSelectionCheckboxes = document.querySelectorAll("input[type=checkbox][name=item-selection]")
     itemSelectionCheckboxes.forEach(element => {
         if (!element.checked) {
-            let guid = parseInt(element.getAttribute("guid"))
-            console.log("removing guid : " + guid)
-            colorIdsToExclude.push(guid)
+            let guid = parseInt(element.getAttribute("guid"));
+            console.log("removing guid : " + guid);
+            colorIdsToExclude.push(guid);
         }
-    })
-    // TODO figure out why its not updating this again after claling this function after the first time
-    colorIdsToExclude.sort()
-    let colorDBCache = getExcludedColorDB(colorDB, colorIdsToExclude) // pass colordb to to remove selected items
-   
-    // reset cachedData
-    cachedData = []
-    cachedData = Array.from(Array(height), () => new Array(width))
-    console.log("========== cleared cachedData")
-    console.log(cachedData)
+    });
 
-    //========FINAL LOOP======//
-    // iterate over 2d matrix and print each pixel after mapping 
+    colorIdsToExclude.sort();
+    let colorDBCache = getExcludedColorDB(colorDB, colorIdsToExclude);
+
+    // Reset cachedData for this run
+    cachedData = Array.from({ length: height }, () => new Array(width));
+    console.log("========== cleared cachedData");
+    console.log(cachedData);
+
+    //======== FINAL LOOP ======//
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-    
-            let colorSpace = document.getElementById("process-options").value;
-    
+
+            const colorSpace = document.getElementById("process-options").value;
+
             // Fast lookup from cached color-space arrays
-            let inputColor =
+            const inputColor =
                 (colorSpace === "RGB")   ? pixelRGB[y][x]   :
                 (colorSpace === "HSL")   ? pixelHSL[y][x]   :
                 (colorSpace === "HSV")   ? pixelHSV[y][x]   :
                 (colorSpace === "CAM02") ? pixelCAM02[y][x] :
-                                           pixelRGB[y][x];
-    
+                                            pixelRGB[y][x]; // fallback
+
             // Find best palette match
-            let closestValue = getDBClosestValue(colorDBCache, inputColor, colorSpace);
+            const closestValue = getDBClosestValue(colorDBCache, inputColor, colorSpace);
             cachedData[y][x] = closestValue;
-    
+
             // Fill preview canvas
             octx.fillStyle = "rgba(" + trimBrackets(closestValue[colorSpace]) + ", 255)";
             octx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
-    
+
             // Count items
-            let guid = closestValue.GUID;
+            const guid = closestValue.GUID;
             counters[guid] = (counters[guid] || 0) + 1;
         }
     }
 
-    console.log("counters")
-    console.log(counters)
-    // Update Item counters
-    itemCountersDOM.innerHTML = ''
-    for (let key in counters) {
-        let container = document.createElement("div")
-        container.setAttribute("class", "item-counter")
-        let label = document.createElement("label")
+    console.log("counters");
+    console.log(counters);
 
-        // let image = document.createElement("img")
-        // image.src = colorDB[key]["imageSource"]
-        // image.style.backgroundColor = "rgba(" + trimBrackets(colorDB[key]['RGB']) + ", 255)"
-        // container.appendChild(image)
+    // Update Item counters UI
+    itemCountersDOM.innerHTML = '';
+    for (let key in counters) {
+        let container = document.createElement("div");
+        container.setAttribute("class", "item-counter");
+        let label = document.createElement("label");
 
         let entry = colorDB[key];
-        let preview = createItemPreview(entry, IMAGE_DIMS); // size adjustable
+        let preview = createItemPreview(entry, IMAGE_DIMS);
 
         container.appendChild(preview);
-        container.appendChild(label)
-        itemCountersDOM.appendChild(container)
+        container.appendChild(label);
+        itemCountersDOM.appendChild(container);
 
-        label.appendChild(document.createTextNode(colorDB[key]["Name"] + " - " + counters[key]))
+        label.appendChild(
+            document.createTextNode(colorDB[key]["Name"] + " - " + counters[key])
+        );
     }
 
-    const offset = 0.5 // not even sure if this is useful
+    const offset = 0.5;
     if (showGridLinesDOM.checked) {
-        octx.lineWidth = parseInt(gridThicknessInput.value)
-        octx.strokeStyle = "black"
+        octx.lineWidth = parseInt(gridThicknessInput.value);
+        octx.strokeStyle = "black";
 
         for (let x = 0; x < canvasPixelWidth; x += pixelSize * previewCellsDims) {
-            octx.moveTo(offset + x, 0)
-            octx.lineTo(offset + x, canvasPixelHeight)
-        }   
-    
-        for (let x = 0; x < canvasPixelHeight; x += pixelSize * previewCellsDims) {
-            octx.moveTo(0, offset + x)
-            octx.lineTo(canvasPixelWidth, offset + x)
+            octx.moveTo(offset + x, 0);
+            octx.lineTo(offset + x, canvasPixelHeight);
+        }
+
+        for (let y = 0; y < canvasPixelHeight; y += pixelSize * previewCellsDims) {
+            octx.moveTo(0, offset + y);
+            octx.lineTo(canvasPixelWidth, offset + y);
         }
         octx.stroke();
     }
-    
-    console.log("cachedData")
-    console.log(cachedData)
 
-    // TODO use uri/imagedata encoding, though not sure if thats more performant than looping
-    console.log("out canvas pixel dims " + outputCanvas.width / pixelSize + ", " + outputCanvas.height / pixelSize)
+    console.log("cachedData");
+    console.log(cachedData);
+    console.log("out canvas pixel dims " +
+        outputCanvas.width / pixelSize + ", " +
+        outputCanvas.height / pixelSize);
 }
+
