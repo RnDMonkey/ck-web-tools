@@ -762,7 +762,183 @@
       "GUID": 68,
       "Name": "Meadow Ground",
       "RGB": [239, 225, 179],
+      "Category": "Ground",
+      "Wiki Link": "",
+      "HSL": {
+         "HSV": ""
+      },
+      "CAM02": ""
+   },
+    {
+      "GUID": 69,
+      "Name": "Crystal Wall",
+      "RGB": [42, 89, 238],
       "Category": "Wall",
+      "Wiki Link": "",
+      "HSL": {
+         "HSV": ""
+      },
+      "CAM02": ""
+   },
+    {
+      "GUID": 70,
+      "Name": "Crystal Ground",
+      "RGB": [57, 136, 219],
+      "Category": "Ground",
+      "Wiki Link": "",
+      "HSL": {
+         "HSV": ""
+      },
+      "CAM02": ""
+   },
+    {
+      "GUID": 71,
+      "Name": "Oasis Wall",
+      "RGB": [168, 76, 30],
+      "Category": "Wall",
+      "Wiki Link": "",
+      "HSL": {
+         "HSV": ""
+      },
+      "CAM02": ""
+   },
+    {
+      "GUID": 72,
+      "Name": "Oasis Ground",
+      "RGB": [199, 113, 56],
+      "Category": "Ground",
+      "Wiki Link": "",
+      "HSL": {
+         "HSV": ""
+      },
+      "CAM02": ""
+   },
+    {
+      "GUID": 73,
+      "Name": "Desert Wall",
+      "RGB": [166, 146, 152],
+      "Category": "Wall",
+      "Wiki Link": "",
+      "HSL": {
+         "HSV": ""
+      },
+      "CAM02": ""
+   },
+    {
+      "GUID": 74,
+      "Name": "Desert Ground",
+      "RGB": [210, 154, 124],
+      "Category": "Ground",
+      "Wiki Link": "",
+      "HSL": {
+         "HSV": ""
+      },
+      "CAM02": ""
+   },
+    {
+      "GUID": 75,
+      "Name": "Beach Wall",
+      "RGB": [180, 147, 154],
+      "Category": "Wall",
+      "Wiki Link": "",
+      "HSL": {
+         "HSV": ""
+      },
+      "CAM02": ""
+   },
+    {
+      "GUID": 76,
+      "Name": "Beach Ground",
+      "RGB": [235, 192, 190],
+      "Category": "Ground",
+      "Wiki Link": "",
+      "HSL": {
+         "HSV": ""
+      },
+      "CAM02": ""
+   },
+    {
+      "GUID": 77,
+      "Name": "Fossil Wall",
+      "RGB": [89, 86, 100],
+      "Category": "Wall",
+      "Wiki Link": "",
+      "HSL": {
+         "HSV": ""
+      },
+      "CAM02": ""
+   },
+    {
+      "GUID": 78,
+      "Name": "Fossil Ground",
+      "RGB": [192, 186, 207],
+      "Category": "Ground",
+      "Wiki Link": "",
+      "HSL": {
+         "HSV": ""
+      },
+      "CAM02": ""
+   },
+    {
+      "GUID": 79,
+      "Name": "Lava Rock Wall",
+      "RGB": [56, 52, 71],
+      "Category": "Wall",
+      "Wiki Link": "",
+      "HSL": {
+         "HSV": ""
+      },
+      "CAM02": ""
+   },
+    {
+      "GUID": 80,
+      "Name": "Lava Rock Ground",
+      "RGB": [85, 78, 106],
+      "Category": "Ground",
+      "Wiki Link": "",
+      "HSL": {
+         "HSV": ""
+      },
+      "CAM02": ""
+   },
+    {
+      "GUID": 81,
+      "Name": "Metropolis Wall",
+      "RGB": [49, 77, 87],
+      "Category": "Wall",
+      "Wiki Link": "",
+      "HSL": {
+         "HSV": ""
+      },
+      "CAM02": ""
+   },
+    {
+      "GUID": 82,
+      "Name": "Metropolis Ground",
+      "RGB": [87, 128, 132],
+      "Category": "Ground",
+      "Wiki Link": "",
+      "HSL": {
+         "HSV": ""
+      },
+      "CAM02": ""
+   },
+    {
+      "GUID": 83,
+      "Name": "Alien Tech Wall",
+      "RGB": [86, 62, 102],
+      "Category": "Wall",
+      "Wiki Link": "",
+      "HSL": {
+         "HSV": ""
+      },
+      "CAM02": ""
+   },
+    {
+      "GUID": 84,
+      "Name": "Alien Tech Ground",
+      "RGB": [69, 106, 115],
+      "Category": "Ground",
       "Wiki Link": "",
       "HSL": {
          "HSV": ""
