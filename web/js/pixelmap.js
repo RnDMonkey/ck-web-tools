@@ -87,6 +87,11 @@ async function Initialize() {
     // should this be async?
     generateItemSelection(colorDB)
 
+    // Restore saved cam16 weight
+    const savedWeight = localStorage.getItem("cktool-cam16-weight");
+    if (savedWeight) {
+        cam16WeightInput.value = savedWeight;
+    
     cam16WeightInput.addEventListener("input", () => {  
         CAM16_J_WEIGHT = parseFloat(cam16WeightInput.value);
         if (imgDom.src && imgDom.naturalWidth) {
@@ -96,11 +101,7 @@ async function Initialize() {
     
     cam16WeightInput.addEventListener("change", () => {
         localStorage.setItem("cktool-cam16-weight", cam16WeightInput.value);
-    
-        // toggle visibility
-        cam16WeightContainer.style.display =
-            (processModeSelect.value === "CAM16") ? "inline-block" : "none";
-    
+        CAM16_J_WEIGHT = parseFloat(cam16WeightInput.value);
         if (imgDom.src && imgDom.naturalWidth) {
             processImage();
         }
@@ -115,6 +116,10 @@ async function Initialize() {
     // Save mode + auto-reprocess when changed
     processModeSelect.addEventListener("change", () => {
         localStorage.setItem("cktool-process-mode", processModeSelect.value);
+
+        // toggle visibility
+        cam16WeightContainer.style.display =
+            (processModeSelect.value === "CAM16") ? "inline-block" : "none";
     
         if (imgDom.src && imgDom.naturalWidth > 0) {
             processImage();   // auto-process like palette checkbox changes
