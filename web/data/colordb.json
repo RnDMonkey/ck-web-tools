@@ -715,7 +715,7 @@
       "CAM02": ""
    },
     {
-      "GUID": 66,
+      "GUID": 65,
       "Name": "Tilled Grass Ground",
       "RGB": [13, 115, 42],
       "Category": "Farm Ground",
@@ -737,7 +737,7 @@
       "CAM02": ""
    },
     {
-      "GUID": 66,
+      "GUID": 67,
       "Name": "Tilled Grass Ground Watered",
       "RGB": [28, 93, 46],
       "Category": "Farm Ground",
@@ -748,7 +748,7 @@
       "CAM02": ""
    },
     {
-      "GUID": 67,
+      "GUID": 68,
       "Name": "Meadow Wall",
       "RGB": [224, 201, 97],
       "Category": "Wall",
@@ -759,7 +759,7 @@
       "CAM02": ""
    },
     {
-      "GUID": 68,
+      "GUID": 69,
       "Name": "Meadow Ground",
       "RGB": [239, 225, 179],
       "Category": "Ground",
@@ -770,7 +770,7 @@
       "CAM02": ""
    },
     {
-      "GUID": 69,
+      "GUID": 70,
       "Name": "Crystal Wall",
       "RGB": [42, 89, 238],
       "Category": "Wall",
@@ -781,7 +781,7 @@
       "CAM02": ""
    },
     {
-      "GUID": 70,
+      "GUID": 71,
       "Name": "Crystal Ground",
       "RGB": [57, 136, 219],
       "Category": "Ground",
@@ -792,7 +792,7 @@
       "CAM02": ""
    },
     {
-      "GUID": 71,
+      "GUID": 72,
       "Name": "Oasis Wall",
       "RGB": [168, 76, 30],
       "Category": "Wall",
@@ -803,7 +803,7 @@
       "CAM02": ""
    },
     {
-      "GUID": 72,
+      "GUID": 73,
       "Name": "Oasis Ground",
       "RGB": [199, 113, 56],
       "Category": "Ground",
@@ -814,7 +814,7 @@
       "CAM02": ""
    },
     {
-      "GUID": 73,
+      "GUID": 74,
       "Name": "Desert Wall",
       "RGB": [166, 146, 152],
       "Category": "Wall",
@@ -825,7 +825,7 @@
       "CAM02": ""
    },
     {
-      "GUID": 74,
+      "GUID": 75,
       "Name": "Desert Ground",
       "RGB": [210, 154, 124],
       "Category": "Ground",
@@ -836,7 +836,7 @@
       "CAM02": ""
    },
     {
-      "GUID": 75,
+      "GUID": 76,
       "Name": "Beach Wall",
       "RGB": [180, 147, 154],
       "Category": "Wall",
@@ -847,7 +847,7 @@
       "CAM02": ""
    },
     {
-      "GUID": 76,
+      "GUID": 77,
       "Name": "Beach Ground",
       "RGB": [235, 192, 190],
       "Category": "Ground",
@@ -858,7 +858,7 @@
       "CAM02": ""
    },
     {
-      "GUID": 77,
+      "GUID": 78,
       "Name": "Fossil Wall",
       "RGB": [89, 86, 100],
       "Category": "Wall",
@@ -869,7 +869,7 @@
       "CAM02": ""
    },
     {
-      "GUID": 78,
+      "GUID": 79,
       "Name": "Fossil Ground",
       "RGB": [192, 186, 207],
       "Category": "Ground",
@@ -880,7 +880,7 @@
       "CAM02": ""
    },
     {
-      "GUID": 79,
+      "GUID": 80,
       "Name": "Lava Rock Wall",
       "RGB": [56, 52, 71],
       "Category": "Wall",
@@ -891,7 +891,7 @@
       "CAM02": ""
    },
     {
-      "GUID": 80,
+      "GUID": 81,
       "Name": "Lava Rock Ground",
       "RGB": [85, 78, 106],
       "Category": "Ground",
@@ -902,7 +902,7 @@
       "CAM02": ""
    },
     {
-      "GUID": 81,
+      "GUID": 82,
       "Name": "Metropolis Wall",
       "RGB": [49, 77, 87],
       "Category": "Wall",
@@ -913,7 +913,7 @@
       "CAM02": ""
    },
     {
-      "GUID": 82,
+      "GUID": 83,
       "Name": "Metropolis Ground",
       "RGB": [87, 128, 132],
       "Category": "Ground",
@@ -924,7 +924,7 @@
       "CAM02": ""
    },
     {
-      "GUID": 83,
+      "GUID": 84,
       "Name": "Alien Tech Wall",
       "RGB": [86, 62, 102],
       "Category": "Wall",
@@ -935,7 +935,7 @@
       "CAM02": ""
    },
     {
-      "GUID": 84,
+      "GUID": 85,
       "Name": "Alien Tech Ground",
       "RGB": [69, 106, 115],
       "Category": "Ground",
@@ -946,7 +946,7 @@
       "CAM02": ""
    },
     {
-      "GUID": 85,
+      "GUID": 86,
       "Name": "Coral Floor",
       "RGB": [213, 109, 183],
       "Category": "Ground Decoration",
@@ -957,7 +957,7 @@
       "CAM02": ""
    },
     {
-      "GUID": 86,
+      "GUID": 87,
       "Name": "Gleam Wood Floor",
       "RGB": [128, 242, 255],
       "Category": "Ground Decoration",
@@ -968,7 +968,7 @@
       "CAM02": ""
    },
     {
-      "GUID": 87,
+      "GUID": 88,
       "Name": "Woven Straw Floor",
       "RGB": [255, 243, 113],
       "Category": "Ground Decoration",
@@ -979,7 +979,7 @@
       "CAM02": ""
    },
     {
-      "GUID": 88,
+      "GUID": 89,
       "Name": "Galaxite Floor",
       "RGB": [197, 197, 197],
       "Category": "Ground Decoration",
