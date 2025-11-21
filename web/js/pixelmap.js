@@ -391,8 +391,9 @@ function processImage() {
             const closestValue = getDBClosestValue(colorDBCache, inputColor, colorSpace);
             cachedData[y][x] = closestValue;
 
-            // Fill preview canvas
-            octx.fillStyle = "rgba(" + trimBrackets(closestValue[colorSpace]) + ", 255)";
+            // Always draw using the palette's RGB, regardless of comparison space
+            const rgb = closestValue.RGB;
+            octx.fillStyle = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 255)`;
             octx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
 
             // Count items
