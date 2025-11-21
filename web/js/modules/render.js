@@ -39,44 +39,41 @@ function renderPreview() {
 }
 
 //
-function generateItemSelection (db) {
+function generateItemSelection(db) {
+
+    // Load saved checkbox states
+    const savedStates = JSON.parse(localStorage.getItem("cktool-checkbox-states") || "{}");
+
     db.forEach(element => {
-        let container = document.createElement("div")
-        container.setAttribute("class", "item-selection")
-        let checkBox = document.createElement("input")
-        let label = document.createElement("label")
-        checkBox.type = "checkbox"
-        checkBox.checked = true
-        checkBox.setAttribute("name", "item-selection")
-        checkBox.setAttribute("guid", element["GUID"])
+        let container = document.createElement("div");
+        container.className = "item-selection";
 
-        // Load saved state (if any)
-        const savedStates = JSON.parse(localStorage.getItem("cktool-checkbox-states") || "{}");
-        if (savedStates[element.GUID] !== undefined) {
-            checkBox.checked = savedStates[element.GUID];
-        }
+        let checkBox = document.createElement("input");
+        checkBox.type = "checkbox";
+        checkBox.setAttribute("name", "item-selection");
+        checkBox.setAttribute("guid", element.GUID);
 
-        // Save state whenever checkbox changes
+        // Apply saved checkbox state if present
+        checkBox.checked = savedStates[element.GUID] ?? true;
+
+        // Save state whenever any checkbox changes
         checkBox.addEventListener("change", () => {
             savedStates[element.GUID] = checkBox.checked;
             localStorage.setItem("cktool-checkbox-states", JSON.stringify(savedStates));
         });
 
-        // let image = document.createElement("img")
-        // image.src = element["imageSource"]
-        // image.style.backgroundColor = "rgba(" + trimBrackets(element['RGB']) + ", 255)"
-
-        // container.appendChild(image)
-
-        let preview = createItemPreview(element, IMAGE_DIMS);  // was 32px icon size
+        // Preview icon
+        let preview = createItemPreview(element, IMAGE_DIMS);
         container.appendChild(preview);
 
-        container.appendChild(checkBox)
-        container.appendChild(label)
-        itemSelectionsDOM.appendChild(container)
+        container.appendChild(checkBox);
 
-        label.appendChild(document.createTextNode(element["Name"]))
-    })
+        let label = document.createElement("label");
+        label.textContent = element.Name;
+        container.appendChild(label);
+
+        itemSelectionsDOM.appendChild(container);
+    });
 }
 
 
