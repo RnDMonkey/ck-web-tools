@@ -50,6 +50,18 @@ function generateItemSelection (db) {
         checkBox.setAttribute("name", "item-selection")
         checkBox.setAttribute("guid", element["GUID"])
 
+        // Load saved state (if any)
+        const savedStates = JSON.parse(localStorage.getItem("cktool-checkbox-states") || "{}");
+        if (savedStates[element.GUID] !== undefined) {
+            checkBox.checked = savedStates[element.GUID];
+        }
+
+        // Save state whenever checkbox changes
+        checkBox.addEventListener("change", () => {
+            savedStates[element.GUID] = checkBox.checked;
+            localStorage.setItem("cktool-checkbox-states", JSON.stringify(savedStates));
+        });
+
         // let image = document.createElement("img")
         // image.src = element["imageSource"]
         // image.style.backgroundColor = "rgba(" + trimBrackets(element['RGB']) + ", 255)"
