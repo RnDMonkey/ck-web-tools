@@ -38,14 +38,14 @@ function renderPreview() {
     }
 }
 
-//
 function generateItemSelection(db) {
 
-    // Load saved checkbox states
     const savedStates = JSON.parse(localStorage.getItem("cktool-checkbox-states") || "{}");
 
     db.forEach(element => {
-        let container = document.createElement("div");
+
+        // Instead of a <div>, use a <label> for full block clickability
+        let container = document.createElement("label");
         container.className = "item-selection";
 
         let checkBox = document.createElement("input");
@@ -53,29 +53,27 @@ function generateItemSelection(db) {
         checkBox.setAttribute("name", "item-selection");
         checkBox.setAttribute("guid", element.GUID);
 
-        // Apply saved checkbox state if present
         checkBox.checked = savedStates[element.GUID] ?? true;
 
-        // Save state whenever any checkbox changes
         checkBox.addEventListener("change", () => {
             savedStates[element.GUID] = checkBox.checked;
             localStorage.setItem("cktool-checkbox-states", JSON.stringify(savedStates));
         });
 
-        // Preview icon
         let preview = createItemPreview(element, IMAGE_DIMS);
+
+        // Order matters: putting checkbox first enables keyboard accessibility
+        container.appendChild(checkBox);
         container.appendChild(preview);
 
-        container.appendChild(checkBox);
-
-        let label = document.createElement("label");
-        label.textContent = element.Name;
-        container.appendChild(label);
+        // label text (inside the <label> so it's clickable too)
+        let name = document.createElement("span");
+        name.textContent = element.Name;
+        container.appendChild(name);
 
         itemSelectionsDOM.appendChild(container);
     });
 }
-
 
 ///====  togglers
 
