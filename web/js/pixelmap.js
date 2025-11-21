@@ -7,7 +7,7 @@
 
 // #region Globals
 var colorDB = null
-var CAM16_J_WEIGHT = 1.0;
+var CAM16_J_WEIGHT = 1.0
 
 // Loaded image's processed data
 var cachedData = []
