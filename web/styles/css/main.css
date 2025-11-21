@@ -175,14 +175,16 @@ input[type=checkbox] {
 }
 
 /* Left panel item layout */
-#item-selections {
+#item-selections,
+#item-counters {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
 }
 
 /* Each item selection box */
-.item-selection {
+.item-selection,
+.item-counter {
     width: 160px;               /* pick a width that looks good */
     padding: 6px;
     display: flex;
@@ -195,7 +197,8 @@ input[type=checkbox] {
 }
 
 /* Image is fixed size */
-.item-selection img {
+.item-selection img,
+.item-counter img {
     width: 64px;
     height: 64px;
     flex-shrink: 0;
@@ -207,7 +210,8 @@ input[type=checkbox] {
 }
 
 /* Text wraps naturally */
-.item-selection label {
+.item-selection label,
+.item-counter label {
     white-space: normal;
     line-height: 1.2em;
     overflow-wrap: break-word;
