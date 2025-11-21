@@ -120,7 +120,7 @@ function distHSV(a, b) {
 function distCAM16(a, b) {
     // CAM16-UCS is already perceptually uniform — straight Euclidean
     return (
-        (a[0] - b[0])**2 +
+        CAM16_J_WEIGHT * (a[0] - b[0])**2 +
         (a[1] - b[1])**2 +
         (a[2] - b[2])**2
     );
