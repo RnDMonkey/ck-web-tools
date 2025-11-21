@@ -204,7 +204,12 @@ function processImage() {
     // NAIVE IMPLEMENTATION OF ITEM COUNTER
     let counters = {} // kvp 
 
-    let previewCellsDims = parseInt(gridSizeDOM.value) > 25 ? 25 : parseInt(gridSizeDOM.value)
+    // let previewCellsDims = parseInt(gridSizeDOM.value) > 25 ? 25 : parseInt(gridSizeDOM.value)
+    let previewCellsDims = Math.min(parseInt(gridSizeDOM.value), 25);
+
+    // Rebuild dynamic table when processing image
+    buildPreviewTable(previewCellsDims);
+
     // get the uploaded image from the dom and draw it on a hidden canvas, this is how we get pixel data
     uploadedImage.crossOrigin = "Anonymous" // CORS
     const hiddenCanvas = document.createElement('canvas')
