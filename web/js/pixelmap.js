@@ -196,15 +196,15 @@ function buildPixelCaches() {
     console.log("HSL sanity check:");
     console.log(colorDB[0].HSL);
     console.log(rgbToHSL(...colorDB[0].RGB));
-    console.log(distHSL(colorDB[0].HSL, rgbToHSL(...colorDB[0].RGB));
+    console.log(distHSL(colorDB[0].HSL, rgbToHSL(...colorDB[0].RGB)));
     console.log("HSV sanity check:");
     console.log(colorDB[0].HSV);
     console.log(rgbToHSV(...colorDB[0].RGB));
-    console.log(distHSV(colorDB[0].HSV, rgbToHSV(...colorDB[0].RGB));
+    console.log(distHSV(colorDB[0].HSV, rgbToHSV(...colorDB[0].RGB)));
     console.log("CAM02 sanity check:");
     console.log(colorDB[0].CAM02);
     console.log(rgbToCAM02(...colorDB[0].RGB));
-    console.log(distCAM02(colorDB[0].CAM02, rgbToCAM02(...colorDB[0].RGB));
+    console.log(distCAM02(colorDB[0].CAM02, rgbToCAM02(...colorDB[0].RGB)));
 }
 
 function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight, maxLines = 3) {
