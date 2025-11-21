@@ -44,6 +44,7 @@ function buildPreviewTable(tableDims = 25) {
 
     for (let y = 0; y < tableDims; y++) {
         const row = document.createElement("tr");
+        row.id = `preview-row-${y}`;
 
         for (let x = 0; x < tableDims; x++) {
             const cell = document.createElement("td");
@@ -208,7 +209,7 @@ function processImage() {
     let previewCellsDims = Math.min(parseInt(gridSizeDOM.value), 25);
 
     // Rebuild dynamic table when processing image
-    buildPreviewTable(previewCellsDims);
+    // buildPreviewTable(previewCellsDims);
 
     // get the uploaded image from the dom and draw it on a hidden canvas, this is how we get pixel data
     uploadedImage.crossOrigin = "Anonymous" // CORS
