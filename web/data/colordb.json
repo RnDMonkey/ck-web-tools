@@ -746,5 +746,27 @@
          "HSV": ""
       },
       "CAM02": ""
+   },
+    {
+      "GUID": 67,
+      "Name": "Meadow Wall",
+      "RGB": [224, 201, 97],
+      "Category": "Wall",
+      "Wiki Link": "",
+      "HSL": {
+         "HSV": ""
+      },
+      "CAM02": ""
+   },
+    {
+      "GUID": 68,
+      "Name": "Meadow Ground",
+      "RGB": [239, 225, 179],
+      "Category": "Wall",
+      "Wiki Link": "",
+      "HSL": {
+         "HSV": ""
+      },
+      "CAM02": ""
    }
 ]
