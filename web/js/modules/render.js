@@ -8,6 +8,14 @@ function renderPreview() {
     // let previewCellsDims = parseInt(gridSizeDOM.value) > 25 ? 25 : parseInt(gridSizeDOM.value)
     let previewCellsDims = Math.min(parseInt(gridSizeDOM.value), 25);
 
+    // clear preview grid before drawing
+    for (let row of previewCells) {
+        for (let cell of row) {
+            cell.style.backgroundColor = "transparent";
+            cell.src = "images/misc/empty.png";
+        }
+    }
+
     for (let y = 0, gy = chunkY * previewCellsDims; y < previewCellsDims; y++, gy++) {
         for (let x = 0, gx = chunkX * previewCellsDims; x < previewCellsDims; x++, gx++) {
             if (gy <= cachedData.length -1 && gx <= cachedData[y].length -1) {
