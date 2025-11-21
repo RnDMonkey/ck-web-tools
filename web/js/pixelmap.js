@@ -13,7 +13,7 @@ var cachedData = []
 var pixelRGB   = [];   // [ [ [r,g,b], ... ], ... ]
 var pixelHSL   = [];   // [ [ [h,s,l], ... ], ... ]
 var pixelHSV   = [];   // [ [ [h,s,v], ... ], ... ]
-var pixelCAM02 = [];   // [ [ [J', a', b'], ... ], ... ]
+var pixelCAM16 = [];   // [ [ [J', a', b'], ... ], ... ]
 const fallbackCache = {}; // GUID -> dataURL
 
 // Table previews
@@ -159,7 +159,7 @@ function buildPixelCaches() {
     pixelRGB   = [];
     pixelHSL   = [];
     pixelHSV   = [];
-    pixelCAM02 = [];
+    pixelCAM16 = [];
 
     // Draw image onto hidden canvas
     const hiddenCanvas = document.createElement("canvas");
@@ -176,7 +176,7 @@ function buildPixelCaches() {
         pixelRGB[y]   = [];
         pixelHSL[y]   = [];
         pixelHSV[y]   = [];
-        pixelCAM02[y] = [];
+        pixelCAM16[y] = [];
 
         for (let x = 0; x < width; x++) {
 
@@ -188,11 +188,11 @@ function buildPixelCaches() {
             pixelRGB[y][x]   = [r, g, b];
             pixelHSL[y][x]   = rgbToHSL(r, g, b);
             pixelHSV[y][x]   = rgbToHSV(r, g, b);
-            pixelCAM02[y][x] = rgbToCAM02(r, g, b);
+            pixelCAM16[y][x] = rgbToCAM16(r, g, b);
         }
     }
 
-    console.log("pixelRGB / pixelHSL / pixelHSV / pixelCAM02 built.");
+    console.log("pixelRGB / pixelHSL / pixelHSV / pixelCAM16 built.");
     console.log("HSL sanity check:");
     console.log(colorDB[0].HSL);
     console.log(rgbToHSL(...colorDB[0].RGB));
@@ -201,10 +201,10 @@ function buildPixelCaches() {
     console.log(colorDB[0].HSV);
     console.log(rgbToHSV(...colorDB[0].RGB));
     console.log(distHSV(colorDB[0].HSV, rgbToHSV(...colorDB[0].RGB)));
-    console.log("CAM02 sanity check:");
-    console.log(colorDB[0].CAM02);
-    console.log(rgbToCAM02(...colorDB[0].RGB));
-    console.log(distCAM02(colorDB[0].CAM02, rgbToCAM02(...colorDB[0].RGB)));
+    console.log("CAM16 sanity check:");
+    console.log(colorDB[0].CAM16);
+    console.log(rgbToCAM16(...colorDB[0].RGB));
+    console.log(distCAM16(colorDB[0].CAM16, rgbToCAM16(...colorDB[0].RGB)));
 }
 
 function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight, maxLines = 3) {
@@ -384,7 +384,7 @@ function processImage() {
                 (colorSpace === "RGB")   ? pixelRGB[y][x]   :
                 (colorSpace === "HSL")   ? pixelHSL[y][x]   :
                 (colorSpace === "HSV")   ? pixelHSV[y][x]   :
-                (colorSpace === "CAM02") ? pixelCAM02[y][x] :
+                (colorSpace === "CAM16") ? pixelCAM16[y][x] :
                                             pixelRGB[y][x]; // fallback
 
             // Find best palette match
