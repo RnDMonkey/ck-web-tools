@@ -10,6 +10,10 @@ var colorDB = null
 
 // Loaded image's processed data
 var cachedData = []
+var pixelRGB   = [];   // [ [ [r,g,b], ... ], ... ]
+var pixelHSL   = [];   // [ [ [h,s,l], ... ], ... ]
+var pixelHSV   = [];   // [ [ [h,s,v], ... ], ... ]
+var pixelCAM02 = [];   // [ [ [J', a', b'], ... ], ... ]
 const fallbackCache = {}; // GUID -> dataURL
 
 // Table previews
@@ -120,22 +124,76 @@ document.addEventListener("DOMContentLoaded", function(){
 
 imageUpload.addEventListener("change", function () {
     console.log("Image input change event triggered, opening fs")
-    const reader = new FileReader()
 
-    reader.addEventListener("load", () => {
-        resetPreviews()
-        const uploaded_image = reader.result
+    const reader = new FileReader();
 
-        imgDom.src = `${uploaded_image}`
-        
+    reader.onload = () => {
+        resetPreviews();
+
+        imgDom.onload = () => {
+            console.log("Image fully loaded, building caches…");
+            buildPixelCaches();
+            // processImage(); // optional auto-process
+        };
+
+        imgDom.src = reader.result;
         console.log("Uploaded W: " + imgDom.naturalWidth + ", H: " + imgDom.naturalHeight)
-    })
+    };
 
-    reader.readAsDataURL(this.files[0])
-})
+    reader.readAsDataURL(this.files[0]);
+});
+
 // #endregion
 
 // #region Core Functions
+
+function buildPixelCaches() {
+    if (!uploadedImage.naturalWidth || !uploadedImage.naturalHeight) {
+        console.warn("buildPixelCaches() called before image loaded.");
+        return;
+    }
+
+    const width = uploadedImage.naturalWidth;
+    const height = uploadedImage.naturalHeight;
+
+    pixelRGB   = [];
+    pixelHSL   = [];
+    pixelHSV   = [];
+    pixelCAM02 = [];
+
+    // Draw image onto hidden canvas
+    const hiddenCanvas = document.createElement("canvas");
+    hiddenCanvas.width = width;
+    hiddenCanvas.height = height;
+    const ctx = hiddenCanvas.getContext("2d");
+    ctx.drawImage(uploadedImage, 0, 0);
+
+    const imgData = ctx.getImageData(0, 0, width, height).data;
+
+    let i = 0;
+    for (let y = 0; y < height; y++) {
+
+        pixelRGB[y]   = [];
+        pixelHSL[y]   = [];
+        pixelHSV[y]   = [];
+        pixelCAM02[y] = [];
+
+        for (let x = 0; x < width; x++) {
+
+            const r = imgData[i++];
+            const g = imgData[i++];
+            const b = imgData[i++];
+            i++; // skip alpha
+
+            pixelRGB[y][x]   = [r, g, b];
+            pixelHSL[y][x]   = rgbToHSL(r, g, b);
+            pixelHSV[y][x]   = rgbToHSV(r, g, b);
+            pixelCAM02[y][x] = rgbToCAM02(r, g, b);
+        }
+    }
+
+    console.log("pixelRGB / pixelHSL / pixelHSV / pixelCAM02 built.");
+}
 
 function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight, maxLines = 3) {
     const words = text.split(/\s+/);
@@ -254,44 +312,44 @@ function processImage() {
     // buildPreviewTable(previewCellsDims);
 
     // get the uploaded image from the dom and draw it on a hidden canvas, this is how we get pixel data
-    uploadedImage.crossOrigin = "Anonymous" // CORS
-    const hiddenCanvas = document.createElement('canvas')
-    hiddenCanvas.width = maxDims
-    hiddenCanvas.height = maxDims
-    const ictx = hiddenCanvas.getContext('2d')
-    ictx.drawImage(uploadedImage, 0, 0)
-    let loadedImageCanvasData = ictx.getImageData(0, 0, uploadedImage.naturalWidth, uploadedImage.naturalHeight);
-    console.log("Loaded Image data: ")
-    console.log(loadedImageCanvasData)
+    // uploadedImage.crossOrigin = "Anonymous" // CORS
+    // const hiddenCanvas = document.createElement('canvas')
+    // hiddenCanvas.width = maxDims
+    // hiddenCanvas.height = maxDims
+    // const ictx = hiddenCanvas.getContext('2d')
+    // ictx.drawImage(uploadedImage, 0, 0)
+    // let loadedImageCanvasData = ictx.getImageData(0, 0, uploadedImage.naturalWidth, uploadedImage.naturalHeight);
+    // console.log("Loaded Image data: ")
+    // console.log(loadedImageCanvasData)
 
-    let width = loadedImageCanvasData.width
-    let height = loadedImageCanvasData.height
+    // let width = loadedImageCanvasData.width
+    // let height = loadedImageCanvasData.height
 
-    let outputCanvas = document.getElementById("output-canvas")
-    let octx = outputCanvas.getContext("2d")
+    // let outputCanvas = document.getElementById("output-canvas")
+    // let octx = outputCanvas.getContext("2d")
     
     // fit width for pixel scale
-    let pixelSize = 1 + Math.trunc(2000 / width)
-    let canvasPixelWidth = width * pixelSize
-    let canvasPixelHeight = height * pixelSize
-    outputCanvas.width = canvasPixelWidth
-    outputCanvas.height = canvasPixelHeight
+    // let pixelSize = 1 + Math.trunc(2000 / width)
+    // let canvasPixelWidth = width * pixelSize
+    // let canvasPixelHeight = height * pixelSize
+    // outputCanvas.width = canvasPixelWidth
+    // outputCanvas.height = canvasPixelHeight
 
 
     // TODO optimize by just looping pixel data once. 
     // flatten array to rgb array
-    let rgbArray = []
-    for (let i = 0; i < loadedImageCanvasData.data.length; i += 4) {
-        rgbArray.push([loadedImageCanvasData.data[i], loadedImageCanvasData.data[i + 1], loadedImageCanvasData.data[i + 2]])
-    }
-    console.log("rgbArray")
-    console.log(rgbArray)
+    // let rgbArray = []
+    // for (let i = 0; i < loadedImageCanvasData.data.length; i += 4) {
+    //     rgbArray.push([loadedImageCanvasData.data[i], loadedImageCanvasData.data[i + 1], loadedImageCanvasData.data[i + 2]])
+    // }
+    // console.log("rgbArray")
+    // console.log(rgbArray)
     
     // convert to 2d array
-    let pixel2dArray = convertToMatrix(rgbArray, width)
+    // let pixel2dArray = convertToMatrix(rgbArray, width)
     // while(rgbArray.length) pixel2dArray.push(rgbArray.splice(0, width))
-    console.log("pixel2dArray")
-    console.log(pixel2dArray)
+    // console.log("pixel2dArray")
+    // console.log(pixel2dArray)
     //===== array remap finsih
 
     // Color/Item selection 
@@ -325,14 +383,23 @@ function processImage() {
     // iterate over 2d matrix and print each pixel after mapping 
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-            let _r = pixel2dArray[y][x][0] //Math.floor(Math.random() * 256)
-            let _g = pixel2dArray[y][x][1] //Math.floor(Math.random() * 256)
-            let _b = pixel2dArray[y][x][2] //Math.floor(Math.random() * 256)
+            // let _r = pixel2dArray[y][x][0] //Math.floor(Math.random() * 256)
+            // let _g = pixel2dArray[y][x][1] //Math.floor(Math.random() * 256)
+            // let _b = pixel2dArray[y][x][2] //Math.floor(Math.random() * 256)
 
             // TODO optimize by caching already mapped color values instead of doing another loop of getting closest colour    
             // let colorSpace = "RGB"
             let colorSpace = document.getElementById("process-options").value;
-            let closestValue = getDBClosestValue(colorDBCache, [_r, _g, _b], colorSpace)
+            let inputColor =
+                (colorSpace === "RGB")  ? pixelRGB[y][x]   :
+                (colorSpace === "HSL")  ? pixelHSL[y][x]   :
+                (colorSpace === "HSV")  ? pixelHSV[y][x]   :
+                (colorSpace === "CAM02")? pixelCAM02[y][x] :
+                                          pixelRGB[y][x];  // fallback
+
+            // let closestValue = getDBClosestValue(colorDBCache, [_r, _g, _b], colorSpace)
+            let closestValue = getDBClosestValue(colorDBCache, inputColor, colorSpace);
+
             cachedData[y][x] = closestValue
 
             // Fill in canvas preview
