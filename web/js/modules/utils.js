@@ -1,20 +1,72 @@
-// linear euclidean distance comparison. Takes in three values
-function getClosestValue(color, map) {
-    var closest = {}
-    var dist
-    for (var i = 0; i < map.length; i++) {
-        dist = Math.pow(map[i][0] - color[0], 2)
-        dist += Math.pow(map[i][1] - color[1], 2)
-        dist += Math.pow(map[i][2] - color[2], 2)
-        // dist = Math.sqrt(dist) // can skip this and use approximate relative distance
+// --- Color distance helpers -----------------------------
 
-        if (!closest.dist || closest.dist > dist) {
-            closest.dist = dist
-            closest.color = map[i]
+function distRGB(a, b) {
+    return (
+        (a[0] - b[0])**2 +
+        (a[1] - b[1])**2 +
+        (a[2] - b[2])**2
+    );
+}
+
+function distHSL(a, b) {
+    // Treat hue as circular:
+    let dh = Math.min(Math.abs(a[0] - b[0]), 360 - Math.abs(a[0] - b[0])) / 180;  
+    let ds = (a[1] - b[1]) / 100;
+    let dl = (a[2] - b[2]) / 100;
+    return dh*dh + ds*ds + dl*dl;
+}
+
+function distHSV(a, b) {
+    let dh = Math.min(Math.abs(a[0] - b[0]), 360 - Math.abs(a[0] - b[0])) / 180;
+    let ds = (a[1] - b[1]) / 100;
+    let dv = (a[2] - b[2]) / 100;
+    return dh*dh + ds*ds + dv*dv;
+}
+
+function distCAM02(a, b) {
+    // CAM02-UCS is already perceptually uniform — straight Euclidean
+    return (
+        (a[0] - b[0])**2 +
+        (a[1] - b[1])**2 +
+        (a[2] - b[2])**2
+    );
+}
+
+// linear euclidean distance comparison. Takes in three values
+function getDBClosestValue(db, inputColor, colorSpace = "RGB") {
+
+    const distFuncs = {
+        "RGB": distRGB,
+        "HSL": distHSL,
+        "HSV": distHSV,
+        "CAM02": distCAM02
+    };
+
+    const distFunc = distFuncs[colorSpace] || distRGB;
+
+    let closest = { dist: Infinity, val: null };
+
+    for (let i = 0; i < db.length; i++) {
+        let dbColor = db[i][colorSpace];
+
+        // direct match shortcut
+        if (
+            dbColor[0] === inputColor[0] &&
+            dbColor[1] === inputColor[1] &&
+            dbColor[2] === inputColor[2]
+        ) {
+            return db[i];
+        }
+
+        let d = distFunc(dbColor, inputColor);
+
+        if (d < closest.dist) {
+            closest.dist = d;
+            closest.val = db[i];
         }
     }
-    // returns closest match as RGB array without alpha
-    return closest.color
+
+    return closest.val;
 }
 
 function convertToMatrix(array, width) {
