@@ -10,6 +10,7 @@ var colorDB = null
 
 // Loaded image's processed data
 var cachedData = []
+const fallbackCache = {}; // GUID -> dataURL
 
 // Table previews
 var previewCells = []
@@ -151,44 +152,67 @@ function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight, maxLines = 3) {
 
 // Generates an <img> OR a fallback <canvas> with the Name drawn over the RGB background
 function createItemPreview(entry, size = IMAGE_DIMS) {
+
+    const guid = entry.GUID;
+
+    // If fallback already cached → skip drawing, just return an <img> with cached data
+    if (fallbackCache[guid]) {
+        const img = document.createElement("img");
+        img.src = fallbackCache[guid];
+        img.width = size;
+        img.height = size;
+        img.alt = entry.Name;
+        return img;
+    }
+
+    // Otherwise create normal image
     const img = document.createElement("img");
     img.src = entry.imageSource;
     img.alt = entry.Name;
     img.width = size;
     img.height = size;
 
+    // Hook the onerror to generate fallback
     img.onerror = function () {
-        // Replace broken image with a drawn canvas fallback
+
+        console.warn("Image missing, generating fallback for:", entry.Name);
+
+        // Create fallback canvas
         const canvas = document.createElement("canvas");
         canvas.width = size;
         canvas.height = size;
         const ctx = canvas.getContext("2d");
 
-        // Background = item's mapped RGB
+        // Background color from RGB
         const rgb = entry.RGB || [128, 128, 128];
         ctx.fillStyle = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
         ctx.fillRect(0, 0, size, size);
 
-        // Text
-        const fontSize = Math.floor(size / 5);   // smaller font for wrapping
-        ctx.fillStyle = "white";
+        // Draw the wrapped Name text
+        const fontSize = Math.floor(size / 5);
+        ctx.font = `bold ${fontSize}px sans-serif`;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.font = `bold ${fontSize}px sans-serif`;
+        ctx.fillStyle = "white";
 
-        // Wrapped fallback text
         drawWrappedText(
             ctx,
             entry.Name,
             size / 2,
             size / 2,
-            size - 4,         // max width
-            fontSize + 2,     // line height
-            3                 // max lines
+            size - 4,
+            fontSize + 2,
+            3
         );
 
-        // img.replaceWith(canvas);
-        img.src = canvas.toDataURL(); // convert canvas to PNG
+        // Convert fallback canvas → PNG
+        const dataURL = canvas.toDataURL();
+
+        // 4) Cache it so we never redraw or re-error again
+        fallbackCache[guid] = dataURL;
+
+        // 5) Replace image immediately
+        img.src = dataURL;
     };
 
     return img;
