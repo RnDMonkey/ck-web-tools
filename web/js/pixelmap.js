@@ -75,7 +75,7 @@ function Initialize() {
     // buildPreviewTable(25);
 
     // colorDB = getColorDB()
-    colorDB = await getColorDB("data/colordb.json");
+    colorDB = await getColorDB("./data/colordb.json");
     // should this be async?
     generateItemSelection(colorDB)
 
