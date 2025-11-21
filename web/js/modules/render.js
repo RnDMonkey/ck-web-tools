@@ -58,6 +58,11 @@ function generateItemSelection(db) {
         checkBox.addEventListener("change", () => {
             savedStates[element.GUID] = checkBox.checked;
             localStorage.setItem("cktool-checkbox-states", JSON.stringify(savedStates));
+        
+            // Auto-process if an image is loaded
+            if (imgDom.src && imgDom.naturalWidth > 0) {
+                processImage();
+            }
         });
 
         let preview = createItemPreview(element, IMAGE_DIMS);
