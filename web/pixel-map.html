@@ -53,9 +53,12 @@
       <input type="file" id="image-upload" accept="image/png, image/jpeg">
       |
       <span>
-        Processing Type
+        Color Matching Method:
         <select class="dark-text" id="process-options">
-          <option value="rgb-e">RGB Euclidean (Fast)</option>
+          <option value="RGB">RGB (Fast)</option>
+          <option value="HSL">HSL Distance</option>
+          <option value="HSV">HSV Distance</option>
+          <option value="CAM02">CAM02-UCS (Best match)</option>
         </select>
       </span>
       |
