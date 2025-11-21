@@ -46,8 +46,8 @@ function rgbToHSV(r, g, b) {
     return [h, s * 100, v * 100];
 }
 
-// --- CIECAM02-UCS conversion (J' a' b') ---
-function rgbToCAM02(r, g, b) {
+// --- CIECAM16-UCS conversion (J' a' b') ---
+function rgbToCAM16(r, g, b) {
 
     // 1) Normalize & linearize sRGB ------------------------------
     const sr = r / 255, sg = g / 255, sb = b / 255;
@@ -70,7 +70,7 @@ function rgbToCAM02(r, g, b) {
     const M = -0.7036 * X + 1.6975 * Y + 0.0061 * Z;
     const S =  0.0030 * X + 0.0136 * Y + 0.9834 * Z;
 
-    // 4) Nonlinear adaptation (forward CIECAM02) -----------------
+    // 4) Nonlinear adaptation (forward CIECAM16) -----------------
     const FL = 1.0; // simplified adapting luminance, matches many palette generators
     function nonlinCAM(c) {
         return Math.sign(c) * Math.pow(Math.abs(c), 0.42);
@@ -79,14 +79,14 @@ function rgbToCAM02(r, g, b) {
     const Mp = nonlinCAM(M);
     const Sp = nonlinCAM(S);
 
-    // 5) a, b opponent channels (CIECAM02) ------------------------
+    // 5) a, b opponent channels (CIECAM16) ------------------------
     const a =  Lp - Mp;
     const b2 = Mp - Sp;
 
     // 6) J (lightness correlate) ---------------------------------
     const J = (2 * Lp + Mp + 0.05 * Sp);
 
-    // 7) Convert to CAM02-UCS (J' a' b') --------------------------
+    // 7) Convert to CAM16-UCS (J' a' b') --------------------------
     // Luo et al. 2006: scaling factors
     const c1 = 0.007; 
     const c2 = 0.0228;
@@ -124,8 +124,8 @@ function distHSV(a, b) {
     return dh*dh + ds*ds + dv*dv;
 }
 
-function distCAM02(a, b) {
-    // CAM02-UCS is already perceptually uniform — straight Euclidean
+function distCAM16(a, b) {
+    // CAM16-UCS is already perceptually uniform — straight Euclidean
     return (
         (a[0] - b[0])**2 +
         (a[1] - b[1])**2 +
@@ -140,7 +140,7 @@ function getDBClosestValue(db, inputColor, colorSpace = "RGB") {
         "RGB": distRGB,
         "HSL": distHSL,
         "HSV": distHSV,
-        "CAM02": distCAM02
+        "CAM16": distCAM16
     };
 
     const distFunc = distFuncs[colorSpace] || distRGB;
