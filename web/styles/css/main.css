@@ -209,9 +209,15 @@ input[type=checkbox] {
     flex-shrink: 0;
 }
 
+.item-selection span,
+.item-selection img {
+    pointer-events: none;  /* ensures click goes to container */
+}
+
 /* Checkbox stays aligned */
 .item-selection input[type=checkbox] {
     flex-shrink: 0;
+    pointer-events: auto;
 }
 
 /* Text wraps naturally */
