@@ -74,7 +74,8 @@ function Initialize() {
     // Build dynamic table BEFORE collecting previewCells
     // buildPreviewTable(25);
 
-    colorDB = getColorDB()
+    // colorDB = getColorDB()
+    colorDB = getColorDB("data/colordb.json");
     // should this be async?
     generateItemSelection(colorDB)
 
