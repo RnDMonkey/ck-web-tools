@@ -1,4 +1,4 @@
-import * as Globals from "./globals.js";
+import { Globals } from "./globals.js";
 import { trimBrackets } from './utils.js'
 
 // in charge of drawing DOM elements
