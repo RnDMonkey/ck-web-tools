@@ -1,5 +1,5 @@
 // utils.js (ES module)
-import * as Globals from "./globals.js";
+import { Globals } from "./globals.js";
 import Color from "https://colorjs.io/dist/color.js";
 // import "https://colorjs.io/src/spaces/cam16.js";
 
