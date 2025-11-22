@@ -234,7 +234,7 @@ function buildPixelCaches() {
             pixelRGB[y][x]   = [r, g, b];
             pixelHSL[y][x]   = rgbToHSL(r, g, b);
             pixelHSV[y][x]   = rgbToHSV(r, g, b);
-            pixelCAM16[y][x] = rgbToCAM16(r, g, b);
+            pixelCAM16[y][x] = rgbToCAM16UCS(r, g, b);
         }
     }
 
@@ -249,8 +249,8 @@ function buildPixelCaches() {
     console.log(distHSV(colorDB[0].HSV, rgbToHSV(...colorDB[0].RGB)));
     console.log("CAM16 sanity check:");
     console.log(colorDB[0].CAM16);
-    console.log(rgbToCAM16(...colorDB[0].RGB));
-    console.log(distCAM16(colorDB[0].CAM16, rgbToCAM16(...colorDB[0].RGB)));
+    console.log(rgbToCAM16UCS(...colorDB[0].RGB));
+    console.log(distCAM16(colorDB[0].CAM16, rgbToCAM16UCS(...colorDB[0].RGB)));
 }
 
 function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight, maxLines = 3) {
