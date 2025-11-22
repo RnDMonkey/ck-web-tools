@@ -6,43 +6,43 @@
 // this means when doing  color tone mapping, we have an rgb/color value and use that key to lookup which image to render on preview cells
 
 // #region Globals
-var colorDB = null
-var CAM16_J_WEIGHT = 100.0
+export var colorDB = null
+export var CAM16_J_WEIGHT = 100.0
 
 // Loaded image's processed data
-var cachedData = []
-var pixelRGB   = [];   // [ [ [r,g,b], ... ], ... ]
-var pixelHSL   = [];   // [ [ [h,s,l], ... ], ... ]
-var pixelHSV   = [];   // [ [ [h,s,v], ... ], ... ]
-var pixelCAM16 = [];   // [ [ [J', a', b'], ... ], ... ]
-const fallbackCache = {}; // GUID -> dataURL
+export var cachedData = []
+export var pixelRGB   = [];   // [ [ [r,g,b], ... ], ... ]
+export var pixelHSL   = [];   // [ [ [h,s,l], ... ], ... ]
+export var pixelHSV   = [];   // [ [ [h,s,v], ... ], ... ]
+export var pixelCAM16 = [];   // [ [ [J', a', b'], ... ], ... ]
+export const fallbackCache = {}; // GUID -> dataURL
 
 // Table previews
-var previewCells = []
-const maxDims = 500
-const IMAGE_DIMS = 64
+export var previewCells = []
+export const maxDims = 500
+export const IMAGE_DIMS = 64
 
-var showImageInputs = true
-var showSelections = true
-var showCounters = true
+export var showImageInputs = true
+export var showSelections = true
+export var showCounters = true
 // #endregion
 
 // #region DOM selectors
-const chunkInputX = document.getElementById("chunk-input-x")
-const chunkInputY = document.getElementById("chunk-input-y")
-const showGridLinesDOM = document.getElementById("show-grid-lines")
-const gridThicknessInput = document.getElementById("grid-thickness")
-const imageUpload = document.getElementById("image-upload")
-const imgDom = document.getElementById("upload-preview")
-const previewTable = document.getElementById("preview-table")
-const uploadedImage = document.getElementById("upload-preview")
-const gridSizeDOM = document.getElementById("grid-size")
-const imageInputsDOM = document.getElementById("image-inputs")
-const itemSelectionsDOM = document.getElementById("item-selections")
-const itemCountersDOM = document.getElementById("item-counters")
-const processModeSelect = document.getElementById("process-options");
-const cam16WeightContainer = document.getElementById("cam16-weight-container");
-const cam16WeightInput = document.getElementById("cam16-weight");
+export const chunkInputX = document.getElementById("chunk-input-x")
+export const chunkInputY = document.getElementById("chunk-input-y")
+export const showGridLinesDOM = document.getElementById("show-grid-lines")
+export const gridThicknessInput = document.getElementById("grid-thickness")
+export const imageUpload = document.getElementById("image-upload")
+export const imgDom = document.getElementById("upload-preview")
+export const previewTable = document.getElementById("preview-table")
+export const uploadedImage = document.getElementById("upload-preview")
+export const gridSizeDOM = document.getElementById("grid-size")
+export const imageInputsDOM = document.getElementById("image-inputs")
+export const itemSelectionsDOM = document.getElementById("item-selections")
+export const itemCountersDOM = document.getElementById("item-counters")
+export const processModeSelect = document.getElementById("process-options");
+export const cam16WeightContainer = document.getElementById("cam16-weight-container");
+export const cam16WeightInput = document.getElementById("cam16-weight");
 
 // #endregion
 
@@ -78,7 +78,7 @@ export function buildPreviewTable(tableDims = 25) {
 // #endregion
 
 // #region Initialization and Hooked Event Listeners
-async function Initialize() {
+export async function Initialize() {
     // Build dynamic table BEFORE collecting previewCells
     // buildPreviewTable(25);
 
