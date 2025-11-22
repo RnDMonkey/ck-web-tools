@@ -1,10 +1,77 @@
 import { Globals } from "./globals.js";
-import * as Pixelmap from "../pixelmap.js";
 import { trimBrackets } from './utils.js';
 
 // in charge of drawing DOM elements
 
 //TODO remove onclick and instead add event listeners
+
+// Generates an <img> OR a fallback <canvas> with the Name drawn over the RGB background
+export function createItemPreview(entry, size = Globals.IMAGE_DIMS) {
+
+    const guid = entry.GUID;
+
+    // If fallback already cached ? skip drawing, just return an <img> with cached data
+    if (Globals.fallbackCache[guid]) {
+        const img = document.createElement("img");
+        img.src = Globals.fallbackCache[guid];
+        img.width = size;
+        img.height = size;
+        img.alt = entry.Name;
+        return img;
+    }
+
+    // Otherwise create normal image
+    const img = document.createElement("img");
+    img.src = entry.imageSource;
+    img.alt = entry.Name;
+    img.width = size;
+    img.height = size;
+
+    // Hook the onerror to generate fallback
+    img.onerror = function () {
+
+        console.warn("Image missing, generating fallback for:", entry.Name);
+
+        // Create fallback canvas
+        const canvas = document.createElement("canvas");
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext("2d");
+
+        // Background color from RGB
+        const rgb = entry.RGB || [128, 128, 128];
+        ctx.fillStyle = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+        ctx.fillRect(0, 0, size, size);
+
+        // Draw the wrapped Name text
+        const fontSize = Math.floor(size / 5);
+        ctx.font = `bold ${fontSize}px sans-serif`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillStyle = "white";
+
+        drawWrappedText(
+            ctx,
+            entry.Name,
+            size / 2,
+            size / 2,
+            size - 4,
+            fontSize + 2,
+            3
+        );
+
+        // Convert fallback canvas ? PNG
+        const dataURL = canvas.toDataURL();
+
+        // 4) Cache it so we never redraw or re-error again
+        Globals.fallbackCache[guid] = dataURL;
+
+        // 5) Replace image immediately
+        img.src = dataURL;
+    };
+
+    return img;
+}
 
 export function renderPreview() {
     let chunkX = parseInt(Globals.chunkInputX.value) - 1
@@ -28,7 +95,7 @@ export function renderPreview() {
                 
                 // previewCells[y][x].src = selection['imageSource']
                 // Use fallback-aware preview generator for each preview cell
-                const preview = Pixelmap.createItemPreview(selection, Globals.IMAGE_DIMS);  // replace 30px preview grid cells
+                const preview = createItemPreview(selection, Globals.IMAGE_DIMS);  // replace 30px preview grid cells
                 Globals.previewCells[y][x].replaceWith(preview);
                 
                 // And update local reference since replaceWith() swaps DOM nodes
@@ -62,14 +129,9 @@ export function generateItemSelection(db) {
         checkBox.addEventListener("change", () => {
             savedStates[element.GUID] = checkBox.checked;
             localStorage.setItem("cktool-checkbox-states", JSON.stringify(savedStates));
-        
-            // Auto-process if an image is loaded
-            if (Globals.imgDom.src && Globals.imgDom.naturalWidth > 0) {
-                Pixelmap.processImage();
-            }
         });
 
-        let preview = Pixelmap.createItemPreview(element, Globals.IMAGE_DIMS);
+        let preview = createItemPreview(element, Globals.IMAGE_DIMS);
 
         // Order matters: putting checkbox first enables keyboard accessibility
         container.appendChild(checkBox);
