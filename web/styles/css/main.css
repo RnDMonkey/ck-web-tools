@@ -97,8 +97,8 @@ input[type=checkbox] {
 /* Left sidebar */
 #left-pane {
     flex: 0 0 35%;
-    min-width: 150px;
-    max-width: 1000px;
+    min-width: 450px;
+    max-width: 850px;
     overflow-y: auto;
     background-color: #2f2d57;
     padding: 10px;
