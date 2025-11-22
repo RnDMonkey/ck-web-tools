@@ -47,6 +47,10 @@ function rgbToHSV(r, g, b) {
 }
 
 function rgbToCAM16UCS(r, g, b) {
+    if (!window.Color) {
+        console.error("Color.js not loaded");
+        return [0,0,0];
+    }
     r /= 255; g /= 255; b /= 255;
     const cam = new Color("srgb", [r, g, b]).to("cam16-ucs");
 
