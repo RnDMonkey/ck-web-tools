@@ -94,7 +94,7 @@ export function rgbToCAM16UCS(r, g, b) {
     const [j, m, h] = cam.coords;
     console.log("J:", j, "M:", m, "h:", h);
     // returns [J', a', b']
-    return cam16jmh_to_ucs(jmh);
+    return cam16jmh_to_ucs(j, m, h);
 }
 
 // --- Color distance helpers -----------------------------
