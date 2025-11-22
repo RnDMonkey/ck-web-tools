@@ -140,34 +140,32 @@ export async function Initialize() {
     Globals.btnProcess.addEventListener("click", processImage);
     Globals.btnRenderPreview.addEventListener("click", Render.renderPreview);
     // #endregion
+
+    Globals.imageUpload.addEventListener("change", function () {
+        console.log("Image input change event triggered, opening fs")
+    
+        const reader = new FileReader();
+    
+        reader.onload = () => {
+            Render.resetPreviews();
+    
+            Globals.imgDom.onload = () => {
+                console.log("Image fully loaded, building caches…");
+                buildPixelCaches();
+                // processImage(); // optional auto-process
+            };
+    
+            Globals.imgDom.src = reader.result;
+            console.log("Uploaded W: " + Globals.imgDom.naturalWidth + ", H: " + Globals.imgDom.naturalHeight)
+        };
+    
+        reader.readAsDataURL(this.files[0]);
+    });
 }
 
 document.addEventListener("DOMContentLoaded", function(){
      Initialize();
 })
-
-Globals.imageUpload.addEventListener("change", function () {
-    console.log("Image input change event triggered, opening fs")
-
-    const reader = new FileReader();
-
-    reader.onload = () => {
-        Render.resetPreviews();
-
-        Globals.imgDom.onload = () => {
-            console.log("Image fully loaded, building caches…");
-            buildPixelCaches();
-            // processImage(); // optional auto-process
-        };
-
-        Globals.imgDom.src = reader.result;
-        console.log("Uploaded W: " + Globals.imgDom.naturalWidth + ", H: " + Globals.imgDom.naturalHeight)
-    };
-
-    reader.readAsDataURL(this.files[0]);
-});
-
-// #endregion
 
 // #region Core Functions
 
