@@ -69,7 +69,7 @@ export function generateItemSelection(db) {
             }
         });
 
-        let preview = Globals.createItemPreview(element, Globals.IMAGE_DIMS);
+        let preview = Pixelmap.createItemPreview(element, Globals.IMAGE_DIMS);
 
         // Order matters: putting checkbox first enables keyboard accessibility
         container.appendChild(checkBox);
