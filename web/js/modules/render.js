@@ -1,18 +1,18 @@
 import { rgbToHSL, rgbToHSV, rgbToCAM16UCS, distRGB, distHSL, distHSV, distCAM16, getDBClosestValue, convertToMatrix, trimBrackets, addToColorExclusion, removeColorFromExclusion, getExcludedColorDB } from './utils.js'
-import { createItemPreview } from '../pixelmap.js'
+import * as Globals from "./modules/globals.js";
 
 // in charge of drawing DOM elements
 
 //TODO remove onclick and instead add event listeners
 
 export function renderPreview() {
-    let chunkX = parseInt(chunkInputX.value) - 1
-    let chunkY = parseInt(chunkInputY.value) - 1
+    let chunkX = parseInt(Globals.chunkInputX.value) - 1
+    let chunkY = parseInt(Globals.chunkInputY.value) - 1
     // let previewCellsDims = parseInt(gridSizeDOM.value) > 25 ? 25 : parseInt(gridSizeDOM.value)
-    let previewCellsDims = Math.min(parseInt(gridSizeDOM.value), 25);
+    let previewCellsDims = Math.min(parseInt(Globals.gridSizeDOM.value), 25);
 
     // clear preview grid before drawing
-    for (let row of previewCells) {
+    for (let row of Globals.previewCells) {
         for (let cell of row) {
             cell.style.backgroundColor = "transparent";
             cell.src = "images/misc/empty.png";
@@ -21,21 +21,21 @@ export function renderPreview() {
 
     for (let y = 0, gy = chunkY * previewCellsDims; y < previewCellsDims; y++, gy++) {
         for (let x = 0, gx = chunkX * previewCellsDims; x < previewCellsDims; x++, gx++) {
-            if (gy <= cachedData.length -1 && gx <= cachedData[y].length -1) {
-                let selection = cachedData[gy][gx]
-                previewCells[y][x].style.backgroundColor = "rgba(" + trimBrackets(selection['RGB']) + ", 255)"
+            if (gy <= Globals.cachedData.length -1 && gx <= Globals.cachedData[y].length -1) {
+                let selection = Globals.cachedData[gy][gx]
+                Globals.previewCells[y][x].style.backgroundColor = "rgba(" + trimBrackets(selection['RGB']) + ", 255)"
                 
                 // previewCells[y][x].src = selection['imageSource']
                 // Use fallback-aware preview generator for each preview cell
-                const preview = createItemPreview(selection, IMAGE_DIMS);  // replace 30px preview grid cells
-                previewCells[y][x].replaceWith(preview);
+                const preview = createItemPreview(selection, Globals.IMAGE_DIMS);  // replace 30px preview grid cells
+                Globals.previewCells[y][x].replaceWith(preview);
                 
                 // And update local reference since replaceWith() swaps DOM nodes
-                previewCells[y][x] = preview;
+                Globals.previewCells[y][x] = preview;
 
             } else {
-                previewCells[y][x].style.backgroundColor = "transparent"
-                previewCells[y][x].src = "images/misc/empty.png"
+                Globals.previewCells[y][x].style.backgroundColor = "transparent"
+                Globals.previewCells[y][x].src = "images/misc/empty.png"
             }
         }
     }
@@ -63,12 +63,12 @@ export function generateItemSelection(db) {
             localStorage.setItem("cktool-checkbox-states", JSON.stringify(savedStates));
         
             // Auto-process if an image is loaded
-            if (imgDom.src && imgDom.naturalWidth > 0) {
-                processImage();
+            if (Globals.imgDom.src && Globals.imgDom.naturalWidth > 0) {
+                Globals.processImage();
             }
         });
 
-        let preview = createItemPreview(element, IMAGE_DIMS);
+        let preview = createItemPreview(element, Globals.IMAGE_DIMS);
 
         // Order matters: putting checkbox first enables keyboard accessibility
         container.appendChild(checkBox);
@@ -79,37 +79,37 @@ export function generateItemSelection(db) {
         name.textContent = element.Name;
         container.appendChild(name);
 
-        itemSelectionsDOM.appendChild(container);
+        Globals.itemSelectionsDOM.appendChild(container);
     });
 }
 
 ///====  togglers
 
 export function toggleImages() {
-    if (showImageInputs){
-        imageInputsDOM.setAttribute("style", "display:none !important")
+    if (Globals.showImageInputs){
+        Globals.imageInputsDOM.setAttribute("style", "display:none !important")
     } else {
-        imageInputsDOM.setAttribute("style", "")
+        Globals.imageInputsDOM.setAttribute("style", "")
     }
-    showImageInputs = !showImageInputs
+    Globals.showImageInputs = !Globals.showImageInputs
 }
 
 export function toggleColorSelection(){
-    if (showSelections){
-        itemSelectionsDOM.setAttribute("style", "display:none !important")
+    if (Globals.showSelections){
+        Globals.itemSelectionsDOM.setAttribute("style", "display:none !important")
     } else {
-        itemSelectionsDOM.setAttribute("style", "")
+        Globals.itemSelectionsDOM.setAttribute("style", "")
     }
-    showSelections = !showSelections
+    Globals.showSelections = !Globals.showSelections
 }
 
 export function toggleCounterSelection() {
-    if (showCounters){
-        itemCountersDOM.setAttribute("style", "display:none !important")
+    if (Globals.showCounters){
+        Globals.itemCountersDOM.setAttribute("style", "display:none !important")
     } else {
-        itemCountersDOM.setAttribute("style", "")
+        Globals.itemCountersDOM.setAttribute("style", "")
     }
-    showCounters = !showCounters
+    Globals.showCounters = !Globals.showCounters
 }
 
 // TODO
