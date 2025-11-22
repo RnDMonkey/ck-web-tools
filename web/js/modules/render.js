@@ -1,3 +1,5 @@
+import { rgbToHSL, rgbToHSV, rgbToCAM16UCS, distRGB, distHSL, distHSV, distCAM16, getDBClosestValue, convertToMatrix, trimBrackets, addToColorExclusion, removeColorFromExclusion, getExcludedColorDB } from './modules/utils.js'
+
 // in charge of drawing DOM elements
 
 //TODO remove onclick and instead add event listeners
