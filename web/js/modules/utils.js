@@ -46,50 +46,12 @@ function rgbToHSV(r, g, b) {
     return [h, s * 100, v * 100];
 }
 
-// --- CIECAM16-UCS conversion (J' a' b') ---
-function rgbToCAM16(r, g, b) {
+function rgbToCAM16UCS(r, g, b) {
+    r /= 255; g /= 255; b /= 255;
+    const cam = new Color("srgb", [r, g, b]).to("cam16-ucs");
 
-    // ===== 1) sRGB to linear RGB =====
-    function lin(c) {
-        c = c / 255;
-        return (c <= 0.04045) ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
-    }
-    const R = lin(r), G = lin(g), B = lin(b);
-
-    // ===== 2) linear RGB to XYZ (D65) =====
-    const X = 0.4124564 * R + 0.3575761 * G + 0.1804375 * B;
-    const Y = 0.2126729 * R + 0.7151522 * G + 0.0721750 * B;
-    const Z = 0.0193339 * R + 0.1191920 * G + 0.9503041 * B;
-
-    // ===== 3) XYZ to LMS (CAT16) =====
-    // From Li et al. 2017, CAM16 specification
-    const L =  0.401288 * X + 0.650173 * Y - 0.051461 * Z;
-    const M = -0.250268 * X + 1.204414 * Y + 0.045854 * Z;
-    const S = -0.002079 * X + 0.048952 * Y + 0.953127 * Z;
-
-    // ===== 4) nonlinearity =====
-    function f(t) {
-        return Math.sign(t) * Math.pow(Math.abs(t), 0.42);
-    }
-    const Lp = f(L);
-    const Mp = f(M);
-    const Sp = f(S);
-
-    // ===== 5) Compute a, b, J (CAM16 correlates) =====
-    const a  = (Lp - Mp);
-    const b_ = (Mp - Sp);
-    const J  = (2 * Lp + Mp + 0.05 * Sp);
-
-    // ===== 6) CAM16-UCS transform (Li et al. 2017) =====
-    // These constants are the official CAM16-UCS mapping:
-    const c1 = 0.007;
-    const c2 = 0.0228;
-
-    const Jp = (1 + 100 * c1) * J / (1 + c1 * J);
-    const ap = a / c2;
-    const bp = b_ / c2;
-
-    return [Jp, ap, bp];
+    // returns [J', a', b']
+    return cam.coords;
 }
 
 // --- Color distance helpers -----------------------------
