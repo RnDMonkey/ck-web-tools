@@ -241,37 +241,6 @@ export function buildPixelCaches() {
     console.log(Utils.distCAM16(Globals.colorDB[0].CAM16, Utils.rgbToCAM16UCS(...Globals.colorDB[0].RGB)));
 }
 
-export function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight, maxLines = 3) {
-    const words = text.split(/\s+/);
-    let lines = [];
-    let line = "";
-
-    for (let i = 0; i < words.length; i++) {
-        const testLine = line + words[i] + " ";
-        const { width } = ctx.measureText(testLine);
-
-        if (width > maxWidth && line !== "") {
-            lines.push(line.trim());
-            line = words[i] + " ";
-            if (lines.length >= maxLines) break;
-        } else {
-            line = testLine;
-        }
-    }
-
-    if (lines.length < maxLines && line.trim() !== "") {
-        lines.push(line.trim());
-    }
-
-    // Center vertically
-    const totalHeight = lines.length * lineHeight;
-    let startY = y - totalHeight / 2 + lineHeight / 2;
-
-    lines.forEach((ln, idx) => {
-        ctx.fillText(ln, x, startY + idx * lineHeight);
-    });
-}
-
 export function processImage() {
     Globals.itemCountersDOM.innerHTML = '';
 
