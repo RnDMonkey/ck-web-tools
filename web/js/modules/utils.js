@@ -47,9 +47,8 @@ function rgbToHSV(r, g, b) {
 }
 
 function rgbToCAM16UCS(r, g, b) {
-    const ColorJS = window.Color;
     r /= 255; g /= 255; b /= 255;
-    const cam = new ColorJS("srgb", [r, g, b]).to("cam16-ucs");
+    const cam = new Color("srgb", [r, g, b]).to("cam16-ucs");
 
     // returns [J', a', b']
     return cam.coords;
