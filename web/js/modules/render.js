@@ -1,5 +1,5 @@
 import { rgbToHSL, rgbToHSV, rgbToCAM16UCS, distRGB, distHSL, distHSV, distCAM16, getDBClosestValue, convertToMatrix, trimBrackets, addToColorExclusion, removeColorFromExclusion, getExcludedColorDB } from './utils.js'
-import * as Globals from "./modules/globals.js";
+import * as Globals from "./globals.js";
 
 // in charge of drawing DOM elements
 
