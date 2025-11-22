@@ -1,5 +1,6 @@
 import { Globals } from "./globals.js";
-import { trimBrackets } from './utils.js'
+import * as Pixelmap from "../pixelmap.js";
+import { trimBrackets } from './utils.js';
 
 // in charge of drawing DOM elements
 
@@ -27,7 +28,7 @@ export function renderPreview() {
                 
                 // previewCells[y][x].src = selection['imageSource']
                 // Use fallback-aware preview generator for each preview cell
-                const preview = createItemPreview(selection, Globals.IMAGE_DIMS);  // replace 30px preview grid cells
+                const preview = Pixelmap.createItemPreview(selection, Globals.IMAGE_DIMS);  // replace 30px preview grid cells
                 Globals.previewCells[y][x].replaceWith(preview);
                 
                 // And update local reference since replaceWith() swaps DOM nodes
