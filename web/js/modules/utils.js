@@ -1,6 +1,6 @@
 // utils.js (ES module)
 
-import Color from "https://colorjs.io/dist/color.full.min.js">
+import Color from "https://colorjs.io/dist/color.js"
 // import Color from "https://colorjs.io/dist/color.js";
 // import "https://colorjs.io/dist/cam16.js";  // adds CAM16 spaces to Color
 
