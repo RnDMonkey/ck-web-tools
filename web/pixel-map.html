@@ -33,10 +33,10 @@
 
     <!-- LEFT PANE CONTENT -->
     <div id="item-selections-container">
-      <button type="submit" onclick="toggleColorSelection()">Toggle Item Selection</button> Item Selections: 
+      <button type="submit" id="btn-toggle-colors">Toggle Item Selection</button> Item Selections: 
       <div id="item-selections" class="d-flex flex-wrap"></div>
       <br>
-     <button type="submit" onclick="toggleCounterSelection()">Toggle Item Counters</button>  Counter of items for this build: 
+     <button type="submit" id="btn-toggle-counters">Toggle Item Counters</button>  Counter of items for this build: 
       <div id="item-counters" class="d-flex flex-wrap">No Image Loaded yet!</div>
     </div>
   </div> <!-- end left pane -->
@@ -70,7 +70,7 @@
       |
       <label for ="show-grid-lines">Show Grid Lines</label><input type="checkbox" id="show-grid-lines" checked>
       |
-      <button style ="background-color: #6ac4ff;" type="submit" onclick="processImage()">Process</button>
+      <button style ="background-color: #6ac4ff;" type="submit" id="btn-process">Process</button>
     </div>
   
     <!-- <div class="d-flex justify-content-center">
@@ -78,7 +78,7 @@
     </div> -->
   
     <div id="item-selections-container">
-      <button type="submit" onclick="toggleImages()">Toggle Images</button> Input Images: 
+      <button type="submit" id="btn-toggle-images">Toggle Images</button> Input Images: 
     </div>
     <div id="image-inputs" class="d-flex justify-content-center image-inputs-container">
       
@@ -95,7 +95,7 @@
       <span>Tile Preview: Navigation (starts from the top left)</span>
       <span>X: <input type="number" class="dark-text" value="1" id="chunk-input-x" min="1"></span>
       <span>Y: <input type="number" class="dark-text" value="1" id="chunk-input-y" min="1"></span>
-      <button type="submit" onclick="renderPreview()">Draw Grid Preview</button>
+      <button type="submit" id="btn-render-preview">Draw Grid Preview</button>
     </div>
   
     <div class="d-flex justify-content-center">
