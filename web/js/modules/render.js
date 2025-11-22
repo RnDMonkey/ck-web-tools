@@ -1,4 +1,5 @@
 import { rgbToHSL, rgbToHSV, rgbToCAM16UCS, distRGB, distHSL, distHSV, distCAM16, getDBClosestValue, convertToMatrix, trimBrackets, addToColorExclusion, removeColorFromExclusion, getExcludedColorDB } from './utils.js'
+import { createItemPreview } from '../pixelmap.js'
 
 // in charge of drawing DOM elements
 
