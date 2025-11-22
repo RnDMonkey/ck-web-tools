@@ -1,5 +1,5 @@
 // utils.js (ES module)
-
+import * as Globals from "../pixelmap.js";
 import Color from "https://colorjs.io/dist/color.js";
 import "https://colorjs.io/src/spaces/cam16.js";
 // import Color from "https://colorjs.io/dist/color.js";
@@ -53,6 +53,24 @@ export function rgbToHSV(r, g, b) {
     return [h, s * 100, v * 100];
 }
 
+export function cam16jmh_to_ucs(J, M, h_deg) {
+
+    // 1) Lightness J --> J'
+    const Jp = (1.7 * J) / (1 + 0.007 * J);
+
+    // 2) Chroma M --> M'
+    const Mprime = Math.log1p(0.0228 * M) / 0.0228;
+
+    // 3) Hue to radians
+    const hr = h_deg * Math.PI / 180;
+
+    // 4) Convert to a', b'
+    const ap = Mprime * Math.cos(hr);
+    const bp = Mprime * Math.sin(hr);
+
+    return [Jp, ap, bp];
+}
+
 export function rgbToCAM16UCS(r, g, b) {
     if (!Color) {
         console.error("Color.js not loaded");
@@ -61,9 +79,9 @@ export function rgbToCAM16UCS(r, g, b) {
     r /= 255; g /= 255; b /= 255;
     // const cam = new Color("srgb", [r, g, b]).to("cam16-ucs");
     const cam = new Color("srgb", [r, g, b]).to("cam16-jmh");
-
+    
     // returns [J', a', b']
-    return cam.coords;
+    return cam16jmh_to_ucs(cam.coords);
 }
 
 // --- Color distance helpers -----------------------------
@@ -94,7 +112,7 @@ export function distHSV(a, b) {
 export function distCAM16(a, b) {
     // CAM16-UCS is already perceptually uniform — straight Euclidean
     return (
-        CAM16_J_WEIGHT * (a[0] - b[0])**2 +
+        Globals.CAM16_J_WEIGHT * (a[0] - b[0])**2 +
         (a[1] - b[1])**2 +
         (a[2] - b[2])**2
     );
