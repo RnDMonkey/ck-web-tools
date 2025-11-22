@@ -5,7 +5,7 @@ import "https://colorjs.io/dist/cam16.js";  // adds CAM16 spaces to Color
 
 // --- Color conversion helpers -----------------------------
 
-export function rgbToHSL(r, g, b) {
+function rgbToHSL(r, g, b) {
     r /= 255; g /= 255; b /= 255;
 
     const max = Math.max(r, g, b), 
@@ -28,7 +28,7 @@ export function rgbToHSL(r, g, b) {
     return [h, s * 100, l * 100];
 }
 
-export function rgbToHSV(r, g, b) {
+function rgbToHSV(r, g, b) {
     r /= 255; g /= 255; b /= 255;
 
     const max = Math.max(r, g, b),
@@ -51,7 +51,7 @@ export function rgbToHSV(r, g, b) {
     return [h, s * 100, v * 100];
 }
 
-export function rgbToCAM16UCS(r, g, b) {
+function rgbToCAM16UCS(r, g, b) {
     if (!Color) {
         console.error("Color.js not loaded");
         return [0,0,0];
@@ -65,7 +65,7 @@ export function rgbToCAM16UCS(r, g, b) {
 
 // --- Color distance helpers -----------------------------
 
-export function distRGB(a, b) {
+function distRGB(a, b) {
     return (
         (a[0] - b[0])**2 +
         (a[1] - b[1])**2 +
@@ -73,7 +73,7 @@ export function distRGB(a, b) {
     );
 }
 
-export function distHSL(a, b) {
+function distHSL(a, b) {
     // Treat hue as circular:
     let dh = Math.min(Math.abs(a[0] - b[0]), 360 - Math.abs(a[0] - b[0])) / 180;  
     let ds = (a[1] - b[1]) / 100;
@@ -81,14 +81,14 @@ export function distHSL(a, b) {
     return dh*dh + ds*ds + dl*dl;
 }
 
-export function distHSV(a, b) {
+function distHSV(a, b) {
     let dh = Math.min(Math.abs(a[0] - b[0]), 360 - Math.abs(a[0] - b[0])) / 180;
     let ds = (a[1] - b[1]) / 100;
     let dv = (a[2] - b[2]) / 100;
     return dh*dh + ds*ds + dv*dv;
 }
 
-export function distCAM16(a, b) {
+function distCAM16(a, b) {
     // CAM16-UCS is already perceptually uniform — straight Euclidean
     return (
         CAM16_J_WEIGHT * (a[0] - b[0])**2 +
@@ -98,7 +98,7 @@ export function distCAM16(a, b) {
 }
 
 // linear euclidean distance comparison. Takes in three values
-export function getDBClosestValue(db, inputColor, colorSpace = "RGB") {
+function getDBClosestValue(db, inputColor, colorSpace = "RGB") {
 
     const distFuncs = {
         "RGB": distRGB,
@@ -133,7 +133,7 @@ export function getDBClosestValue(db, inputColor, colorSpace = "RGB") {
     return closest.val;
 }
 
-export function convertToMatrix(array, width) {
+function convertToMatrix(array, width) {
     var matrix = [], i, k;
     for (i = 0, k = -1; i < array.length; i++) {
         if (i % width === 0) {
@@ -145,7 +145,7 @@ export function convertToMatrix(array, width) {
     return matrix;
 }
 
-export function trimBrackets(input) {
+function trimBrackets(input) {
     let str = String(input)
     if (str.startsWith("[") || str.startsWith("(")) {
         str = str.substring(1)
@@ -158,14 +158,14 @@ export function trimBrackets(input) {
 
 // function 
 
-export function addToColorExclusion(guid) {
+function addToColorExclusion(guid) {
     if (colorIdsToExclude.indexOf(guid) < -1){
         colorIdsToExclude.push(guid)
         console.log("adding from exlcusion: " + guid)
     }
 }
 
-export function removeColorFromExclusion (guid) {
+function removeColorFromExclusion (guid) {
     if (colorIdsToExclude.indexOf(guid) > -1){
         colorIdsToExclude.splice(guid, -1)
         console.log("removing from exlcusion: " + guid)
@@ -173,7 +173,7 @@ export function removeColorFromExclusion (guid) {
 }
 
 // NOTE Optimize this, but not sure what would be the best/fastest approach. 
-export function getExcludedColorDB(db, exclusions) {
+function getExcludedColorDB(db, exclusions) {
     let result = JSON.parse(JSON.stringify(db)) // GOTA DEEPCLONE 
     for (let i = result.length -1; i >= 0; i--) {
         let guid = result[i]["GUID"]
