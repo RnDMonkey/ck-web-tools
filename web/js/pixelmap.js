@@ -131,6 +131,21 @@ async function Initialize() {
         }
     });
 
+    // Restore saved grid size
+    const savedGridSize = localStorage.getItem("cktool-grid-size");
+    if (savedGridSize) {
+        gridSizeDOM.value = savedGridSize;
+    }
+    
+    // Save grid size + auto-reprocess when changed
+    gridSizeDOM.addEventListener("change", () => {
+        localStorage.setItem("cktool-grid-size", gridSizeDOM.value);
+        
+        if (imgDom.src && imgDom.naturalWidth > 0) {
+            processImage();   // auto-process like palette checkbox changes
+        }
+    });
+
     // let previewCellsDims = parseInt(gridSizeDOM.value) > 25 ? 25 : parseInt(gridSizeDOM.value)
     let previewCellsDims = Math.min(parseInt(gridSizeDOM.value), 25);
 
