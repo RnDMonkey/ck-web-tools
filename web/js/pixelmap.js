@@ -56,6 +56,7 @@ export async function Initialize() {
     Globals.colorDB = await getColorDB("data/colordb.json");
     // should this be async?
     Render.generateItemSelection(Globals.colorDB)
+    registerPaletteCheckboxHandlers();
 
     // Restore saved cam16 weight
     const savedWeight = localStorage.getItem("cktool-cam16-weight");
@@ -166,6 +167,17 @@ export async function Initialize() {
 document.addEventListener("DOMContentLoaded", function(){
      Initialize();
 })
+
+function registerPaletteCheckboxHandlers() {
+    document.querySelectorAll('input[type=checkbox][name=item-selection]')
+        .forEach(cb => {
+            cb.addEventListener("change", () => {
+                if (Globals.imgDom.src && Globals.imgDom.naturalWidth > 0) {
+                    processImage();
+                }
+            });
+        });
+}
 
 // #region Core Functions
 
