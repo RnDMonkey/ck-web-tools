@@ -2,7 +2,7 @@
 
 //TODO remove onclick and instead add event listeners
 
-function renderPreview() {
+export function renderPreview() {
     let chunkX = parseInt(chunkInputX.value) - 1
     let chunkY = parseInt(chunkInputY.value) - 1
     // let previewCellsDims = parseInt(gridSizeDOM.value) > 25 ? 25 : parseInt(gridSizeDOM.value)
@@ -38,7 +38,7 @@ function renderPreview() {
     }
 }
 
-function generateItemSelection(db) {
+export function generateItemSelection(db) {
 
     const savedStates = JSON.parse(localStorage.getItem("cktool-checkbox-states") || "{}");
 
@@ -82,7 +82,7 @@ function generateItemSelection(db) {
 
 ///====  togglers
 
-function toggleImages() {
+export function toggleImages() {
     if (showImageInputs){
         imageInputsDOM.setAttribute("style", "display:none !important")
     } else {
@@ -91,7 +91,7 @@ function toggleImages() {
     showImageInputs = !showImageInputs
 }
 
-function toggleColorSelection(){
+export function toggleColorSelection(){
     if (showSelections){
         itemSelectionsDOM.setAttribute("style", "display:none !important")
     } else {
@@ -100,7 +100,7 @@ function toggleColorSelection(){
     showSelections = !showSelections
 }
 
-function toggleCounterSelection() {
+export function toggleCounterSelection() {
     if (showCounters){
         itemCountersDOM.setAttribute("style", "display:none !important")
     } else {
@@ -110,7 +110,7 @@ function toggleCounterSelection() {
 }
 
 // TODO
-function resetPreviews() {
+export function resetPreviews() {
     // if (!previewCells === undefined || !previewCells.length == 0) {
     //     console.log("Resetting previews")
     //     previewCells.forEach(element => {
