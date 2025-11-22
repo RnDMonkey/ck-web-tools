@@ -47,7 +47,7 @@ const cam16WeightInput = document.getElementById("cam16-weight");
 // #endregion
 
 // #region preview table construction
-function buildPreviewTable(tableDims = 25) {
+export function buildPreviewTable(tableDims = 25) {
     const tbl = document.getElementById("preview-table");
     tbl.innerHTML = ""; // clear existing
 
@@ -193,7 +193,7 @@ imageUpload.addEventListener("change", function () {
 
 // #region Core Functions
 
-function buildPixelCaches() {
+export function buildPixelCaches() {
     if (!uploadedImage.naturalWidth || !uploadedImage.naturalHeight) {
         console.warn("buildPixelCaches() called before image loaded.");
         return;
@@ -253,7 +253,7 @@ function buildPixelCaches() {
     console.log(distCAM16(colorDB[0].CAM16, rgbToCAM16UCS(...colorDB[0].RGB)));
 }
 
-function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight, maxLines = 3) {
+export function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight, maxLines = 3) {
     const words = text.split(/\s+/);
     let lines = [];
     let line = "";
@@ -285,11 +285,11 @@ function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight, maxLines = 3) {
 }
 
 // Generates an <img> OR a fallback <canvas> with the Name drawn over the RGB background
-function createItemPreview(entry, size = IMAGE_DIMS) {
+export function createItemPreview(entry, size = IMAGE_DIMS) {
 
     const guid = entry.GUID;
 
-    // If fallback already cached → skip drawing, just return an <img> with cached data
+    // If fallback already cached ? skip drawing, just return an <img> with cached data
     if (fallbackCache[guid]) {
         const img = document.createElement("img");
         img.src = fallbackCache[guid];
@@ -339,7 +339,7 @@ function createItemPreview(entry, size = IMAGE_DIMS) {
             3
         );
 
-        // Convert fallback canvas → PNG
+        // Convert fallback canvas ? PNG
         const dataURL = canvas.toDataURL();
 
         // 4) Cache it so we never redraw or re-error again
@@ -352,7 +352,7 @@ function createItemPreview(entry, size = IMAGE_DIMS) {
     return img;
 }
 
-function processImage() {
+export function processImage() {
     itemCountersDOM.innerHTML = '';
 
     // Basic image sanity checks
@@ -493,4 +493,3 @@ function processImage() {
         outputCanvas.width / pixelSize + ", " +
         outputCanvas.height / pixelSize);
 }
-
