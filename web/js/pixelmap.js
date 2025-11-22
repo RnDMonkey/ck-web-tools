@@ -45,6 +45,11 @@ export const itemCountersDOM = document.getElementById("item-counters")
 export const processModeSelect = document.getElementById("process-options");
 export const cam16WeightContainer = document.getElementById("cam16-weight-container");
 export const cam16WeightInput = document.getElementById("cam16-weight");
+export const btnToggleColors = document.getElementById("btn-toggle-colors");
+export const btnToggleCounters = document.getElementById("btn-toggle-counters");
+export const btnToggleImages = document.getElementById("btn-toggle-images");
+export const btnProcess = document.getElementById("btn-process");
+export const btnRenderPreview = document.getElementById("btn-render-preview");
 
 // #endregion
 
@@ -164,6 +169,14 @@ export async function Initialize() {
     previewCells = convertToMatrix(previewCells, previewCellsDims)
     console.log("preview grid cells")
     console.log(previewCells)
+
+    // #region Button listeners
+    btnToggleColors.addEventListener("click", toggleColorSelection);
+    btnToggleCounters.addEventListener("click", toggleCounterSelection);
+    btnToggleImages.addEventListener("click", toggleImages);
+    btnProcess.addEventListener("click", processImage);
+    btnRenderPreview.addEventListener("click", renderPreview);
+    // #endregion
 }
 
 document.addEventListener("DOMContentLoaded", function(){
