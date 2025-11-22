@@ -1,6 +1,4 @@
-export { getColorDB }
-
-async function getColorDB(path) {
+export async function getColorDB(path) {
     var data = null;
     if (path) {
         const response = await fetch(path);
