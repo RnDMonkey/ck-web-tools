@@ -57,7 +57,7 @@ export function rgbToCAM16UCS(r, g, b) {
         return [0,0,0];
     }
     r /= 255; g /= 255; b /= 255;
-    const new Color("srgb", [r, g, b]).to("cam16-ucs");
+    const = new Color("srgb", [r, g, b]).to("cam16-ucs");
 
     // returns [J', a', b']
     return cam.coords;
