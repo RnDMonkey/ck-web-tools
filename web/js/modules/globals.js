@@ -4,7 +4,7 @@
 
 export const Globals = {
     colorDB: null,
-    CAM16_J_WEIGHT: 100,
+    CAM16_J_WEIGHT: 1,
 
     cachedData: [],
     pixelRGB: [],
