@@ -91,7 +91,7 @@ export function rgbToCAM16UCS(r, g, b) {
     r /= 255; g /= 255; b /= 255;
     // const cam = new Color("srgb", [r, g, b]).to("cam16-ucs");
     const cam = new Color("srgb", [r, g, b]).to("cam16-jmh");
-    jmh = cam.coords;
+    const jmh = cam.coords;
     // returns [J', a', b']
     return cam16jmh_to_ucs(jmh);
 }
