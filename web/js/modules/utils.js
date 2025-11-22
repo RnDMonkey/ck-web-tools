@@ -54,19 +54,31 @@ export function rgbToHSV(r, g, b) {
 }
 
 export function cam16jmh_to_ucs(J, M, h_deg) {
+    console.log("=== CAM16 → CAM16-UCS Debug ===");
+    console.log("Input J:", J);
+    console.log("Input M:", M);
+    console.log("Input h°:", h_deg);
 
-    // 1) Lightness J --> J'
+    // 1) Lightness compression
     const Jp = (1.7 * J) / (1 + 0.007 * J);
+    console.log("Step 1: J' =", Jp);
 
-    // 2) Chroma M --> M'
+    // 2) Chroma compression
     const Mprime = Math.log1p(0.0228 * M) / 0.0228;
+    console.log("Step 2: M' =", Mprime);
 
     // 3) Hue to radians
     const hr = h_deg * Math.PI / 180;
+    console.log("Step 3: hue (rad) =", hr);
 
-    // 4) Convert to a', b'
+    // 4) a', b'
     const ap = Mprime * Math.cos(hr);
     const bp = Mprime * Math.sin(hr);
+
+    console.log("Step 4: a' =", ap);
+    console.log("Step 4: b' =", bp);
+
+    console.log("=== END CAM16 → CAM16-UCS ===");
 
     return [Jp, ap, bp];
 }
