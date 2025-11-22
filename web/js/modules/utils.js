@@ -2,8 +2,6 @@
 import * as Globals from "./globals.js";
 import Color from "https://colorjs.io/dist/color.js";
 // import "https://colorjs.io/src/spaces/cam16.js";
-// import Color from "https://colorjs.io/dist/color.js";
-// import "https://colorjs.io/dist/cam16.js";  // adds CAM16 spaces to Color
 
 // --- Color conversion helpers -----------------------------
 
