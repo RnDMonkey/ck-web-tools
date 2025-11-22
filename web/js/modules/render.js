@@ -65,7 +65,7 @@ export function generateItemSelection(db) {
         
             // Auto-process if an image is loaded
             if (Globals.imgDom.src && Globals.imgDom.naturalWidth > 0) {
-                Globals.processImage();
+                Pixelmap.processImage();
             }
         });
 
