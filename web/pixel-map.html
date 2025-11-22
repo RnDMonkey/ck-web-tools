@@ -819,7 +819,6 @@
   <script type="module">
     import Color from "https://colorjs.io/dist/color.js";
     import "https://colorjs.io/dist/cam16.js";
-    window.Color = Color; // <- make global
   </script>
   
   <!-- Core JS Libraries - Bootstrap core JavaScript & Jquery  etc. -->
@@ -828,12 +827,12 @@
     crossorigin="anonymous"></script>
 
   <!-- Custom scripts -->
-  <script src="js/main.js"></script>
-  <script src="js/pixelmap.js"></script>
+  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/pixelmap.js"></script>
   <!-- I can't figure out how to do modules so global it is -->
-  <script src="js/modules/utils.js"></script>
-  <script src="js/modules/colordb.js"></script>
-  <script src="js/modules/render.js"></script>
+  <script type="module" src="js/modules/utils.js"></script>
+  <script type="module" src="js/modules/colordb.js"></script>
+  <script type="module" src="js/modules/render.js"></script>
 
   <script>
     const leftPane = document.getElementById("left-pane");
