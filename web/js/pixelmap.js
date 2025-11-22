@@ -112,13 +112,17 @@ async function Initialize() {
     const savedMode = localStorage.getItem("cktool-process-mode");
     if (savedMode) {
         processModeSelect.value = savedMode;
+        
+        // toggle cam16-weight input visibility
+        cam16WeightContainer.style.display =
+            (processModeSelect.value === "CAM16") ? "inline-block" : "none";
     }
     
     // Save mode + auto-reprocess when changed
     processModeSelect.addEventListener("change", () => {
         localStorage.setItem("cktool-process-mode", processModeSelect.value);
 
-        // toggle visibility
+        // toggle cam16-weight input visibility
         cam16WeightContainer.style.display =
             (processModeSelect.value === "CAM16") ? "inline-block" : "none";
     
