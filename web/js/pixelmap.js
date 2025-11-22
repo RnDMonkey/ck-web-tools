@@ -1,9 +1,10 @@
 // Written by Randy Panopio 
-import * as Globals from "./modules/globals.js";
+// import * as Globals from "./modules/globals.js";
+import { Globals, initGlobals } from "./modules/globals.js";
 // import * as Main from "./main.js";
 import { getColorDB } from './modules/colordb.js';
-import { rgbToHSL, rgbToHSV, rgbToCAM16UCS, distRGB, distHSL, distHSV, distCAM16, getDBClosestValue, convertToMatrix, trimBrackets, addToColorExclusion, removeColorFromExclusion, getExcludedColorDB } from './modules/utils.js';
-import { renderPreview, generateItemSelection, toggleImages, toggleColorSelection, toggleCounterSelection, resetPreviews } from './modules/render.js';
+import * as Utils from './modules/utils.js';
+import * as Render from './modules/render.js';
 
 // NOTE
 // so I could convert the db to override it to have keys based on current selected colorspace. EG key would be rgba
@@ -46,13 +47,15 @@ export function buildPreviewTable(tableDims = 25) {
 
 // #region Initialization and Hooked Event Listeners
 export async function Initialize() {
+    initGlobals();
+    
     // Build dynamic table BEFORE collecting Globals.previewCells
     // buildPreviewTable(25);
 
     // Globals.colorDB = getColorDB()
     Globals.colorDB = await getColorDB("data/colordb.json");
     // should this be async?
-    generateItemSelection(Globals.colorDB)
+    Render.generateItemSelection(Globals.colorDB)
 
     // Restore saved cam16 weight
     const savedWeight = localStorage.getItem("cktool-cam16-weight");
@@ -126,16 +129,16 @@ export async function Initialize() {
     }
     // TODO optimize, eliminate this matrix conversion
     // convert to 2d array
-    Globals.previewCells = convertToMatrix(Globals.previewCells, previewCellsDims)
+    Globals.previewCells = Utils.convertToMatrix(Globals.previewCells, previewCellsDims)
     console.log("preview grid cells")
     console.log(Globals.previewCells)
 
     // #region Button listeners
-    Globals.btnToggleColors.addEventListener("click", toggleColorSelection);
-    Globals.btnToggleCounters.addEventListener("click", toggleCounterSelection);
-    Globals.btnToggleImages.addEventListener("click", toggleImages);
+    Globals.btnToggleColors.addEventListener("click", Render.toggleColorSelection);
+    Globals.btnToggleCounters.addEventListener("click", Render.toggleCounterSelection);
+    Globals.btnToggleImages.addEventListener("click", Render.toggleImages);
     Globals.btnProcess.addEventListener("click", processImage);
-    Globals.btnRenderPreview.addEventListener("click", renderPreview);
+    Globals.btnRenderPreview.addEventListener("click", Render.renderPreview);
     // #endregion
 }
 
@@ -149,7 +152,7 @@ Globals.imageUpload.addEventListener("change", function () {
     const reader = new FileReader();
 
     reader.onload = () => {
-        resetPreviews();
+        Render.resetPreviews();
 
         Globals.imgDom.onload = () => {
             console.log("Image fully loaded, building caches…");
@@ -207,25 +210,25 @@ export function buildPixelCaches() {
             i++; // skip alpha
 
             Globals.pixelRGB[y][x]   = [r, g, b];
-            Globals.pixelHSL[y][x]   = rgbToHSL(r, g, b);
-            Globals.pixelHSV[y][x]   = rgbToHSV(r, g, b);
-            Globals.pixelCAM16[y][x] = rgbToCAM16UCS(r, g, b);
+            Globals.pixelHSL[y][x]   = Utils.rgbToHSL(r, g, b);
+            Globals.pixelHSV[y][x]   = Utils.rgbToHSV(r, g, b);
+            Globals.pixelCAM16[y][x] = Utils.rgbToCAM16UCS(r, g, b);
         }
     }
 
     console.log("Globals.pixelRGB / Globals.pixelHSL / Globals.pixelHSV / Globals.pixelCAM16 built.");
     console.log("HSL sanity check:");
     console.log(Globals.colorDB[0].HSL);
-    console.log(rgbToHSL(...Globals.colorDB[0].RGB));
-    console.log(distHSL(Globals.colorDB[0].HSL, rgbToHSL(...Globals.colorDB[0].RGB)));
+    console.log(Utils.rgbToHSL(...Globals.colorDB[0].RGB));
+    console.log(Utils.distHSL(Globals.colorDB[0].HSL, Utils.rgbToHSL(...Globals.colorDB[0].RGB)));
     console.log("HSV sanity check:");
     console.log(Globals.colorDB[0].HSV);
-    console.log(rgbToHSV(...Globals.colorDB[0].RGB));
-    console.log(distHSV(Globals.colorDB[0].HSV, rgbToHSV(...Globals.colorDB[0].RGB)));
+    console.log(Utils.rgbToHSV(...Globals.colorDB[0].RGB));
+    console.log(Utils.distHSV(Globals.colorDB[0].HSV, Utils.rgbToHSV(...Globals.colorDB[0].RGB)));
     console.log("CAM16 sanity check:");
     console.log(Globals.colorDB[0].CAM16);
-    console.log(rgbToCAM16UCS(...Globals.colorDB[0].RGB));
-    console.log(distCAM16(Globals.colorDB[0].CAM16, rgbToCAM16UCS(...Globals.colorDB[0].RGB)));
+    console.log(Utils.rgbToCAM16UCS(...Globals.colorDB[0].RGB));
+    console.log(Utils.distCAM16(Globals.colorDB[0].CAM16, Utils.rgbToCAM16UCS(...Globals.colorDB[0].RGB)));
 }
 
 export function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight, maxLines = 3) {
@@ -387,7 +390,7 @@ export function processImage() {
     });
 
     colorIdsToExclude.sort();
-    let colorDBCache = getExcludedColorDB(Globals.colorDB, colorIdsToExclude);
+    let colorDBCache = Utils.getExcludedColorDB(Globals.colorDB, colorIdsToExclude);
 
     // Reset Globals.cachedData for this run
     Globals.cachedData = Array.from({ length: height }, () => new Array(width));
@@ -409,7 +412,7 @@ export function processImage() {
                                             Globals.pixelRGB[y][x]; // fallback
 
             // Find best palette match
-            const closestValue = getDBClosestValue(colorDBCache, inputColor, colorSpace);
+            const closestValue = Utils.getDBClosestValue(colorDBCache, inputColor, colorSpace);
             Globals.cachedData[y][x] = closestValue;
 
             // Always draw using the palette's RGB, regardless of comparison space
