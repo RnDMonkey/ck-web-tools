@@ -441,7 +441,7 @@
    },
    {
       "GUID": 44,
-      "Name": "Caveling Floor Tile / Dark Caveling Floor Tile",
+      "Name": "Caveling Floor Tile / Dark CFT",
       "RGB": [130, 130, 130],
       "HSL": [0.0, 0.0, 50.98],
       "HSV": [0.0, 0.0, 50.98],
@@ -451,7 +451,7 @@
    },
    {
       "GUID": 45,
-      "Name": "Scarlet Fence / Scarlet Fence Gate",
+      "Name": "Scarlet Fence [or Gate]",
       "RGB": [128, 34, 46],
       "HSL": [352.34, 58.025, 31.765],
       "HSV": [352.34, 73.438, 50.196],
@@ -471,7 +471,7 @@
    },
    {
       "GUID": 47,
-      "Name": "Stone Fence / Stone Fence Gate",
+      "Name": "Stone Fence [or Gate]",
       "RGB": [96, 91, 85],
       "HSL": [32.727, 6.077, 35.49],
       "HSV": [32.727, 11.458, 37.647],
@@ -481,7 +481,7 @@
    },
    {
       "GUID": 48,
-      "Name": "Wood Fence / Wood Fence Gate",
+      "Name": "Wood Fence [or Gate]",
       "RGB": [112, 73, 34],
       "HSL": [30.0, 53.425, 28.627],
       "HSV": [30.0, 69.643, 43.922],
