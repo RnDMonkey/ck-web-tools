@@ -62,6 +62,7 @@ export async function Initialize() {
     const savedWeight = localStorage.getItem("cktool-cam16-weight");
     if (savedWeight) {
         Globals.cam16WeightInput.value = savedWeight;
+        Globals.CAM16_J_WEIGHT = parseFloat(Globals.cam16WeightInput.value);
     }
     
     Globals.cam16WeightInput.addEventListener("input", () => {  
