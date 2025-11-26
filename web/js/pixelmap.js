@@ -169,7 +169,7 @@ export async function Initialize() {
         reader.onload = () => {
             Render.resetPreviews();
     
-            Globals.imgDom.onload = () => {
+            Globals.imgDom.onload = async () => {
                 console.log("Image fully loaded, building caches…");
                 await buildPixelCaches();
                 // processImage(); // optional auto-process
