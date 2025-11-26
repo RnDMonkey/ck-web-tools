@@ -37,7 +37,7 @@ export function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight, maxLines 
 }
 
 // Generates an <img> OR a fallback <canvas> with the Name drawn over the RGB background
-export function createItemPreview(entry, size = Globals.IMAGE_DIMS) {
+export function createItemPreview(entry, size = Globals.ICON_DIMS) {
 
     const guid = entry.GUID;
 
@@ -126,7 +126,7 @@ export function renderPreview() {
                 
                 // previewCells[y][x].src = selection['imageSource']
                 // Use fallback-aware preview generator for each preview cell
-                const preview = createItemPreview(selection, Globals.IMAGE_DIMS);  // replace 30px preview grid cells
+                const preview = createItemPreview(selection, Globals.ICON_DIMS);  // replace 30px preview grid cells
                 Globals.previewCells[y][x].replaceWith(preview);
                 
                 // And update local reference since replaceWith() swaps DOM nodes
@@ -162,7 +162,7 @@ export function generateItemSelection(db) {
             localStorage.setItem("cktool-checkbox-states", JSON.stringify(savedStates));
         });
 
-        let preview = createItemPreview(element, Globals.IMAGE_DIMS);
+        let preview = createItemPreview(element, Globals.ICON_DIMS);
 
         // Order matters: putting checkbox first enables keyboard accessibility
         container.appendChild(checkBox);
