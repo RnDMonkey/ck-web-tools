@@ -14,7 +14,7 @@ import * as Render from './modules/render.js';
 
 // #endregion
 
-// #region preview table construction
+// #region preview table construction (unused at this time)
 export function buildPreviewTable(tableDims = 25) {
     const tbl = document.getElementById("preview-table");
     tbl.innerHTML = ""; // clear existing
@@ -29,8 +29,8 @@ export function buildPreviewTable(tableDims = 25) {
             const img = document.createElement("img");
             img.id = `cell-${x}-${y}`;
             img.className = "preview-cell";
-            img.width = Globals.IMAGE_DIMS;
-            img.height = Globals.IMAGE_DIMS;
+            img.width = Globals.ICON_DIMS;
+            img.height = Globals.ICON_DIMS;
             img.src = "images/misc/empty.png";
 
             // Clean layout: no squeeze, no distort
@@ -43,6 +43,11 @@ export function buildPreviewTable(tableDims = 25) {
         tbl.appendChild(row);
     }
 }
+
+function updateMaxDims(isLargerAllowed) {
+    Globals.maxDims = isLargerAllowed ? Globals.LARGE_MAXDIMS : Globals.NORMAL_MAXDIMS;
+}
+
 // #endregion
 
 // #region Initialization and Hooked Event Listeners
@@ -80,7 +85,7 @@ export async function Initialize() {
         }
     });
     
-    // Restore saved mode
+    // Restore saved mode + update cam16-weight input visibility
     const savedMode = localStorage.getItem("cktool-process-mode");
     if (savedMode) {
         Globals.processModeSelect.value = savedMode;
@@ -118,6 +123,19 @@ export async function Initialize() {
         }
     });
 
+    // Restore saved allow-larger-images toggle + update maxDims
+    const savedAllowLargerImages = localStorage.getItem("cktool-allow-larger-images");
+    const allowLarger = savedAllowLargerImages === "true";
+    Globals.allowLargerImagesDOM.checked = allowLarger;
+    updateMaxDims(allowLarger);
+    
+    // Save allow-larger-images toggle + update maxDims
+    Globals.allowLargerImagesDOM.addEventListener("change", () => {
+        const allowLargerChecked = Globals.allowLargerImagesDOM.checked;
+        localStorage.setItem("cktool-allow-larger-images", String(allowLargerChecked));
+        updateMaxDims(allowLargerChecked);
+    });
+    
     // let previewCellsDims = parseInt(Globals.gridSizeDOM.value) > 25 ? 25 : parseInt(Globals.gridSizeDOM.value)
     let previewCellsDims = Math.min(parseInt(Globals.gridSizeDOM.value), 25);
 
@@ -165,10 +183,6 @@ export async function Initialize() {
     });
 }
 
-document.addEventListener("DOMContentLoaded", function(){
-     Initialize();
-})
-
 function registerPaletteCheckboxHandlers() {
     document.querySelectorAll('input[type=checkbox][name=item-selection]')
         .forEach(cb => {
@@ -180,9 +194,29 @@ function registerPaletteCheckboxHandlers() {
         });
 }
 
+// automatically registered
+document.addEventListener("DOMContentLoaded", function(){
+     Initialize();
+})
+
+// #region progress overlay functions
+function showProgressOverlay() {
+    document.getElementById('progress-overlay').style.display = "flex";
+    document.getElementById("progress-text").textContent = "Loading image… 0%";
+}
+
+function updateProgressOverlay(pct) {
+    document.getElementById('progress-text').textContent = `Loading image… ${pct}%`;
+}
+
+function hideProgressOverlay() {
+    document.getElementById('progress-overlay').style.display = "none";
+}
+// #endregion
+
 // #region Core Functions
 
-export function buildPixelCaches() {
+export async function buildPixelCaches() {
     if (!Globals.uploadedImage.naturalWidth || !Globals.uploadedImage.naturalHeight) {
         console.warn("buildPixelCaches() called before image loaded.");
         return;
@@ -190,6 +224,7 @@ export function buildPixelCaches() {
 
     const width = Globals.uploadedImage.naturalWidth;
     const height = Globals.uploadedImage.naturalHeight;
+    const totalPixels = width * height;
 
     Globals.pixelRGB   = [];
     Globals.pixelHSL   = [];
@@ -204,6 +239,11 @@ export function buildPixelCaches() {
     ctx.drawImage(Globals.uploadedImage, 0, 0);
 
     const imgData = ctx.getImageData(0, 0, width, height).data;
+
+    // Progress setup
+    showProgressOverlay();
+    let processed = 0;
+    const UPDATE_INTERVAL = 2000; // pixels between UI updates
 
     let i = 0;
     for (let y = 0; y < height; y++) {
@@ -224,8 +264,20 @@ export function buildPixelCaches() {
             Globals.pixelHSL[y][x]   = Utils.rgbToHSL(r, g, b);
             Globals.pixelHSV[y][x]   = Utils.rgbToHSV(r, g, b);
             Globals.pixelCAM16[y][x] = Utils.rgbToCAM16UCS(r, g, b);
+
+            // Progress update
+            processed++;
+            if (processed % UPDATE_INTERVAL === 0) {
+                const pct = Math.round((processed / totalPixels) * 100);
+                updateProgressOverlay(pct);
+                // yield to UI thread
+                await new Promise(r => setTimeout(r));
+            }
         }
     }
+
+    updateProgressOverlay(100);
+    hideProgressOverlay();
 
     console.log("Globals.pixelRGB / Globals.pixelHSL / Globals.pixelHSV / Globals.pixelCAM16 built.");
     console.log("HSL sanity check:");
@@ -253,8 +305,10 @@ export function processImage() {
     }
 
     if (Globals.imgDom.naturalWidth > Globals.maxDims || Globals.imgDom.naturalHeight > Globals.maxDims) {
-        console.error("Image too large / not supported!");
-        window.alert("Image too large / not supported!");
+        const yourImageSizeMsg = `\n\nYour image: ${Globals.imgDom.naturalWidth}x${Globals.imgDom.naturalHeight}px`;
+        const imageSizeMsg = `\n\nMax resolution ${Globals.maxDims}x${Globals.maxDims}px`;
+        console.error(`Image too large / not supported!${yourImageSizeMsg}${imageSizeMsg}`);
+        window.alert(`Image too large / not supported!${yourImageSizeMsg}${imageSizeMsg}`);
         return;
     }
 
@@ -349,7 +403,7 @@ export function processImage() {
         let label = document.createElement("label");
 
         let entry = Globals.colorDB[key];
-        let preview = Render.createItemPreview(entry, Globals.IMAGE_DIMS);
+        let preview = Render.createItemPreview(entry, Globals.ICON_DIMS);
 
         container.appendChild(preview);
         container.appendChild(label);
