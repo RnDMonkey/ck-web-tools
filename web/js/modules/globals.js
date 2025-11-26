@@ -46,7 +46,8 @@ export const Globals = {
     btnToggleImages: null,
     btnProcess: null,
     btnRenderPreview: null,
-    allowLargerImagesDOM: null
+    allowLargerImagesDOM: null,
+    outputCanvasDOM: null
 };
 
 export function initGlobals() {
@@ -71,4 +72,5 @@ export function initGlobals() {
     Globals.btnProcess = document.getElementById("btn-process");
     Globals.btnRenderPreview = document.getElementById("btn-render-preview");
     Globals.allowLargerImagesDOM = document.getElementById("allow-larger-images");
+    Globals.outputCanvasDOM = document.getElementById("output-canvas");
 }
