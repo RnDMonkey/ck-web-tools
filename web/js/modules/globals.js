@@ -16,6 +16,7 @@ export const Globals = {
 
     previewCells: [],
     maxDims: 500,
+    largeImageMaxDims: 2000,
     IMAGE_DIMS: 64,
 
     showImageInputs: true,
