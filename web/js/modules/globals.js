@@ -43,7 +43,7 @@ export const Globals = {
     btnToggleImages: null,
     btnProcess: null,
     btnRenderPreview: null,
-    allowLargerImages: null
+    allowLargerImagesDOM: null
 };
 
 export function initGlobals() {
