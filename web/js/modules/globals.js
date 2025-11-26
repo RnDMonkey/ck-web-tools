@@ -16,7 +16,7 @@ export const Globals = {
 
     NORMAL_MAXDIMS: 500,
     LARGE_MAXDIMS: 2000,
-    LARGE_IMAGE_WARNING_THRESHOLD: 400,
+    LARGE_IMAGE_WARNING_THRESHOLD: 100000,
     ICON_DIMS: 64,
     previewCells: [],
     maxDims: 500,
