@@ -14,10 +14,11 @@ export const Globals = {
     pixelCAM16: [],
     fallbackCache: {},
 
+    NORMAL_MAXDIMS: 500,
+    LARGE_MAXDIMS: 2000,
+    ICON_DIMS: 64,
     previewCells: [],
     maxDims: 500,
-    largeImageMaxDims: 2000,
-    IMAGE_DIMS: 64,
 
     showImageInputs: true,
     showSelections: true,
