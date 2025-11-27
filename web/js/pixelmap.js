@@ -331,7 +331,7 @@ export async function processImage() {
         await Globals.cacheBuildPromise;
     }
 
-    if (Globals.imageEpoch !=== Globals.cacheBuildEpoch) {
+    if (Globals.imageEpoch !== Globals.cacheBuildEpoch) {
         console.warn("Stale pixel cache - processing aborted.");
         return;
     }
