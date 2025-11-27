@@ -57,11 +57,10 @@ export async function Initialize() {
     // Build dynamic table BEFORE collecting Globals.previewCells
     // buildPreviewTable(25);
 
-    // Globals.colorDB = getColorDB()
     Globals.colorDB = await getColorDB("data/colordb.json");
-    // should this be async?
     Render.generateItemSelection(Globals.colorDB)
     registerPaletteCheckboxHandlers();
+    registerCounterClickHandlers();
 
     // Restore saved cam16 weight
     const savedWeight = localStorage.getItem("cktool-cam16-weight");
