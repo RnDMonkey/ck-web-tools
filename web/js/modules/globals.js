@@ -52,7 +52,8 @@ export const Globals = {
     allowLargerImagesDOM: null,
     outputCanvasDOM: null,
     overlayCanvasDOM: null,
-    overlayCtx: null
+    overlayCtx: null,
+    hoverTooltip: null
 };
 
 export function initGlobals() {
@@ -80,4 +81,5 @@ export function initGlobals() {
     Globals.outputCanvasDOM = document.getElementById("output-canvas");
     Globals.overlayCanvasDOM = document.getElementById("overlay-canvas");
     Globals.overlayCtx = Globals.overlayCanvasDOM.getContext("2d");
+    Globals.hoverTooltip = document.getElementById("hover-tooltip");
 }
