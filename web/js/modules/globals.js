@@ -8,6 +8,8 @@ export const Globals = {
     CAM16_J_WEIGHT: 1,
 
     cacheBuildPromise = null,
+    imageEpoch = 0,
+    cacheBuildEpoch = -1,
     cachedData: [],
     pixelRGB: [],
     pixelHSL: [],
