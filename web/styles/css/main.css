@@ -150,8 +150,14 @@ input[type=checkbox] {
 }
 
 /* so whole block is clickable */
-.item-selection {
+.item-selection,
+.item-counter {
     cursor: pointer;
+}
+
+/* so blocks "look" clickable */
+.item-counter:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Image is fixed size */
