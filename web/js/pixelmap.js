@@ -241,19 +241,21 @@ function updateProgressOverlay(pct, msg = "Processing...") {
 function hideProgressOverlay() {
     document.getElementById('progress-overlay').style.display = "none";
 }
+// #endregion
 
+
+// #region grid navigation functions
 function registerGridNavigationHandlers() {
-
     const canvas = Globals.outputCanvasDOM;
-    const ctx = canvas.getContext("2d");
+    const overlay = Globals.overlayCanvasDOM;
+    const octx = Globals.overlayCtx;
 
     let hoverX = -1;
     let hoverY = -1;
 
-    canvas.addEventListener("mousemove", e => {
+    canvas.addEventListener("mousemove", (e) => {
         if (!Globals.imgDom.naturalWidth) return;
 
-        // Canvas-relative mouse coords
         const rect = canvas.getBoundingClientRect();
         const mx = e.clientX - rect.left;
         const my = e.clientY - rect.top;
@@ -263,56 +265,31 @@ function registerGridNavigationHandlers() {
         const previewCellsDims = Math.min(parseInt(Globals.gridSizeDOM.value), 25);
         const tilePx = previewCellsDims * pixelSize;
 
-        const tx = Math.floor(mx / tilePx);
-        const ty = Math.floor(my / tilePx);
+        hoverX = Math.floor(mx / tilePx);
+        hoverY = Math.floor(my / tilePx);
 
-        // Avoid unnecessary redraw
-        if (tx === hoverX && ty === hoverY) return;
-
-        hoverX = tx;
-        hoverY = ty;
-
-        drawHoverOverlay();
+        drawHover(hoverX, hoverY, tilePx);
     });
 
     canvas.addEventListener("mouseleave", () => {
+        octx.clearRect(0, 0, overlay.width, overlay.height);
         hoverX = hoverY = -1;
-        drawHoverOverlay(); // clear
     });
 
     canvas.addEventListener("click", () => {
         if (hoverX < 0 || hoverY < 0) return;
 
-        // Update X/Y input boxes
         Globals.chunkInputX.value = hoverX;
         Globals.chunkInputY.value = hoverY;
-
-        // Draw preview for selected tile
         Render.renderPreview();
     });
 
-    function drawHoverOverlay() {
-        if (hoverX < 0 || hoverY < 0) return;
-
-        const width  = Globals.imgDom.naturalWidth;
-        const pixelSize = 1 + Math.trunc(2000 / width);
-        const previewCellsDims = Math.min(parseInt(Globals.gridSizeDOM.value), 25);
-        const tilePx = previewCellsDims * pixelSize;
-
-        ctx.save();
-        ctx.fillStyle = "rgba(255,255,255,0.15)";
-        ctx.fillRect(
-            hoverX * tilePx,
-            hoverY * tilePx,
-            tilePx,
-            tilePx
-        );
-        ctx.restore();
-
-        canvas.style.cursor = "crosshair";
+    function drawHover(x, y, tilePx) {
+        octx.clearRect(0, 0, overlay.width, overlay.height);
+        octx.fillStyle = "rgba(255,255,255,0.15)";
+        octx.fillRect(x * tilePx, y * tilePx, tilePx, tilePx);
     }
 }
-
 // #endregion
 
 // #region Core Functions
@@ -481,6 +458,11 @@ export async function processImage() {
 
     outputCanvas.width  = canvasPixelWidth;
     outputCanvas.height = canvasPixelHeight;
+
+    // overlay canvas + sizing
+    const overlayCanvas = Globals.overlayCanvasDOM;
+    overlayCanvas.width = outputCanvas.width;
+    overlayCanvas.height = outputCanvas.height;
 
     // Color / item selection filtering
     let colorIdsToExclude = [];
