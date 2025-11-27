@@ -282,7 +282,7 @@ function registerGridNavigationHandlers() {
         drawHover(hoverX, hoverY, tilePx);
 
         // update tooltip text
-        tooltip.textContent = `(${hoverX}, ${hoverY})`;
+        tooltip.textContent = `(${hoverX + 1}, ${hoverY + 1})`;
         tooltip.style.display = "block";
 
         // follow mouse
@@ -299,8 +299,8 @@ function registerGridNavigationHandlers() {
     canvas.addEventListener("click", () => {
         if (hoverX < 0 || hoverY < 0) return;
 
-        Globals.chunkInputX.value = hoverX;
-        Globals.chunkInputY.value = hoverY;
+        Globals.chunkInputX.value = hoverX + 1;
+        Globals.chunkInputY.value = hoverY + 1;
         Render.renderPreview();
     });
 
