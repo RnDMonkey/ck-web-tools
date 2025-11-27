@@ -246,9 +246,10 @@ function hideProgressOverlay() {
 
 // #region grid navigation functions
 function registerGridNavigationHandlers() {
-    const canvas = Globals.outputCanvasDOM;
-    const overlay = Globals.overlayCanvasDOM;
-    const octx = Globals.overlayCtx;
+    const canvas   = Globals.outputCanvasDOM;
+    const overlay  = Globals.overlayCanvasDOM;
+    const octx     = Globals.overlayCtx;
+    const tooltip  = Globals.hoverTooltip;
 
     let hoverX = -1;
     let hoverY = -1;
@@ -269,11 +270,20 @@ function registerGridNavigationHandlers() {
         hoverY = Math.floor(my / tilePx);
 
         drawHover(hoverX, hoverY, tilePx);
+
+        // update tooltip text
+        tooltip.textContent = `(${hoverX}, ${hoverY})`;
+        tooltip.style.display = "block";
+
+        // follow mouse
+        tooltip.style.left = `${e.clientX - rect.left + 10}px`;
+        tooltip.style.top  = `${e.clientY - rect.top  - 10}px`;
     });
 
     canvas.addEventListener("mouseleave", () => {
         octx.clearRect(0, 0, overlay.width, overlay.height);
         hoverX = hoverY = -1;
+        tooltip.style.display = "none";  // hide tooltip
     });
 
     canvas.addEventListener("click", () => {
