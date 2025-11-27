@@ -347,6 +347,7 @@ export async function processImage() {
 
     const width  = Globals.imgDom.naturalWidth;
     const height = Globals.imgDom.naturalHeight;
+    const totalPixels = width * height;
 
     if (width > Globals.maxDims || height > Globals.maxDims) {
         const yourImageSizeMsg = `\n\nYour image: ${width}x${height}px`;
