@@ -50,7 +50,9 @@ export const Globals = {
     btnProcess: null,
     btnRenderPreview: null,
     allowLargerImagesDOM: null,
-    outputCanvasDOM: null
+    outputCanvasDOM: null,
+    overlayCanvasDOM: null,
+    overlayCtx: null
 };
 
 export function initGlobals() {
@@ -76,4 +78,6 @@ export function initGlobals() {
     Globals.btnRenderPreview = document.getElementById("btn-render-preview");
     Globals.allowLargerImagesDOM = document.getElementById("allow-larger-images");
     Globals.outputCanvasDOM = document.getElementById("output-canvas");
+    Globals.overlayCanvasDOM = document.getElementById("overlay-canvas");
+    Globals.overlayCtx = Globals.overlayCanvasDOM.getContext("2d");
 }
