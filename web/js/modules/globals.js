@@ -7,6 +7,7 @@ export const Globals = {
     colorDB: null,
     CAM16_J_WEIGHT: 1,
 
+    cacheBuildPromise = null,
     cachedData: [],
     pixelRGB: [],
     pixelHSL: [],
