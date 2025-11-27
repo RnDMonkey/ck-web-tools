@@ -85,36 +85,15 @@
     <div id="image-inputs" class="d-flex justify-content-center image-inputs-container">
     
       Original Image:
-      <img style="image-rendering: auto;
-           image-rendering: crisp-edges;
-           image-rendering: pixelated; width: 20%" 
-           class="viewer-image" 
+      <img class="viewer-image" 
            id="upload-preview" 
            src="images/misc/empty.png"/>
     
       Mapped Image:
-      <div id="mapped-image-container" style="position: relative; display: inline-block;">
-          <canvas width="0" height="0"
-                  class="image-canvas viewer-image"
-                  id="output-canvas"></canvas>
-    
-          <!-- Transparent overlay canvas for hover effects -->
-          <canvas width="0" height="0"
-                  id="overlay-canvas"
-                  style="position:absolute; left:0; top:0; pointer-events:none;"></canvas>
-        
-          <div id="hover-tooltip"
-               style="
-                  position:absolute;
-                  padding:2px 6px;
-                  background: rgba(0,0,0,0.75);
-                  color:white;
-                  font-size:12px;
-                  border-radius:4px;
-                  pointer-events:none;
-                  transform: translate(10px, -10px);
-                  display:none;
-               ">
+      <div id="mapped-image-container">
+          <canvas id="output-canvas"></canvas>
+          <canvas id="overlay-canvas"></canvas>
+          <div id="hover-tooltip">
           </div>
       </div>
     </div>
