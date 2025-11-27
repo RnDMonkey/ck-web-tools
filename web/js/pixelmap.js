@@ -555,6 +555,8 @@ export async function processImage() {
     updateProgressOverlay(100, "Image processed");
     hideProgressOverlay();
 
+    Render.renderPreview();
+
     console.log("counters");
     console.log(counters);
 
