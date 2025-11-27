@@ -258,8 +258,18 @@ function registerGridNavigationHandlers() {
         if (!Globals.imgDom.naturalWidth) return;
 
         const rect = canvas.getBoundingClientRect();
-        const mx = e.clientX - rect.left;
-        const my = e.clientY - rect.top;
+        
+        // mouse in CSS-coordinates
+        const mx_css = e.clientX - rect.left;
+        const my_css = e.clientY - rect.top;
+        
+        // scale factor from CSS → canvas pixels
+        const scaleX = canvas.width  / rect.width;
+        const scaleY = canvas.height / rect.height;
+        
+        // corrected mouse coords in *canvas pixel space*
+        const mx = mx_css * scaleX;
+        const my = my_css * scaleY;
 
         const width  = Globals.imgDom.naturalWidth;
         const pixelSize = 1 + Math.trunc(2000 / width);
@@ -276,8 +286,8 @@ function registerGridNavigationHandlers() {
         tooltip.style.display = "block";
 
         // follow mouse
-        tooltip.style.left = `${e.clientX - rect.left + 10}px`;
-        tooltip.style.top  = `${e.clientY - rect.top  - 10}px`;
+        tooltip.style.left = `${mx_css + 10}px`;
+        tooltip.style.top  = `${my_css - 10}px`;
     });
 
     canvas.addEventListener("mouseleave", () => {
