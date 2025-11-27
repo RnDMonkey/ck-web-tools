@@ -485,17 +485,24 @@ export async function processImage() {
     // Update Item counters UI
     Globals.itemCountersDOM.innerHTML = '';
 
+    // create array of {guid, count}
+    const counterArray = Object.entries(counters).map(([guid, count]) => ({
+        guid: Number(guid),
+        count
+    }));
+
+    // sort by count descending
+    counterArray.sort((a, b) => b.count - a.count);
+
     // Use DocumentFragment to batch DOM updates
     const frag = document.createDocumentFragment();
     
-    for (const key in counters) {
-        const guid = Number(key);
+    for (const { guid, count } of counterArray) {
         const entry = Globals.colorDB[guid];
-        const count = counters[guid];
     
         const container = document.createElement("div");
         container.className = "item-counter";
-        container.dataset.guid = guid; // attach GUID for click handling
+        container.dataset.guid = guid; // used for click access
     
         const preview = Render.createItemPreview(entry, Globals.ICON_DIMS);
     
@@ -505,7 +512,7 @@ export async function processImage() {
         container.appendChild(preview);
         container.appendChild(label);
         frag.appendChild(container);
-    }
+    }    
     
     // Attach everything to the DOM at once
     Globals.itemCountersDOM.appendChild(frag); 
