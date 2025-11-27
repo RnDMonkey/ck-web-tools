@@ -162,15 +162,14 @@ export async function Initialize() {
 
     Globals.imageUpload.addEventListener("change", function () {
         console.log("Image input change event triggered, opening fs")
-    
+        showProgressOverlay("Uploading file...");
+        
         const reader = new FileReader();
     
         reader.onload = () => {
             Render.resetPreviews();
             Globals.imageEpoch++;
             const thisCacheBuildEpoch = Globals.imageEpoch;
-
-            showProgressOverlay("Uploading file...");
     
             Globals.imgDom.onload = async () => {
                 console.log("Image fully loaded, building caches…");
