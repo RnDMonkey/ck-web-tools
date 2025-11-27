@@ -224,7 +224,7 @@ export async function buildPixelCaches(thisCacheBuildEpoch) {
 
     Globals.cacheBuildEpoch = thisCacheBuildEpoch;
     
-    // if build already in progress, don't start another
+    // if build already in progress, don't start another, just assume that any callers will for the build results
     if (Globals.cacheBuildPromise) {
         return Globals.cacheBuildPromise;
     }
