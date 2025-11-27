@@ -196,6 +196,34 @@ function registerPaletteCheckboxHandlers() {
         });
 }
 
+function registerCounterClickHandlers() {
+    Globals.itemCountersDOM.addEventListener("click", (e) => {
+        const container = e.target.closest(".item-counter");
+        if (!container) return;
+
+        const guid = container.dataset.guid;
+        if (!guid) return;
+
+        const checkbox = document.querySelector(
+            `input[type=checkbox][name=item-selection][guid="${guid}"]`
+        );
+
+        if (!checkbox) {
+            console.log("Checkbox not found for GUID:", guid);
+            return;
+        }
+
+        // Toggle checked state
+        checkbox.checked = !checkbox.checked;
+
+        // Re-process with updated palette rules
+        if (Globals.imgDom.src && Globals.imgDom.naturalWidth > 0) {
+            processImage();
+        }
+    });
+}
+
+
 // automatically registered
 document.addEventListener("DOMContentLoaded", function(){
      Initialize();
@@ -468,6 +496,7 @@ export async function processImage() {
     
         const container = document.createElement("div");
         container.className = "item-counter";
+        container.dataset.guid = guid; // attach GUID for click handling
     
         const preview = Render.createItemPreview(entry, Globals.ICON_DIMS);
     
@@ -481,24 +510,6 @@ export async function processImage() {
     
     // Attach everything to the DOM at once
     Globals.itemCountersDOM.appendChild(frag); 
-
-    // /* Old item counter update code */
-    // for (let key in counters) {
-    //     let container = document.createElement("div");
-    //     container.setAttribute("class", "item-counter");
-    //     let label = document.createElement("label");
-
-    //     let entry = Globals.colorDB[key];
-    //     let preview = Render.createItemPreview(entry, Globals.ICON_DIMS);
-
-    //     container.appendChild(preview);
-    //     container.appendChild(label);
-    //     Globals.itemCountersDOM.appendChild(container);
-
-    //     label.appendChild(
-    //         document.createTextNode(Globals.colorDB[key]["Name"] + " - " + counters[key])
-    //     );
-    // }
 
     const offset = 0.5;
     if (Globals.showGridLinesDOM.checked) {
