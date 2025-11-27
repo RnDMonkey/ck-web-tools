@@ -592,24 +592,43 @@ export async function processImage() {
     // Update Item counters UI
     Globals.itemCountersDOM.innerHTML = '';
 
-    // create array of {guid, count}
-    const counterArray = Object.entries(counters).map(([guid, count]) => ({
-        guid: Number(guid),
-        count
-    }));
+    // create array of {guid, entry, count, suppressed}
+    const counterArray = Globals.colorDB.map((entry, guid) => {
+        return {
+            guid,
+            entry,
+            count: counters[guid] || 0,
+            suppressed: Globals.tempSuppressed.has(guid)
+        };
+    });
 
+    const filteredCounters = counterArray.filter(item => {
+        // keep if: used OR suppressed
+        return item.count > 0 || item.suppressed;
+    });
+    
     // sort by count descending
-    counterArray.sort((a, b) => b.count - a.count);
-
+    filteredCounters.sort((a, b) => {
+        // Suppressed always go after used items
+        if (a.suppressed !== b.suppressed) {
+            return a.suppressed ? 1 : -1;
+        }
+        // Within each group, sort by count descending
+        return b.count - a.count;
+    });
+    
     // Use DocumentFragment to batch DOM updates
     const frag = document.createDocumentFragment();
     
-    for (const { guid, count } of counterArray) {
-        const entry = Globals.colorDB[guid];
-    
+    for (const { guid, entry, count, suppressed } of filteredCounters) {
+        
         const container = document.createElement("div");
         container.className = "item-counter";
-        container.dataset.guid = guid; // used for click access
+        container.dataset.guid = guid;
+    
+        if (suppressed) {
+            container.classList.add("suppressed");
+        }
     
         const preview = Render.createItemPreview(entry, Globals.ICON_DIMS);
     
@@ -620,7 +639,6 @@ export async function processImage() {
         container.appendChild(label);
         frag.appendChild(container);
     }    
-    
     // Attach everything to the DOM at once
     Globals.itemCountersDOM.appendChild(frag); 
 
