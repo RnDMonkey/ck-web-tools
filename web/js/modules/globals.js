@@ -27,6 +27,7 @@ export const Globals = {
     showImageInputs: true,
     showSelections: true,
     showCounters: true,
+    tempSuppressed: new Set(),
 
     // DOM elements (initialized later)
     chunkInputX: null,
