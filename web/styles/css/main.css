@@ -144,6 +144,12 @@ input[type=checkbox] {
     cursor: pointer;
 }
 
+.item-counter.suppressed {
+    opacity: 0.35;
+    /* filter: grayscale(100%); */
+    border-color: rgba(128, 128, 128, 0.5);
+}
+
 /* so blocks "look" clickable */
 .item-counter:hover {
     background-color: rgba(255, 255, 255, 0.1);
