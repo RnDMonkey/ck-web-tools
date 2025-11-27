@@ -169,11 +169,14 @@ export async function Initialize() {
             Render.resetPreviews();
             Globals.imageEpoch++;
             const thisCacheBuildEpoch = Globals.imageEpoch;
+
+            showProgressOverlay("Uploading file...");
     
             Globals.imgDom.onload = async () => {
                 console.log("Image fully loaded, building caches…");
                 await buildPixelCaches(thisCacheBuildEpoch);
-                processImage();
+                await processImage();
+                hideProgressOverlay();
             };
     
             Globals.imgDom.src = reader.result;
