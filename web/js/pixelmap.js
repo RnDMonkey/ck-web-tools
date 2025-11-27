@@ -168,11 +168,13 @@ export async function Initialize() {
     
         reader.onload = () => {
             Render.resetPreviews();
+            Globals.imageEpoch++;
+            const thisCacheBuildEpoch = Globals.imageEpoch;
     
             Globals.imgDom.onload = async () => {
                 console.log("Image fully loaded, building caches…");
-                await buildPixelCaches();
-                // processImage(); // optional auto-process
+                await buildPixelCaches(thisCacheBuildEpoch);
+                processImage();
             };
     
             Globals.imgDom.src = reader.result;
@@ -216,85 +218,124 @@ function hideProgressOverlay() {
 
 // #region Core Functions
 
-export async function buildPixelCaches() {
-    if (!Globals.uploadedImage.naturalWidth || !Globals.uploadedImage.naturalHeight) {
-        console.warn("buildPixelCaches() called before image loaded.");
-        return;
+export async function buildPixelCaches(thisCacheBuildEpoch) {
+    // if another image was loaded after this build started, this build is stale so just cancel
+    if (thisCacheBuildEpoch !== Globals.imageEpoch) return;
+
+    Globals.cacheBuildEpoch = thisCacheBuildEpoch;
+    
+    // if build already in progress, don't start another
+    if (Globals.cacheBuildPromise) {
+        return Globals.cacheBuildPromise;
     }
 
-    const width = Globals.uploadedImage.naturalWidth;
-    const height = Globals.uploadedImage.naturalHeight;
-    const totalPixels = width * height;
-
-    Globals.pixelRGB   = [];
-    Globals.pixelHSL   = [];
-    Globals.pixelHSV   = [];
-    Globals.pixelCAM16 = [];
-
-    // Draw image onto hidden canvas
-    const hiddenCanvas = document.createElement("canvas");
-    hiddenCanvas.width = width;
-    hiddenCanvas.height = height;
-    const ctx = hiddenCanvas.getContext("2d");
-    ctx.drawImage(Globals.uploadedImage, 0, 0);
-
-    const imgData = ctx.getImageData(0, 0, width, height).data;
-
-    // Progress setup
-    showProgressOverlay("Loading image... 0%");
-    let processed = 0;
-    const UPDATE_INTERVAL = 2000; // pixels between UI updates
-
-    let i = 0;
-    for (let y = 0; y < height; y++) {
-
-        Globals.pixelRGB[y]   = [];
-        Globals.pixelHSL[y]   = [];
-        Globals.pixelHSV[y]   = [];
-        Globals.pixelCAM16[y] = [];
-
-        for (let x = 0; x < width; x++) {
-
-            const r = imgData[i++];
-            const g = imgData[i++];
-            const b = imgData[i++];
-            i++; // skip alpha
-
-            Globals.pixelRGB[y][x]   = [r, g, b];
-            Globals.pixelHSL[y][x]   = Utils.rgbToHSL(r, g, b);
-            Globals.pixelHSV[y][x]   = Utils.rgbToHSV(r, g, b);
-            Globals.pixelCAM16[y][x] = Utils.rgbToCAM16UCS(r, g, b);
-
-            // Progress update
-            processed++;
-            if (processed % UPDATE_INTERVAL === 0) {
-                const pct = Math.round((processed / totalPixels) * 100);
-                updateProgressOverlay(pct, "Loading image...");
-                // yield to UI thread
-                await new Promise(r => setTimeout(r));
+    Globals.cacheBuildPromise = (async () => {
+        if (!Globals.uploadedImage.naturalWidth || !Globals.uploadedImage.naturalHeight) {
+            console.warn("buildPixelCaches() called before image loaded.");
+            return;
+        }
+    
+        const width = Globals.uploadedImage.naturalWidth;
+        const height = Globals.uploadedImage.naturalHeight;
+        const totalPixels = width * height;
+    
+        Globals.pixelRGB   = [];
+        Globals.pixelHSL   = [];
+        Globals.pixelHSV   = [];
+        Globals.pixelCAM16 = [];
+    
+        // Draw image onto hidden canvas
+        const hiddenCanvas = document.createElement("canvas");
+        hiddenCanvas.width = width;
+        hiddenCanvas.height = height;
+        const ctx = hiddenCanvas.getContext("2d");
+        ctx.drawImage(Globals.uploadedImage, 0, 0);
+    
+        const imgData = ctx.getImageData(0, 0, width, height).data;
+    
+        // Progress setup
+        showProgressOverlay("Loading image... 0%");
+        let processed = 0;
+        const UPDATE_INTERVAL = 2000; // pixels between UI updates
+    
+        let i = 0;
+        for (let y = 0; y < height; y++) {
+    
+            Globals.pixelRGB[y]   = [];
+            Globals.pixelHSL[y]   = [];
+            Globals.pixelHSV[y]   = [];
+            Globals.pixelCAM16[y] = [];
+    
+            for (let x = 0; x < width; x++) {
+    
+                const r = imgData[i++];
+                const g = imgData[i++];
+                const b = imgData[i++];
+                i++; // skip alpha
+    
+                Globals.pixelRGB[y][x]   = [r, g, b];
+                Globals.pixelHSL[y][x]   = Utils.rgbToHSL(r, g, b);
+                Globals.pixelHSV[y][x]   = Utils.rgbToHSV(r, g, b);
+                Globals.pixelCAM16[y][x] = Utils.rgbToCAM16UCS(r, g, b);
+    
+                // Progress update
+                processed++;
+                if (processed % UPDATE_INTERVAL === 0) {
+                    const pct = Math.round((processed / totalPixels) * 100);
+                    updateProgressOverlay(pct, "Loading image...");
+                    // yield to UI thread
+                    await new Promise(r => setTimeout(r));
+                }
             }
         }
-    }
+    
+        updateProgressOverlay(100, "Image loaded");
+        hideProgressOverlay();
+    
+        console.log("Globals.pixelRGB / Globals.pixelHSL / Globals.pixelHSV / Globals.pixelCAM16 built.");
+        console.log("HSL sanity check:");
+        console.log(Globals.colorDB[0].HSL);
+        console.log(Utils.rgbToHSL(...Globals.colorDB[0].RGB));
+        console.log(Utils.distHSL(Globals.colorDB[0].HSL, Utils.rgbToHSL(...Globals.colorDB[0].RGB)));
+        console.log("HSV sanity check:");
+        console.log(Globals.colorDB[0].HSV);
+        console.log(Utils.rgbToHSV(...Globals.colorDB[0].RGB));
+        console.log(Utils.distHSV(Globals.colorDB[0].HSV, Utils.rgbToHSV(...Globals.colorDB[0].RGB)));
+        console.log("CAM16 sanity check:");
+        console.log(Globals.colorDB[0].CAM16);
+        console.log(Utils.rgbToCAM16UCS(...Globals.colorDB[0].RGB));
+        console.log(Utils.distCAM16(Globals.colorDB[0].CAM16, Utils.rgbToCAM16UCS(...Globals.colorDB[0].RGB)));
 
-    updateProgressOverlay(100, "Image loaded");
-    hideProgressOverlay();
+        if (thisCacheBuildEpoch !== Globals.imageEpoch) {
+            Globals.pixelRGB   = [];
+            Globals.pixelHSL   = [];
+            Globals.pixelHSV   = [];
+            Globals.pixelCAM16 = [];
+            Globals.cacheBuildEpoch = null; // just so we're absolutely sure there can't be an epoch match later
+            console.log("Cleared stale cache build");
+        }
+        
+        // clear promise lock when done building cache
+        const result = true;
+        Globals.cacheBuildPromise = null;
+        return result;
+    })();
 
-    console.log("Globals.pixelRGB / Globals.pixelHSL / Globals.pixelHSV / Globals.pixelCAM16 built.");
-    console.log("HSL sanity check:");
-    console.log(Globals.colorDB[0].HSL);
-    console.log(Utils.rgbToHSL(...Globals.colorDB[0].RGB));
-    console.log(Utils.distHSL(Globals.colorDB[0].HSL, Utils.rgbToHSL(...Globals.colorDB[0].RGB)));
-    console.log("HSV sanity check:");
-    console.log(Globals.colorDB[0].HSV);
-    console.log(Utils.rgbToHSV(...Globals.colorDB[0].RGB));
-    console.log(Utils.distHSV(Globals.colorDB[0].HSV, Utils.rgbToHSV(...Globals.colorDB[0].RGB)));
-    console.log("CAM16 sanity check:");
-    console.log(Globals.colorDB[0].CAM16);
-    console.log(Utils.rgbToCAM16UCS(...Globals.colorDB[0].RGB));
-    console.log(Utils.distCAM16(Globals.colorDB[0].CAM16, Utils.rgbToCAM16UCS(...Globals.colorDB[0].RGB)));
+    return Globals.cacheBuildPromise;
 }
 
-export function processImage() {
+export async function processImage() {
+    // wait for cache rebuild if in process
+    if (Globals.cacheBuildPromise) {
+        console.log("Pixel cache build in progress - waiting...");
+        await Globals.cacheBuildPromise;
+    }
+
+    if (Globals.imageEpoch !=== Globals.cacheBuildEpoch) {
+        console.warn("Stale pixel cache - processing aborted.");
+        return;
+    }
+    
     Globals.itemCountersDOM.innerHTML = '';
 
     // Basic image sanity checks
@@ -323,14 +364,6 @@ export function processImage() {
     }
 
     console.log("Processing currently uploaded image");
-
-    // Ensure caches exist / match current image size
-    if (!Globals.pixelRGB.length ||
-        Globals.pixelRGB.length !== height ||
-        Globals.pixelRGB[0].length !== width) {
-        console.warn("Pixel caches missing or mismatched – rebuilding.");
-        await buildPixelCaches();
-    }
 
     // Item counters
     let counters = {};
