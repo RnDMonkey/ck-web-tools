@@ -184,6 +184,19 @@ export async function Initialize() {
     
         reader.readAsDataURL(this.files[0]);
     });
+
+    document.getElementById("btn-clear-suppressed").addEventListener("click", () => {
+        Globals.tempSuppressed.clear();
+        updateSuppressionUI();
+    
+        // Remove visual cue
+        document.querySelectorAll(".item-counter.suppressed")
+            .forEach(el => el.classList.remove("suppressed"));
+    
+        if (Globals.imgDom.src && Globals.imgDom.naturalWidth > 0) {
+            processImage();
+        }
+    });
 }
 
 function registerPaletteCheckboxHandlers() {
@@ -202,28 +215,36 @@ function registerCounterClickHandlers() {
         const container = e.target.closest(".item-counter");
         if (!container) return;
 
-        const guid = container.dataset.guid;
-        if (!guid) return;
+        const guid = Number(container.dataset.guid);
 
-        const checkbox = document.querySelector(
-            `input[type=checkbox][name=item-selection][guid="${guid}"]`
-        );
-
-        if (!checkbox) {
-            console.log("Checkbox not found for GUID:", guid);
-            return;
+        // Toggle suppression
+        if (Globals.tempSuppressed.has(guid)) {
+            Globals.tempSuppressed.delete(guid);
+            container.classList.remove("suppressed");
+        } else {
+            Globals.tempSuppressed.add(guid);
+            container.classList.add("suppressed");
         }
 
-        // Toggle checked state
-        checkbox.checked = !checkbox.checked;
+        updateSuppressionUI();
 
-        // Re-process with updated palette rules
         if (Globals.imgDom.src && Globals.imgDom.naturalWidth > 0) {
             processImage();
         }
     });
 }
 
+function updateSuppressionUI() {
+    const count = Globals.tempSuppressed.size;
+
+    const countSpan = document.getElementById("suppression-count");
+    const clearBtn  = document.getElementById("btn-clear-suppressed");
+
+    countSpan.textContent = count;
+
+    // Disable button if nothing to clear
+    clearBtn.disabled = (count === 0);
+}
 
 // automatically registered
 document.addEventListener("DOMContentLoaded", function(){
@@ -497,6 +518,14 @@ export async function processImage() {
             colorIdsToExclude.push(guid);
         }
     });
+    
+    // Add temporarily suppressed items to exclusion list
+    Globals.tempSuppressed.forEach(guid => {
+        if (!colorIdsToExclude.includes(guid)) {
+            colorIdsToExclude.push(guid);
+        }
+    });
+
     if (colorIdsToExclude.length > 0) {
         console.log(`User-excluded GUIDs: ${colorIdsToExclude.join(", ")}`);
     }
@@ -595,6 +624,8 @@ export async function processImage() {
     // Attach everything to the DOM at once
     Globals.itemCountersDOM.appendChild(frag); 
 
+    updateSuppressionUI();
+    
     // draw grid over Mapped Image
     const offset = 0.5;
     if (Globals.showGridLinesDOM.checked) {
