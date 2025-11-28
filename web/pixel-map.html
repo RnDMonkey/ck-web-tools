@@ -2,10 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="Core Keeper Pixel Tools" />
         <meta name="author" content="randypanopio" />
 
@@ -31,10 +28,7 @@
         />
 
         <!-- Additional Fonts, Icons, & Ligatures -->
-        <link
-            href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
-            rel="stylesheet"
-        />
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
     </head>
 
     <body id="page-top">
@@ -42,28 +36,19 @@
             <div id="left-pane">
                 <!-- LEFT PANE CONTENT -->
                 <div id="item-selections-container">
-                    <button type="submit" id="btn-toggle-colors">
-                        Toggle Item Selection
-                    </button>
+                    <button type="submit" id="btn-toggle-colors">Toggle Item Selection</button>
                     Item Selections:
                     <div id="item-selections" class="d-flex flex-wrap"></div>
                     <br />
-                    <button type="submit" id="btn-toggle-counters">
-                        Toggle Item Counters
-                    </button>
+                    <button type="submit" id="btn-toggle-counters">Toggle Item Counters</button>
                     Counter of items for this build:
 
                     <div id="suppression-controls">
-                        <span
-                            >Suppressed:
-                            <span id="suppression-count">0</span></span
-                        >
+                        <span>Suppressed: <span id="suppression-count">0</span></span>
                         <button id="btn-clear-suppressed">Clear</button>
                     </div>
 
-                    <div id="item-counters" class="d-flex flex-wrap">
-                        No Image Loaded yet!
-                    </div>
+                    <div id="item-counters" class="d-flex flex-wrap">No Image Loaded yet!</div>
                 </div>
             </div>
             <!-- end left pane -->
@@ -74,26 +59,14 @@
                 <!-- RIGHT PANE CONTENT (everything else) -->
                 <div class="d-flex justify-content-center align-items-center">
                     Core Keeper Pixel Tone Map Tool / Pixel Preview Planner
-                    <a href="about.html"
-                        ><i
-                            style="margin-left: 12px; font-size: 28px"
-                            class="ri-question-fill"
-                        ></i
-                    ></a>
+                    <a href="about.html"><i style="margin-left: 12px; font-size: 28px" class="ri-question-fill"></i></a>
                 </div>
 
-                <div
-                    class="d-flex justify-content-center align-items-center inputs"
-                    id="inputs"
-                >
+                <div class="d-flex justify-content-center align-items-center inputs" id="inputs">
                     <label for="allow-larger-images">Allow 2000px Images</label
                     ><input type="checkbox" id="allow-larger-images" checked />
                     |
-                    <input
-                        type="file"
-                        id="image-upload"
-                        accept="image/png, image/jpeg"
-                    />
+                    <input type="file" id="image-upload" accept="image/png, image/jpeg" />
                     |
                     <span>
                         Color Matching Method:
@@ -119,36 +92,18 @@
                     /></span>
                     |
                     <span
-                        >Grid Size:
-                        <input
-                            type="number"
-                            class="dark-text"
-                            value="25"
-                            id="grid-size"
-                            min="4"
-                            max="25"
+                        >Grid Size: <input type="number" class="dark-text" value="25" id="grid-size" min="4" max="25"
                     /></span>
                     |
                     <span
                         >Grid Line Thickness:
-                        <input
-                            type="number"
-                            class="dark-text"
-                            value="10"
-                            id="grid-thickness"
-                            min="1"
+                        <input type="number" class="dark-text" value="10" id="grid-thickness" min="1"
                     /></span>
                     |
                     <label for="show-grid-lines">Show Grid Lines</label
                     ><input type="checkbox" id="show-grid-lines" checked />
                     |
-                    <button
-                        style="background-color: #6ac4ff"
-                        type="submit"
-                        id="btn-process"
-                    >
-                        Process
-                    </button>
+                    <button style="background-color: #6ac4ff" type="submit" id="btn-process">Process</button>
                 </div>
 
                 <!-- <div class="d-flex justify-content-center">
@@ -156,21 +111,12 @@
     </div> -->
 
                 <div id="item-selections-container">
-                    <button type="submit" id="btn-toggle-images">
-                        Toggle Images
-                    </button>
+                    <button type="submit" id="btn-toggle-images">Toggle Images</button>
                     Input Images:
                 </div>
-                <div
-                    id="image-inputs"
-                    class="d-flex justify-content-center image-inputs-container"
-                >
+                <div id="image-inputs" class="d-flex justify-content-center image-inputs-container">
                     Original Image:
-                    <img
-                        class="viewer-image"
-                        id="upload-preview"
-                        src="images/misc/empty.png"
-                    />
+                    <img class="viewer-image" id="upload-preview" src="images/misc/empty.png" />
 
                     Mapped Image:
                     <div id="mapped-image-container">
@@ -200,34 +146,11 @@
                     <div id="progress-text">Loading image...</div>
                 </div>
 
-                <div
-                    class="d-flex justify-content-center align-items-center inputs"
-                >
-                    <span
-                        >Tile Preview: Navigation (starts from the top
-                        left)</span
-                    >
-                    <span
-                        >X:
-                        <input
-                            type="number"
-                            class="dark-text"
-                            value="1"
-                            id="chunk-input-x"
-                            min="1"
-                    /></span>
-                    <span
-                        >Y:
-                        <input
-                            type="number"
-                            class="dark-text"
-                            value="1"
-                            id="chunk-input-y"
-                            min="1"
-                    /></span>
-                    <button type="submit" id="btn-render-preview">
-                        Draw Grid Preview
-                    </button>
+                <div class="d-flex justify-content-center align-items-center inputs">
+                    <span>Tile Preview: Navigation (starts from the top left)</span>
+                    <span>X: <input type="number" class="dark-text" value="1" id="chunk-input-x" min="1" /></span>
+                    <span>Y: <input type="number" class="dark-text" value="1" id="chunk-input-y" min="1" /></span>
+                    <button type="submit" id="btn-render-preview">Draw Grid Preview</button>
                 </div>
 
                 <div class="d-flex justify-content-center">
@@ -5317,15 +5240,9 @@
         <footer>
             <div class="container text-center">
                 <div class="site-footer-links">
-                    <a href="https://github.com/randypanopio/ck-web-tools"
-                        ><i class="ri-open-source-fill"></i
-                    ></a>
-                    <a href="https://github.com/randypanopio/ck-web-tools"
-                        ><i class="ri-at-fill"></i
-                    ></a>
-                    <a href="https://github.com/randypanopio/ck-web-tools"
-                        ><i class="ri-github-fill"></i
-                    ></a>
+                    <a href="https://github.com/randypanopio/ck-web-tools"><i class="ri-open-source-fill"></i></a>
+                    <a href="https://github.com/randypanopio/ck-web-tools"><i class="ri-at-fill"></i></a>
+                    <a href="https://github.com/randypanopio/ck-web-tools"><i class="ri-github-fill"></i></a>
                 </div>
             </div>
         </footer>

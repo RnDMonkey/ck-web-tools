@@ -126,11 +126,7 @@ export function distHSV(a, b) {
 
 export function distCAM16(a, b) {
     // CAM16-UCS is already perceptually uniform — straight Euclidean
-    return (
-        Globals.CAM16_J_WEIGHT * (a[0] - b[0]) ** 2 +
-        (a[1] - b[1]) ** 2 +
-        (a[2] - b[2]) ** 2
-    )
+    return Globals.CAM16_J_WEIGHT * (a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2 + (a[2] - b[2]) ** 2
 }
 
 // linear euclidean distance comparison. Takes in three values
@@ -149,11 +145,7 @@ export function getDBClosestValue(db, inputColor, colorSpace = "RGB") {
     for (let i = 0; i < db.length; i++) {
         let dbColor = db[i][colorSpace]
 
-        if (
-            dbColor[0] === inputColor[0] &&
-            dbColor[1] === inputColor[1] &&
-            dbColor[2] === inputColor[2]
-        ) {
+        if (dbColor[0] === inputColor[0] && dbColor[1] === inputColor[1] && dbColor[2] === inputColor[2]) {
             return db[i] //exact match shortcut
         }
 

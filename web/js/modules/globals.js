@@ -33,20 +33,20 @@ export const Globals = {
     chunkInputX: null,
     chunkInputY: null,
     showGridLinesDOM: null,
-    gridThicknessInput: null,
-    imageUpload: null,
+    gridThicknessInputDOM: null,
+    imageUploadDOM: null,
     imgDom: null,
-    previewTable: null,
-    uploadedImage: null,
+    previewTableDOM: null,
+    uploadedImageDOM: null,
     gridSizeDOM: null,
     imageInputsDOM: null,
     itemSelectionsDOM: null,
     itemCountersDOM: null,
-    processModeSelect: null,
-    cam16WeightContainer: null,
-    cam16WeightInput: null,
-    btnToggleColors: null,
-    btnToggleCounters: null,
+    processModeSelectDOM: null,
+    cam16WeightContainerDOM: null,
+    cam16WeightInputDOM: null,
+    btnToggleColorsDOM: null,
+    btnToggleCountersDOM: null,
     btnToggleImages: null,
     btnProcess: null,
     btnRenderPreview: null,
@@ -61,28 +61,24 @@ export function initGlobals() {
     Globals.chunkInputX = document.getElementById("chunk-input-x")
     Globals.chunkInputY = document.getElementById("chunk-input-y")
     Globals.showGridLinesDOM = document.getElementById("show-grid-lines")
-    Globals.gridThicknessInput = document.getElementById("grid-thickness")
-    Globals.imageUpload = document.getElementById("image-upload")
+    Globals.gridThicknessInputDOM = document.getElementById("grid-thickness")
+    Globals.imageUploadDOM = document.getElementById("image-upload")
     Globals.imgDom = document.getElementById("upload-preview")
-    Globals.previewTable = document.getElementById("preview-table")
-    Globals.uploadedImage = document.getElementById("upload-preview")
+    Globals.previewTableDOM = document.getElementById("preview-table")
+    Globals.uploadedImageDOM = document.getElementById("upload-preview")
     Globals.gridSizeDOM = document.getElementById("grid-size")
     Globals.imageInputsDOM = document.getElementById("image-inputs")
     Globals.itemSelectionsDOM = document.getElementById("item-selections")
     Globals.itemCountersDOM = document.getElementById("item-counters")
-    Globals.processModeSelect = document.getElementById("process-options")
-    Globals.cam16WeightContainer = document.getElementById(
-        "cam16-weight-container"
-    )
-    Globals.cam16WeightInput = document.getElementById("cam16-weight")
-    Globals.btnToggleColors = document.getElementById("btn-toggle-colors")
-    Globals.btnToggleCounters = document.getElementById("btn-toggle-counters")
+    Globals.processModeSelectDOM = document.getElementById("process-options")
+    Globals.cam16WeightContainerDOM = document.getElementById("cam16-weight-container")
+    Globals.cam16WeightInputDOM = document.getElementById("cam16-weight")
+    Globals.btnToggleColorsDOM = document.getElementById("btn-toggle-colors")
+    Globals.btnToggleCountersDOM = document.getElementById("btn-toggle-counters")
     Globals.btnToggleImages = document.getElementById("btn-toggle-images")
     Globals.btnProcess = document.getElementById("btn-process")
     Globals.btnRenderPreview = document.getElementById("btn-render-preview")
-    Globals.allowLargerImagesDOM = document.getElementById(
-        "allow-larger-images"
-    )
+    Globals.allowLargerImagesDOM = document.getElementById("allow-larger-images")
     Globals.outputCanvasDOM = document.getElementById("output-canvas")
     Globals.overlayCanvasDOM = document.getElementById("overlay-canvas")
     Globals.overlayCtx = Globals.overlayCanvasDOM.getContext("2d")

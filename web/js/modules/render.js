@@ -5,15 +5,7 @@ import { trimBrackets } from "./utils.js"
 
 //TODO remove onclick and instead add event listeners
 
-export function drawWrappedText(
-    ctx,
-    text,
-    x,
-    y,
-    maxWidth,
-    lineHeight,
-    maxLines = 3
-) {
+export function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight, maxLines = 3) {
     const words = text.split(/\s+/)
     let lines = []
     let line = ""
@@ -87,15 +79,7 @@ export function createItemPreview(entry, size = Globals.ICON_DIMS) {
         ctx.textBaseline = "middle"
         ctx.fillStyle = "white"
 
-        drawWrappedText(
-            ctx,
-            entry.Name,
-            size / 2,
-            size / 2,
-            size - 4,
-            fontSize + 2,
-            3
-        )
+        drawWrappedText(ctx, entry.Name, size / 2, size / 2, size - 4, fontSize + 2, 3)
 
         // Convert fallback canvas ? PNG
         const dataURL = canvas.toDataURL()
@@ -124,23 +108,11 @@ export function renderPreview() {
         }
     }
 
-    for (
-        let y = 0, gy = chunkY * previewCellsDims;
-        y < previewCellsDims;
-        y++, gy++
-    ) {
-        for (
-            let x = 0, gx = chunkX * previewCellsDims;
-            x < previewCellsDims;
-            x++, gx++
-        ) {
-            if (
-                gy <= Globals.cachedData.length - 1 &&
-                gx <= Globals.cachedData[y].length - 1
-            ) {
+    for (let y = 0, gy = chunkY * previewCellsDims; y < previewCellsDims; y++, gy++) {
+        for (let x = 0, gx = chunkX * previewCellsDims; x < previewCellsDims; x++, gx++) {
+            if (gy <= Globals.cachedData.length - 1 && gx <= Globals.cachedData[y].length - 1) {
                 let selection = Globals.cachedData[gy][gx]
-                Globals.previewCells[y][x].style.backgroundColor =
-                    "rgba(" + trimBrackets(selection["RGB"]) + ", 255)"
+                Globals.previewCells[y][x].style.backgroundColor = "rgba(" + trimBrackets(selection["RGB"]) + ", 255)"
 
                 // previewCells[y][x].src = selection['imageSource']
                 // Use fallback-aware preview generator for each preview cell
@@ -158,9 +130,7 @@ export function renderPreview() {
 }
 
 export function generateItemSelection(db) {
-    const savedStates = JSON.parse(
-        localStorage.getItem("cktool-checkbox-states") || "{}"
-    )
+    const savedStates = JSON.parse(localStorage.getItem("cktool-checkbox-states") || "{}")
 
     db.forEach((element) => {
         // Instead of a <div>, use a <label> for full block clickability
@@ -176,10 +146,7 @@ export function generateItemSelection(db) {
 
         checkBox.addEventListener("change", () => {
             savedStates[element.GUID] = checkBox.checked
-            localStorage.setItem(
-                "cktool-checkbox-states",
-                JSON.stringify(savedStates)
-            )
+            localStorage.setItem("cktool-checkbox-states", JSON.stringify(savedStates))
         })
 
         let preview = createItemPreview(element, Globals.ICON_DIMS)
@@ -210,10 +177,7 @@ export function toggleImages() {
 
 export function toggleColorSelection() {
     if (Globals.showSelections) {
-        Globals.itemSelectionsDOM.setAttribute(
-            "style",
-            "display:none !important"
-        )
+        Globals.itemSelectionsDOM.setAttribute("style", "display:none !important")
     } else {
         Globals.itemSelectionsDOM.setAttribute("style", "")
     }
