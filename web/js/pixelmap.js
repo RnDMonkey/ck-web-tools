@@ -1,14 +1,8 @@
-// Written by Randy Panopio 
-// import * as Globals from "./modules/globals.js";
+// Originally written by Randy Panopio, resurrected by Ryan Rutledge
 import { Globals, initGlobals } from "./modules/globals.js";
-// import * as Main from "./main.js";
-import { getColorDB } from './modules/colordb.js';
-import * as Utils from './modules/utils.js';
-import * as Render from './modules/render.js';
-
-// NOTE
-// so I could convert the db to override it to have keys based on current selected colorspace. EG key would be rgba
-// this means when doing  color tone mapping, we have an rgb/color value and use that key to lookup which image to render on preview cells
+import { getColorDB } from "./modules/colordb.js";
+import * as Utils from "./modules/utils.js";
+import * as Render from "./modules/render.js";
 
 // #region Globals (most/all moved to globals.js)
 
@@ -53,12 +47,12 @@ function updateMaxDims(isLargerAllowed) {
 // #region Initialization and Hooked Event Listeners
 export async function Initialize() {
     initGlobals();
-    
+
     // Build dynamic table BEFORE collecting Globals.previewCells
     // buildPreviewTable(25);
 
     Globals.colorDB = await getColorDB("data/colordb.json");
-    Render.generateItemSelection(Globals.colorDB)
+    Render.generateItemSelection(Globals.colorDB);
     registerPaletteCheckboxHandlers();
     registerCounterClickHandlers();
     registerGridNavigationHandlers();
@@ -69,14 +63,14 @@ export async function Initialize() {
         Globals.cam16WeightInput.value = savedWeight;
         Globals.CAM16_J_WEIGHT = parseFloat(Globals.cam16WeightInput.value);
     }
-    
-    Globals.cam16WeightInput.addEventListener("input", () => {  
+
+    Globals.cam16WeightInput.addEventListener("input", () => {
         Globals.CAM16_J_WEIGHT = parseFloat(Globals.cam16WeightInput.value);
         if (Globals.imgDom.src && Globals.imgDom.naturalWidth) {
             processImage();
         }
     });
-    
+
     Globals.cam16WeightInput.addEventListener("change", () => {
         localStorage.setItem("cktool-cam16-weight", Globals.cam16WeightInput.value);
         Globals.CAM16_J_WEIGHT = parseFloat(Globals.cam16WeightInput.value);
@@ -84,27 +78,27 @@ export async function Initialize() {
             processImage();
         }
     });
-    
+
     // Restore saved mode + update cam16-weight input visibility
     const savedMode = localStorage.getItem("cktool-process-mode");
     if (savedMode) {
         Globals.processModeSelect.value = savedMode;
-        
+
         // toggle cam16-weight input visibility
         Globals.cam16WeightContainer.style.display =
-            (Globals.processModeSelect.value === "CAM16") ? "inline-block" : "none";
+            Globals.processModeSelect.value === "CAM16" ? "inline-block" : "none";
     }
-    
+
     // Save mode + auto-reprocess when changed
     Globals.processModeSelect.addEventListener("change", () => {
         localStorage.setItem("cktool-process-mode", Globals.processModeSelect.value);
 
         // toggle cam16-weight input visibility
         Globals.cam16WeightContainer.style.display =
-            (Globals.processModeSelect.value === "CAM16") ? "inline-block" : "none";
-    
+            Globals.processModeSelect.value === "CAM16" ? "inline-block" : "none";
+
         if (Globals.imgDom.src && Globals.imgDom.naturalWidth > 0) {
-            processImage();   // auto-process like palette checkbox changes
+            processImage(); // auto-process like palette checkbox changes
         }
     });
 
@@ -113,13 +107,13 @@ export async function Initialize() {
     if (savedGridSize) {
         Globals.gridSizeDOM.value = savedGridSize;
     }
-    
+
     // Save grid size + auto-reprocess when changed
     Globals.gridSizeDOM.addEventListener("change", () => {
         localStorage.setItem("cktool-grid-size", Globals.gridSizeDOM.value);
-        
+
         if (Globals.imgDom.src && Globals.imgDom.naturalWidth > 0) {
-            processImage();   // auto-process like palette checkbox changes
+            processImage(); // auto-process like palette checkbox changes
         }
     });
 
@@ -128,29 +122,29 @@ export async function Initialize() {
     const allowLarger = savedAllowLargerImages === "true";
     Globals.allowLargerImagesDOM.checked = allowLarger;
     updateMaxDims(allowLarger);
-    
+
     // Save allow-larger-images toggle + update maxDims
     Globals.allowLargerImagesDOM.addEventListener("change", () => {
         const allowLargerChecked = Globals.allowLargerImagesDOM.checked;
         localStorage.setItem("cktool-allow-larger-images", String(allowLargerChecked));
         updateMaxDims(allowLargerChecked);
     });
-    
+
     let previewCellsDims = Math.min(parseInt(Globals.gridSizeDOM.value), 25);
 
     // populate Globals.previewCells
     for (let y = 0; y < previewCellsDims; y++) {
         for (let x = 0; x < previewCellsDims; x++) {
-            let id = "cell-"+ x + "-" + y 
-            let cell = document.getElementById(id)
-            Globals.previewCells.push(cell)
+            let id = "cell-" + x + "-" + y;
+            let cell = document.getElementById(id);
+            Globals.previewCells.push(cell);
         }
     }
     // TODO optimize, eliminate this matrix conversion
     // convert to 2d array
-    Globals.previewCells = Utils.convertToMatrix(Globals.previewCells, previewCellsDims)
-    console.log("preview grid cells")
-    console.log(Globals.previewCells)
+    Globals.previewCells = Utils.convertToMatrix(Globals.previewCells, previewCellsDims);
+    console.log("preview grid cells");
+    console.log(Globals.previewCells);
 
     // #region Button listeners
     Globals.btnToggleColors.addEventListener("click", Render.toggleColorSelection);
@@ -161,38 +155,37 @@ export async function Initialize() {
     // #endregion
 
     Globals.imageUpload.addEventListener("change", function () {
-        console.log("Image input change event triggered, opening fs")
+        console.log("Image input change event triggered, opening fs");
         showProgressOverlay("Uploading file...");
-        
+
         const reader = new FileReader();
-    
+
         reader.onload = () => {
             Render.resetPreviews();
             Globals.imageEpoch++;
             const thisCacheBuildEpoch = Globals.imageEpoch;
-    
+
             Globals.imgDom.onload = async () => {
                 console.log("Image fully loaded, building caches…");
                 await buildPixelCaches(thisCacheBuildEpoch);
                 await processImage();
                 hideProgressOverlay();
             };
-    
+
             Globals.imgDom.src = reader.result;
-            console.log("Uploaded W: " + Globals.imgDom.naturalWidth + ", H: " + Globals.imgDom.naturalHeight)
+            console.log("Uploaded W: " + Globals.imgDom.naturalWidth + ", H: " + Globals.imgDom.naturalHeight);
         };
-    
+
         reader.readAsDataURL(this.files[0]);
     });
 
     document.getElementById("btn-clear-suppressed").addEventListener("click", () => {
         Globals.tempSuppressed.clear();
         updateSuppressionUI();
-    
+
         // Remove visual cue
-        document.querySelectorAll(".item-counter.suppressed")
-            .forEach(el => el.classList.remove("suppressed"));
-    
+        document.querySelectorAll(".item-counter.suppressed").forEach((el) => el.classList.remove("suppressed"));
+
         if (Globals.imgDom.src && Globals.imgDom.naturalWidth > 0) {
             processImage();
         }
@@ -200,14 +193,13 @@ export async function Initialize() {
 }
 
 function registerPaletteCheckboxHandlers() {
-    document.querySelectorAll('input[type=checkbox][name=item-selection]')
-        .forEach(cb => {
-            cb.addEventListener("change", () => {
-                if (Globals.imgDom.src && Globals.imgDom.naturalWidth > 0) {
-                    processImage();
-                }
-            });
+    document.querySelectorAll("input[type=checkbox][name=item-selection]").forEach((cb) => {
+        cb.addEventListener("change", () => {
+            if (Globals.imgDom.src && Globals.imgDom.naturalWidth > 0) {
+                processImage();
+            }
         });
+    });
 }
 
 function registerCounterClickHandlers() {
@@ -238,41 +230,40 @@ function updateSuppressionUI() {
     const count = Globals.tempSuppressed.size;
 
     const countSpan = document.getElementById("suppression-count");
-    const clearBtn  = document.getElementById("btn-clear-suppressed");
+    const clearBtn = document.getElementById("btn-clear-suppressed");
 
     countSpan.textContent = count;
 
     // Disable button if nothing to clear
-    clearBtn.disabled = (count === 0);
+    clearBtn.disabled = count === 0;
 }
 
 // automatically registered
-document.addEventListener("DOMContentLoaded", function(){
-     Initialize();
-})
+document.addEventListener("DOMContentLoaded", function () {
+    Initialize();
+});
 
 // #region progress overlay functions
 function showProgressOverlay(msg = "Processing...") {
-    document.getElementById('progress-overlay').style.display = "flex";
+    document.getElementById("progress-overlay").style.display = "flex";
     document.getElementById("progress-text").textContent = `${msg}`;
 }
 
 function updateProgressOverlay(pct, msg = "Processing...") {
-    document.getElementById('progress-text').textContent = `${msg} ${pct}%`;
+    document.getElementById("progress-text").textContent = `${msg} ${pct}%`;
 }
 
 function hideProgressOverlay() {
-    document.getElementById('progress-overlay').style.display = "none";
+    document.getElementById("progress-overlay").style.display = "none";
 }
 // #endregion
 
-
 // #region grid navigation functions
 function registerGridNavigationHandlers() {
-    const canvas   = Globals.outputCanvasDOM;
-    const overlay  = Globals.overlayCanvasDOM;
-    const octx     = Globals.overlayCtx;
-    const tooltip  = Globals.hoverTooltip;
+    const canvas = Globals.outputCanvasDOM;
+    const overlay = Globals.overlayCanvasDOM;
+    const octx = Globals.overlayCtx;
+    const tooltip = Globals.hoverTooltip;
 
     let hoverX = -1;
     let hoverY = -1;
@@ -281,20 +272,20 @@ function registerGridNavigationHandlers() {
         if (!Globals.imgDom.naturalWidth) return;
 
         const rect = canvas.getBoundingClientRect();
-        
+
         // mouse in CSS-coordinates
         const mx_css = e.clientX - rect.left;
         const my_css = e.clientY - rect.top;
-        
+
         // scale factor from CSS → canvas pixels
-        const scaleX = canvas.width  / rect.width;
+        const scaleX = canvas.width / rect.width;
         const scaleY = canvas.height / rect.height;
-        
+
         // corrected mouse coords in *canvas pixel space*
         const mx = mx_css * scaleX;
         const my = my_css * scaleY;
 
-        const width  = Globals.imgDom.naturalWidth;
+        const width = Globals.imgDom.naturalWidth;
         const pixelSize = 1 + Math.trunc(2000 / width);
         const previewCellsDims = Math.min(parseInt(Globals.gridSizeDOM.value), 25);
         const tilePx = previewCellsDims * pixelSize;
@@ -310,13 +301,13 @@ function registerGridNavigationHandlers() {
 
         // follow mouse
         tooltip.style.left = `${mx_css + 10}px`;
-        tooltip.style.top  = `${my_css - 10}px`;
+        tooltip.style.top = `${my_css - 10}px`;
     });
 
     canvas.addEventListener("mouseleave", () => {
         octx.clearRect(0, 0, overlay.width, overlay.height);
         hoverX = hoverY = -1;
-        tooltip.style.display = "none";  // hide tooltip
+        tooltip.style.display = "none"; // hide tooltip
     });
 
     canvas.addEventListener("click", () => {
@@ -342,7 +333,7 @@ export async function buildPixelCaches(thisCacheBuildEpoch) {
     if (thisCacheBuildEpoch !== Globals.imageEpoch) return;
 
     Globals.cacheBuildEpoch = thisCacheBuildEpoch;
-    
+
     // if build already in progress, don't start another, just assume that any callers will for the build results
     if (Globals.cacheBuildPromise) {
         return Globals.cacheBuildPromise;
@@ -353,64 +344,62 @@ export async function buildPixelCaches(thisCacheBuildEpoch) {
             console.warn("buildPixelCaches() called before image loaded.");
             return;
         }
-    
+
         const width = Globals.uploadedImage.naturalWidth;
         const height = Globals.uploadedImage.naturalHeight;
         const totalPixels = width * height;
-    
-        Globals.pixelRGB   = [];
-        Globals.pixelHSL   = [];
-        Globals.pixelHSV   = [];
+
+        Globals.pixelRGB = [];
+        Globals.pixelHSL = [];
+        Globals.pixelHSV = [];
         Globals.pixelCAM16 = [];
-    
+
         // Draw image onto hidden canvas
         const hiddenCanvas = document.createElement("canvas");
         hiddenCanvas.width = width;
         hiddenCanvas.height = height;
         const ctx = hiddenCanvas.getContext("2d");
         ctx.drawImage(Globals.uploadedImage, 0, 0);
-    
+
         const imgData = ctx.getImageData(0, 0, width, height).data;
-    
+
         // Progress setup
         showProgressOverlay("Loading image... 0%");
         let processed = 0;
         const UPDATE_INTERVAL = 2000; // pixels between UI updates
-    
+
         let i = 0;
         for (let y = 0; y < height; y++) {
-    
-            Globals.pixelRGB[y]   = [];
-            Globals.pixelHSL[y]   = [];
-            Globals.pixelHSV[y]   = [];
+            Globals.pixelRGB[y] = [];
+            Globals.pixelHSL[y] = [];
+            Globals.pixelHSV[y] = [];
             Globals.pixelCAM16[y] = [];
-    
+
             for (let x = 0; x < width; x++) {
-    
                 const r = imgData[i++];
                 const g = imgData[i++];
                 const b = imgData[i++];
                 i++; // skip alpha
-    
-                Globals.pixelRGB[y][x]   = [r, g, b];
-                Globals.pixelHSL[y][x]   = Utils.rgbToHSL(r, g, b);
-                Globals.pixelHSV[y][x]   = Utils.rgbToHSV(r, g, b);
+
+                Globals.pixelRGB[y][x] = [r, g, b];
+                Globals.pixelHSL[y][x] = Utils.rgbToHSL(r, g, b);
+                Globals.pixelHSV[y][x] = Utils.rgbToHSV(r, g, b);
                 Globals.pixelCAM16[y][x] = Utils.rgbToCAM16UCS(r, g, b);
-    
+
                 // Progress update
                 processed++;
                 if (processed % UPDATE_INTERVAL === 0) {
                     const pct = Math.round((processed / totalPixels) * 100);
                     updateProgressOverlay(pct, "Loading image...");
                     // yield to UI thread
-                    await new Promise(r => setTimeout(r));
+                    await new Promise((r) => setTimeout(r));
                 }
             }
         }
-    
+
         updateProgressOverlay(100, "Image loaded");
         hideProgressOverlay();
-    
+
         console.log("Globals.pixelRGB / Globals.pixelHSL / Globals.pixelHSV / Globals.pixelCAM16 built.");
         console.log("HSL sanity check:");
         console.log(Globals.colorDB[0].HSL);
@@ -426,14 +415,14 @@ export async function buildPixelCaches(thisCacheBuildEpoch) {
         console.log(Utils.distCAM16(Globals.colorDB[0].CAM16, Utils.rgbToCAM16UCS(...Globals.colorDB[0].RGB)));
 
         if (thisCacheBuildEpoch !== Globals.imageEpoch) {
-            Globals.pixelRGB   = [];
-            Globals.pixelHSL   = [];
-            Globals.pixelHSV   = [];
+            Globals.pixelRGB = [];
+            Globals.pixelHSL = [];
+            Globals.pixelHSV = [];
             Globals.pixelCAM16 = [];
             Globals.cacheBuildEpoch = null; // just so we're absolutely sure there can't be an epoch match later
             console.log("Cleared stale cache build");
         }
-        
+
         // clear promise lock when done building cache
         const result = true;
         Globals.cacheBuildPromise = null;
@@ -454,8 +443,8 @@ export async function processImage() {
         console.warn("Stale pixel cache - processing aborted.");
         return;
     }
-    
-    Globals.itemCountersDOM.innerHTML = '';
+
+    Globals.itemCountersDOM.innerHTML = "";
 
     // Basic image sanity checks
     if (!Globals.imgDom.naturalWidth || !Globals.imgDom.naturalHeight) {
@@ -464,7 +453,7 @@ export async function processImage() {
         return;
     }
 
-    const width  = Globals.imgDom.naturalWidth;
+    const width = Globals.imgDom.naturalWidth;
     const height = Globals.imgDom.naturalHeight;
     const totalPixels = width * height;
 
@@ -476,7 +465,7 @@ export async function processImage() {
         return;
     }
 
-    if ((width * height) > Globals.LARGE_IMAGE_WARNING_THRESHOLD) {
+    if (width * height > Globals.LARGE_IMAGE_WARNING_THRESHOLD) {
         const proceed = window.confirm(
             `Warning: This image is large (${width}×${height}px) and may take a while to process.\n\nContinue?`
         );
@@ -495,11 +484,11 @@ export async function processImage() {
     const outputCanvas = Globals.outputCanvasDOM;
     const octx = outputCanvas.getContext("2d");
 
-    const pixelSize        = 1 + Math.trunc(2000 / width);
-    const canvasPixelWidth = width  * pixelSize;
+    const pixelSize = 1 + Math.trunc(2000 / width);
+    const canvasPixelWidth = width * pixelSize;
     const canvasPixelHeight = height * pixelSize;
 
-    outputCanvas.width  = canvasPixelWidth;
+    outputCanvas.width = canvasPixelWidth;
     outputCanvas.height = canvasPixelHeight;
 
     // overlay canvas + sizing
@@ -509,18 +498,17 @@ export async function processImage() {
 
     // Color / item selection filtering
     let colorIdsToExclude = [];
-    const itemSelectionCheckboxes =
-        document.querySelectorAll("input[type=checkbox][name=item-selection]");
+    const itemSelectionCheckboxes = document.querySelectorAll("input[type=checkbox][name=item-selection]");
 
-    itemSelectionCheckboxes.forEach(element => {
+    itemSelectionCheckboxes.forEach((element) => {
         if (!element.checked) {
             let guid = parseInt(element.getAttribute("guid"));
             colorIdsToExclude.push(guid);
         }
     });
-    
+
     // Add temporarily suppressed items to exclusion list
-    Globals.tempSuppressed.forEach(guid => {
+    Globals.tempSuppressed.forEach((guid) => {
         if (!colorIdsToExclude.includes(guid)) {
             colorIdsToExclude.push(guid);
         }
@@ -544,18 +532,21 @@ export async function processImage() {
     showProgressOverlay("Processing image... 0%");
     let processed = 0;
     const UPDATE_INTERVAL = 1000; // pixels between UI updates
-    
+
     //======== FINAL LOOP ======//
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-
             // Fast lookup from cached color-space arrays
             const inputColor =
-                (colorSpace === "RGB")   ? Globals.pixelRGB[y][x]   :
-                (colorSpace === "HSL")   ? Globals.pixelHSL[y][x]   :
-                (colorSpace === "HSV")   ? Globals.pixelHSV[y][x]   :
-                (colorSpace === "CAM16") ? Globals.pixelCAM16[y][x] :
-                                            Globals.pixelRGB[y][x]; // fallback
+                colorSpace === "RGB"
+                    ? Globals.pixelRGB[y][x]
+                    : colorSpace === "HSL"
+                      ? Globals.pixelHSL[y][x]
+                      : colorSpace === "HSV"
+                        ? Globals.pixelHSV[y][x]
+                        : colorSpace === "CAM16"
+                          ? Globals.pixelCAM16[y][x]
+                          : Globals.pixelRGB[y][x]; // fallback
 
             // Find best palette match
             const closestValue = Utils.getDBClosestValue(colorDBCache, inputColor, colorSpace);
@@ -576,7 +567,7 @@ export async function processImage() {
                 const pct = Math.round((processed / totalPixels) * 100);
                 updateProgressOverlay(pct, "Processing image...");
                 // yield to UI thread
-                await new Promise(r => setTimeout(r));
+                await new Promise((r) => setTimeout(r));
             }
         }
     }
@@ -590,7 +581,7 @@ export async function processImage() {
     console.log(counters);
 
     // Update Item counters UI
-    Globals.itemCountersDOM.innerHTML = '';
+    Globals.itemCountersDOM.innerHTML = "";
 
     // create array of {guid, entry, count, suppressed}
     const counterArray = Globals.colorDB.map((entry, guid) => {
@@ -598,15 +589,15 @@ export async function processImage() {
             guid,
             entry,
             count: counters[guid] || 0,
-            suppressed: Globals.tempSuppressed.has(guid)
+            suppressed: Globals.tempSuppressed.has(guid),
         };
     });
 
-    const filteredCounters = counterArray.filter(item => {
+    const filteredCounters = counterArray.filter((item) => {
         // keep if: used OR suppressed
         return item.count > 0 || item.suppressed;
     });
-    
+
     // sort by count descending
     filteredCounters.sort((a, b) => {
         // Suppressed always go after used items
@@ -616,34 +607,33 @@ export async function processImage() {
         // Within each group, sort by count descending
         return b.count - a.count;
     });
-    
+
     // Use DocumentFragment to batch DOM updates
     const frag = document.createDocumentFragment();
-    
+
     for (const { guid, entry, count, suppressed } of filteredCounters) {
-        
         const container = document.createElement("div");
         container.className = "item-counter";
         container.dataset.guid = guid;
-    
+
         if (suppressed) {
             container.classList.add("suppressed");
         }
-    
+
         const preview = Render.createItemPreview(entry, Globals.ICON_DIMS);
-    
+
         const label = document.createElement("label");
         label.textContent = `${entry.Name} - ${count}`;
-    
+
         container.appendChild(preview);
         container.appendChild(label);
         frag.appendChild(container);
-    }    
+    }
     // Attach everything to the DOM at once
-    Globals.itemCountersDOM.appendChild(frag); 
+    Globals.itemCountersDOM.appendChild(frag);
 
     updateSuppressionUI();
-    
+
     // draw grid over Mapped Image
     const offset = 0.5;
     if (Globals.showGridLinesDOM.checked) {
@@ -664,7 +654,5 @@ export async function processImage() {
 
     console.log("Globals.cachedData");
     console.log(Globals.cachedData);
-    console.log("out canvas pixel dims " +
-        outputCanvas.width / pixelSize + ", " +
-        outputCanvas.height / pixelSize);
+    console.log("out canvas pixel dims " + outputCanvas.width / pixelSize + ", " + outputCanvas.height / pixelSize);
 }
