@@ -23,11 +23,11 @@ export function buildPreviewTable(tableDims = 25) {
             const img = document.createElement("img");
             img.id = `cell-${x}-${y}`;
             img.className = "preview-cell";
-            img.width = Globals.ICON_DIMS;
-            img.height = Globals.ICON_DIMS;
+            img.style.backgroundColor = "transparent";
+            // img.width = Globals.ICON_DIMS;
+            // img.height = Globals.ICON_DIMS;
             img.src = "images/misc/empty.png";
 
-            // Clean layout: no squeeze, no distort
             img.style.display = "block";
 
             cell.appendChild(img);
@@ -580,48 +580,72 @@ export async function processImage() {
     console.log("counters");
     console.log(counters);
 
-    // Update Item counters UI
+    //===============================================
+    // Stable Counter Rendering with Initial Snapshot + Extras
+    //===============================================
+
     Globals.itemCountersDOM.innerHTML = "";
 
-    // create array of {guid, entry, count, suppressed}
-    const counterArray = Globals.colorDB.map((entry, guid) => {
-        return {
-            guid,
-            entry,
-            count: counters[guid] || 0,
-            suppressed: Globals.tempSuppressed.has(guid)
-        };
+    // Build raw list of {guid, entry, count, suppressed}
+    const rawEntries = Globals.colorDB.map((entry, guid) => ({
+        guid,
+        entry,
+        count: counters[guid] || 0,
+        suppressed: Globals.tempSuppressed.has(guid)
+    }));
+
+    //---------------------------------------------
+    // 1. INITIAL ORDER SNAPSHOT (before any suppressions)
+    //    Keep only items that had count > 0
+    //---------------------------------------------
+    if (Globals.tempSuppressed.size === 0) {
+        Globals.initialCounterOrder = rawEntries
+            .filter((e) => e.count > 0)
+            .sort((a, b) => b.count - a.count)
+            .map((e) => e.guid);
+    }
+
+    //------------------------------------------------------
+    // 2. CLASSIFY ITEMS
+    //------------------------------------------------------
+
+    const initialSet = new Set(Globals.initialCounterOrder);
+
+    // Always show initial items
+    const initialItems = Globals.initialCounterOrder.map((guid) => {
+        const match = rawEntries.find((e) => e.guid === guid);
+        return match
+            ? match
+            : {
+                  guid,
+                  entry: Globals.colorDB[guid],
+                  count: 0,
+                  suppressed: Globals.tempSuppressed.has(guid)
+              };
     });
 
-    const filteredCounters = counterArray.filter((item) => {
-        // keep if: used OR suppressed
-        return item.count > 0 || item.suppressed;
-    });
+    // Extras: only those *not* in initialCounterOrder AND count > 0
+    const extraItems = rawEntries
+        .filter((e) => !initialSet.has(e.guid) && (e.count > 0 || e.suppressed))
+        .sort((a, b) => b.count - a.count); // descending count
 
-    // sort by count descending
-    filteredCounters.sort((a, b) => {
-        // Suppressed always go after used items
-        if (a.suppressed !== b.suppressed) {
-            return a.suppressed ? 1 : -1;
-        }
-        // Within each group, sort by count descending
-        return b.count - a.count;
-    });
+    // Merge counter entries
+    const visibleEntries = [...initialItems, ...extraItems];
 
-    // Use DocumentFragment to batch DOM updates
+    //------------------------------------------------------
+    // 4. Render DOM
+    //------------------------------------------------------
+    Globals.itemCountersDOM.innerHTML = "";
     const frag = document.createDocumentFragment();
 
-    for (const { guid, entry, count, suppressed } of filteredCounters) {
+    for (const { guid, entry, count, suppressed } of visibleEntries) {
         const container = document.createElement("div");
         container.className = "item-counter";
         container.dataset.guid = guid;
 
-        if (suppressed) {
-            container.classList.add("suppressed");
-        }
+        if (suppressed) container.classList.add("suppressed");
 
         const preview = Render.createItemPreview(entry, Globals.ICON_DIMS);
-
         const label = document.createElement("label");
         label.textContent = `${entry.Name} - ${count}`;
 
@@ -629,9 +653,8 @@ export async function processImage() {
         container.appendChild(label);
         frag.appendChild(container);
     }
-    // Attach everything to the DOM at once
-    Globals.itemCountersDOM.appendChild(frag);
 
+    Globals.itemCountersDOM.appendChild(frag);
     updateSuppressionUI();
 
     // draw grid over Mapped Image

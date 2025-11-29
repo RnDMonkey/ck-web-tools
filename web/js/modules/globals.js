@@ -10,6 +10,7 @@ export const Globals = {
     cacheBuildPromise: null,
     imageEpoch: 0,
     cacheBuildEpoch: -1,
+    initialCounterOrder: [],
     cachedData: [],
     pixelRGB: [],
     pixelHSL: [],
