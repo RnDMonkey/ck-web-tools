@@ -21,7 +21,7 @@ export const Globals = {
     NORMAL_MAXDIMS: 500,
     LARGE_MAXDIMS: 2000,
     LARGE_IMAGE_WARNING_THRESHOLD: 100000,
-    ICON_DIMS: 64,
+    ICON_DIMS: 64, // default value, will mirror CSS var
     previewCells: [],
     maxDims: 500,
 
@@ -55,7 +55,8 @@ export const Globals = {
     outputCanvasDOM: null,
     overlayCanvasDOM: null,
     overlayCtx: null,
-    hoverTooltip: null
+    hoverTooltip: null,
+    iconSizeSelectDOM: null
 };
 
 export function initGlobals() {
@@ -84,4 +85,5 @@ export function initGlobals() {
     Globals.overlayCanvasDOM = document.getElementById("overlay-canvas");
     Globals.overlayCtx = Globals.overlayCanvasDOM.getContext("2d");
     Globals.hoverTooltip = document.getElementById("hover-tooltip");
+    Globals.iconSizeSelectDOM = document.getElementById("icon-size-select");
 }

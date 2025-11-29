@@ -1,3 +1,7 @@
+:root {
+    --icon-size: 64px; /* default only */
+}
+
 body {
     background-color: #383668;
     font-size: 0.8em;
@@ -158,8 +162,8 @@ input[type="checkbox"] {
 /* Image is fixed size */
 .item-selection img,
 .item-counter img {
-    width: 64px;
-    height: 64px;
+    width: var(--icon-size);
+    height: var(--icon-size);
     flex-shrink: 0;
     image-rendering: auto;
     image-rendering: pixelated;

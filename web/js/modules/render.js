@@ -36,17 +36,64 @@ export function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight, maxLines 
     });
 }
 
+// create fallback PNG image
+function makeFallbackDataURL(entry, size) {
+    const canvas = document.createElement("canvas");
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext("2d");
+
+    const rgb = entry.RGB || [128, 128, 128];
+    ctx.fillStyle = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+    ctx.fillRect(0, 0, size, size);
+
+    const fontSize = Math.floor(size / 5);
+    ctx.font = `${fontSize}px sans-serif`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = "white";
+    ctx.shadowColor = "rgba(0, 0, 0, 1)";
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+    ctx.shadowBlur = 3;
+
+    drawWrappedText(ctx, entry.Name, size / 2, size / 2, size - 4, fontSize + 2, 3);
+
+    return canvas.toDataURL();
+}
+
+export function preloadFallbackIcons(sizes = [32, 48, 64]) {
+    if (!Globals.colorDB) return;
+
+    Globals.colorDB.forEach((entry) => {
+        const guid = entry.GUID;
+
+        // Only preload for entries that don't have image sources defined
+        if (!entry.imageSource) {
+            sizes.forEach((size) => {
+                const cacheKey = `${guid}_${size}`;
+                if (!Globals.fallbackCache[cacheKey]) {
+                    const dataURL = makeFallbackDataURL(entry, size);
+                    Globals.fallbackCache[cacheKey] = dataURL;
+                }
+            });
+        }
+    });
+}
+
 // Generates an <img> OR a fallback <canvas> with the Name drawn over the RGB background
 export function createItemPreview(entry, size = Globals.ICON_DIMS) {
     const guid = entry.GUID;
+    const cacheKey = `${guid}_${size}`;
 
-    // If fallback already cached ? skip drawing, just return an <img> with cached data
-    if (Globals.fallbackCache[guid]) {
+    // If matching-size fallback exists, reuse it
+    if (Globals.fallbackCache[cacheKey]) {
         const img = document.createElement("img");
-        img.src = Globals.fallbackCache[guid];
+        img.src = Globals.fallbackCache[cacheKey];
         img.width = size;
         img.height = size;
         img.alt = entry.Name;
+        img.dataset.guid = guid;
         return img;
     }
 
@@ -56,38 +103,19 @@ export function createItemPreview(entry, size = Globals.ICON_DIMS) {
     img.alt = entry.Name;
     img.width = size;
     img.height = size;
+    img.dataset.guid = guid;
 
     // Hook the onerror to generate fallback
     img.onerror = function () {
         console.warn("Image missing, generating fallback for:", entry.Name);
 
-        // Create fallback canvas
-        const canvas = document.createElement("canvas");
-        canvas.width = size;
-        canvas.height = size;
-        const ctx = canvas.getContext("2d");
+        // get fallback canvas PNG
+        const dataURL = makeFallbackDataURL(entry, size);
 
-        // Background color from RGB
-        const rgb = entry.RGB || [128, 128, 128];
-        ctx.fillStyle = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
-        ctx.fillRect(0, 0, size, size);
+        // Cache it so we never redraw or re-error again
+        Globals.fallbackCache[cacheKey] = dataURL;
 
-        // Draw the wrapped Name text
-        const fontSize = Math.floor(size / 5);
-        ctx.font = `bold ${fontSize}px sans-serif`;
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillStyle = "white";
-
-        drawWrappedText(ctx, entry.Name, size / 2, size / 2, size - 4, fontSize + 2, 3);
-
-        // Convert fallback canvas ? PNG
-        const dataURL = canvas.toDataURL();
-
-        // 4) Cache it so we never redraw or re-error again
-        Globals.fallbackCache[guid] = dataURL;
-
-        // 5) Replace image immediately
+        // load PNG in place
         img.src = dataURL;
     };
 
@@ -150,6 +178,7 @@ export function generateItemSelection(db) {
         });
 
         let preview = createItemPreview(element, Globals.ICON_DIMS);
+        preview.dataset.guid = element.GUID;
 
         // Order matters: putting checkbox first enables keyboard accessibility
         container.appendChild(checkBox);
@@ -161,6 +190,28 @@ export function generateItemSelection(db) {
         container.appendChild(name);
 
         Globals.itemSelectionsDOM.appendChild(container);
+    });
+}
+
+export function redrawIconImages() {
+    const newSize = Globals.ICON_DIMS;
+
+    // Update item-selection icons
+    document.querySelectorAll(".item-selection img").forEach((img) => {
+        const guid = Number(img.dataset.guid);
+        const entry = Globals.colorDB[guid];
+
+        const newPreview = createItemPreview(entry, newSize);
+        img.src = newPreview.src;
+    });
+
+    // Update item-counter icons
+    document.querySelectorAll(".item-counter img").forEach((img) => {
+        const guid = Number(img.dataset.guid);
+        const entry = Globals.colorDB[guid];
+
+        const newPreview = createItemPreview(entry, newSize);
+        img.src = newPreview.src;
     });
 }
 

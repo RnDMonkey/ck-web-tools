@@ -35,11 +35,21 @@
         <div id="layout">
             <div id="left-pane">
                 <!-- LEFT PANE CONTENT -->
+                <div id="icon-size-container">
+                    Icon Sizes:
+                    <select id="icon-size-select" class="dark-text">
+                        <option value="32">32 px</option>
+                        <option value="48">48 px</option>
+                        <!-- default selection -->
+                        <option value="64" selected>64 px</option>
+                    </select>
+                </div>
+                <hr />
                 <div id="item-selections-container">
                     <button type="submit" id="btn-toggle-colors">Toggle Item Selection</button>
                     Item Selections:
                     <div id="item-selections" class="d-flex flex-wrap"></div>
-                    <br />
+                    <hr />
                     <button type="submit" id="btn-toggle-counters">Toggle Item Counters</button>
                     Counter of items for this build:
 
@@ -105,10 +115,6 @@
                     |
                     <button style="background-color: #6ac4ff" type="submit" id="btn-process">Process</button>
                 </div>
-
-                <!-- <div class="d-flex justify-content-center">
-      <table id="preview-table"></table>
-    </div> -->
 
                 <hr />
                 <div id="item-selections-container">

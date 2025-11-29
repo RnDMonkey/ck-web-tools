@@ -52,11 +52,44 @@ export async function Initialize() {
     // buildPreviewTable(25);
 
     Globals.colorDB = await getColorDB("data/colordb.json");
-    Render.generateItemSelection(Globals.colorDB);
+
+    // preload fallback icon images at all supported sizes
+    Render.preloadFallbackIcons([32, 48, 64]);
+
+    // #region icon size choice
+    // Restore saved icon size choice
+    const savedIconSize = localStorage.getItem("cktool-icon-size");
+    if (savedIconSize) {
+        Globals.iconSizeSelectDOM.value = savedIconSize;
+        const newIconSize = parseInt(savedIconSize);
+        // Update global var
+        Globals.ICON_DIMS = newIconSize;
+        // Update CSS var
+        document.documentElement.style.setProperty("--icon-size", `${newIconSize}px`);
+    }
+
+    // Register for icon size changes
+    Globals.iconSizeSelectDOM.addEventListener("change", () => {
+        localStorage.setItem("cktool-icon-size", Globals.iconSizeSelectDOM.value);
+        const newIconSize = parseInt(Globals.iconSizeSelectDOM.value);
+        // Update global var
+        Globals.ICON_DIMS = newIconSize;
+        // Update CSS var
+        document.documentElement.style.setProperty("--icon-size", `${newIconSize}px`);
+
+        // Re-render icon images at new size
+        Render.redrawIconImages();
+        processImage();
+    });
+
+    // Render item icon images after reading icon size preference, then hook listeners
+    Render.generateItemSelection(Globals.colorDB); // generate icon images for item selection, etc.
     registerPaletteCheckboxHandlers();
     registerCounterClickHandlers();
     registerGridNavigationHandlers();
+    // #endregion
 
+    // #region color matching mode
     // Restore saved cam16 weight
     const savedWeight = localStorage.getItem("cktool-cam16-weight");
     if (savedWeight) {
@@ -101,6 +134,7 @@ export async function Initialize() {
             processImage(); // auto-process like palette checkbox changes
         }
     });
+    // #endregion
 
     // Restore saved grid size
     const savedGridSize = localStorage.getItem("cktool-grid-size");
