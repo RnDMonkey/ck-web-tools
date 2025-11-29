@@ -1,0 +1,106 @@
+GIMP Palette
+Name: Core Keeper Tiles
+Columns: 16
+#
+ 69 106 115	Alien Tech Ground
+ 86  62 102	Alien Tech Wall
+ 77 168 202	Ancient Crate
+235 192 190	Beach Ground
+180 147 154	Beach Wall
+130 130 130	Caveling Floor Tile / Dark CFT
+252 166 148	Chrysalis
+232 139 105	Clay Ground
+193  99  53	Clay Wall
+104 127 174	Conveyor Belt
+213 109 183	Coral Floor
+ 57 136 219	Crystal Ground
+ 42  89 238	Crystal Wall
+210 154 124	Desert Ground
+166 146 152	Desert Wall
+127  95  50	Dirt Ground
+ 96  73  38	Dirt Wall
+ 90  79  73	Electrical Wire
+ 28  28  28	Empty Ground
+205 189  50	Flower Vessel
+192 186 207	Fossil Ground
+ 89  86 100	Fossil Wall
+197 197 197	Galaxite Floor
+128 242 255	Gleam Wood Floor
+ 61 155  64	Grass Ground
+ 22 131  28	Grass Wall
+193 170  34	Ground Acid Slime
+184  86 165	Ground Poison Slime
+217  98  22	Ground Slime
+117 104  50	Hive Water
+199 117  99	Larva Hive Ground
+163  96  83	Larva Hive Wall
+ 85  78 106	Lava Rock Ground
+ 56  52  71	Lava Rock Wall
+239 225 179	Meadow Ground
+224 201  97	Meadow Wall
+ 87 128 132	Metropolis Ground
+ 49  77  87	Metropolis Wall
+108 188 224	Mold Ground
+229 229 229	Mold Vessel
+ 90 156 186	Mold Wall
+ 61  85 135	Mold Water
+199 113  56	Oasis Ground
+168  76  30	Oasis Wall
+ 75  85  85	Paintable Floor - Black
+ 42 108 228	Paintable Floor - Blue
+151  75  38	Paintable Floor - Brown
+ 41 226 180	Paintable Floor - Cyan
+ 85 182  38	Paintable Floor - Green
+157 175 183	Paintable Floor - Grey
+237 144  73	Paintable Floor - Orange
+255 151 124	Paintable Floor - Peach
+250  69 144	Paintable Floor - Pink
+139  79 167	Paintable Floor - Purple
+223   0   0	Paintable Floor - Red
+ 15 158 136	Paintable Floor - Teal
+174 189 241	Paintable Floor - Unpainted
+178 206 233	Paintable Floor - White
+255 232  46	Paintable Floor - Yellow
+ 61  61  61	Paintable Wall - Black
+ 28  93 216	Paintable Wall - Blue
+124  59  28	Paintable Wall - Brown
+ 31 193 179	Paintable Wall - Cyan
+ 64 169  13	Paintable Wall - Green
+131 151 159	Paintable Wall - Grey
+226 121  41	Paintable Wall - Orange
+224 112 100	Paintable Wall - Peach
+246  30 120	Paintable Wall - Pink
+109  50 137	Paintable Wall - Purple
+187  13  13	Paintable Wall - Red
+ 26 134 117	Paintable Wall - Teal
+154 165 212	Paintable Wall - Unpainted
+157 180 203	Paintable Wall - White
+212 194  42	Paintable Wall - Yellow
+122 122 122	Rail
+124  71 124	Rug
+212 185  90	Sand Ground
+172 143  59	Sand Wall
+168  28  46	Scarlet Bridge
+128  34  46	Scarlet Fence [or Gate]
+178  53  38	Scarlet Floor
+144  38  22	Scarlet Wall
+106 108 114	Stone Bricks Wall
+124 117 108	Stone Bridge
+ 96  91  85	Stone Fence [or Gate]
+129 132 140	Stone Floor
+104 131 151	Stone Ground
+ 73 104 125	Stone Wall
+180 127  73	Tilled Dirt Ground
+141 102  61	Tilled Dirt Ground Watered
+ 13 115  42	Tilled Grass Ground
+ 28  93  46	Tilled Grass Ground Watered
+ 86 128  99	Turf Ground
+ 71 104  81	Turf Wall
+ 28  61 129	Water
+140  88  38	Wood Bridge
+112  73  34	Wood Fence [or Gate]
+199 148  79	Wood Floor
+148 105  50	Wood Wall
+114  61  13	Wooden Crate
+ 59 139  64	Woven Mat
+255 243 113	Woven Straw Floor

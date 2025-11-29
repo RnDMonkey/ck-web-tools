@@ -494,14 +494,14 @@ export async function processImage() {
     if (width > Globals.maxDims || height > Globals.maxDims) {
         const yourImageSizeMsg = `\n\nYour image: ${width}x${height}px`;
         const imageSizeMsg = `\n\nMax resolution ${Globals.maxDims}x${Globals.maxDims}px`;
-        console.error(`Image too large / not supported!${yourImageSizeMsg}${imageSizeMsg}`);
-        window.alert(`Image too large / not supported!${yourImageSizeMsg}${imageSizeMsg}`);
+        console.error(`Image too large!${yourImageSizeMsg}${imageSizeMsg}`);
+        window.alert(`Image too large!${yourImageSizeMsg}${imageSizeMsg}`);
         return;
     }
 
     if (width * height > Globals.LARGE_IMAGE_WARNING_THRESHOLD) {
         const proceed = window.confirm(
-            `Warning: This image is large (${width}×${height}px) and may take a while to process.\n\nContinue?`
+            `Warning: This image is (${width}×${height}px) and may take a while to process.\n\nContinue?`
         );
         if (!proceed) return;
     }
