@@ -35,23 +35,25 @@
         <div id="layout">
             <div id="left-pane">
                 <!-- LEFT PANE CONTENT -->
-                <div id="icon-size-container">
-                    Icon Sizes:
+                <div id="icon-size-container" class="d-flex align-items-center" style="white-space: pre">
+                    <label for="icon-size-select" style="white-space: pre">Icon Sizes: </label>
                     <select id="icon-size-select" class="dark-text">
                         <option value="32">32 px</option>
                         <option value="48">48 px</option>
                         <!-- default selection -->
                         <option value="64" selected>64 px</option>
                     </select>
+                    <br />
+                    <a href="data/core-keeper-palette.gpl">Click to download color palette for GIMP</a>
                 </div>
                 <hr />
                 <div id="item-selections-container">
                     <button type="submit" id="btn-toggle-colors">Toggle Item Selection</button>
-                    Item Selections:
+                    Item Selections (click to disable specific items):
                     <div id="item-selections" class="d-flex flex-wrap"></div>
                     <hr />
                     <button type="submit" id="btn-toggle-counters">Toggle Item Counters</button>
-                    Counter of items for this build:
+                    Counter of items for this build (click to temporarily suppress items):
 
                     <div id="suppression-controls">
                         <span>Suppressed: <span id="suppression-count">0</span></span>
@@ -150,7 +152,7 @@
                         <img class="viewer-image" id="upload-preview" src="images/misc/empty.png" />
                     </div>
                     <div class="image-block">
-                        <div class="image-label">Mapped Image:</div>
+                        <div class="image-label">Mapped Image (click to navigate Tile Preview):</div>
                         <div id="mapped-image-container">
                             <canvas id="output-canvas"></canvas>
                             <canvas id="overlay-canvas"></canvas>
