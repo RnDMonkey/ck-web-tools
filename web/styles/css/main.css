@@ -7,6 +7,14 @@ body {
     font-size: 0.8em;
 }
 
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
 a {
     color: #83b5ff;
 }
@@ -68,21 +76,6 @@ input[type="checkbox"] {
     font-size: 2.5em;
 }
 
-.image-inputs-container > * {
-    margin-left: 12px;
-    margin-right: 12px;
-}
-
-.viewer-image {
-    width: 25%;
-    height: 25%;
-    max-width: 25%;
-    max-height: 25%;
-    image-rendering: auto;
-    image-rendering: crisp-edges;
-    image-rendering: pixelated;
-}
-
 /* ============================
    Resizable Left Pane
    ============================ */
@@ -91,7 +84,7 @@ input[type="checkbox"] {
     display: flex;
     flex-direction: row;
     width: 100vw;
-    height: 100vh;
+    height: 95vh;
     overflow: hidden;
 }
 
@@ -101,14 +94,16 @@ input[type="checkbox"] {
     min-width: 450px;
     max-width: 850px;
     overflow-y: auto;
+    overflow-x: hidden;
     background-color: #2f2d57;
     padding: 10px;
     box-sizing: border-box;
     border-right: 2px solid #222;
 }
 
-/* draggable separator */
-#drag-bar {
+/* draggable bars */
+#drag-bar-left,
+#drag-bar-right {
     width: 6px;
     background-color: #1f1e3f;
     cursor: ew-resize;
@@ -181,29 +176,82 @@ input[type="checkbox"] {
 }
 
 /* ============================
+   Middle Pane
+   ============================ */
+
+#middle-pane {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: #2d2d55;
+    padding: 20px;
+    border-left: 1px solid #444;
+    border-right: 1px solid #444;
+}
+
+#preview-table {
+    outline: thin dashed rgb(236, 144, 38);
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+/* ============================
    Right Pane
    ============================ */
 
 #right-pane {
-    flex: 1;
+    flex: 0 0 600px;
     overflow-y: auto;
+    overflow-x: hidden;
     padding: 10px;
     box-sizing: border-box;
+}
+
+.image-inputs-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.image-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.image-label {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+#upload-preview {
+    position: relative;
+    display: inline-block;
+    width: 100vw;
+}
+
+.viewer-image {
+    max-width: 50%;
+    image-rendering: auto;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
 }
 
 #mapped-image-container {
     position: relative;
     display: inline-block;
-    width: 25%;
-    max-width: 500px;
 }
 
 #output-canvas,
 #overlay-canvas {
     width: 100%;
-    height: 100%;
+    height: auto;
     display: block;
     aspect-ratio: 1 / 1;
+    max-width: 100%;
 }
 
 #overlay-canvas {
@@ -223,10 +271,4 @@ input[type="checkbox"] {
     pointer-events: none;
     transform: translate(10px, -10px);
     display: none;
-}
-
-#preview-table {
-    outline: thin dashed rgb(236, 144, 38);
-    margin-left: 3%;
-    margin-right: 3%;
 }

@@ -48,6 +48,10 @@ function updateMaxDims(isLargerAllowed) {
 export async function Initialize() {
     initGlobals();
 
+    restorePaneSizes();
+    setupDragBar("drag-bar-left", "left-pane", true);
+    setupDragBar("drag-bar-right", "right-pane", false);
+
     // Build dynamic table BEFORE collecting Globals.previewCells
     // buildPreviewTable(25);
 
@@ -270,6 +274,69 @@ function updateSuppressionUI() {
 
     // Disable button if nothing to clear
     clearBtn.disabled = count === 0;
+}
+
+function savePaneSizes() {
+    const left = document.getElementById("left-pane").style.flexBasis;
+    const right = document.getElementById("right-pane").style.flexBasis;
+
+    localStorage.setItem("cktool-left-pane-width", left);
+    localStorage.setItem("cktool-right-pane-width", right);
+}
+
+function restorePaneSizes() {
+    const left = localStorage.getItem("cktool-left-pane-width");
+    const right = localStorage.getItem("cktool-right-pane-width");
+
+    if (left) {
+        document.getElementById("left-pane").style.flexBasis = left;
+    }
+
+    if (right) {
+        document.getElementById("right-pane").style.flexBasis = right;
+    }
+}
+
+function setupDragBar(dragBarId, targetPaneId, isLeftBar) {
+    const dragBar = document.getElementById(dragBarId);
+    const targetPane = document.getElementById(targetPaneId);
+
+    let isDragging = false;
+
+    dragBar.addEventListener("mousedown", () => {
+        isDragging = true;
+        document.body.style.cursor = "ew-resize";
+    });
+
+    window.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+
+        const newWidth = e.clientX;
+
+        // LEFT bar: target width = e.clientX
+        if (isLeftBar) {
+            if (newWidth > 150 && newWidth < 1000) {
+                targetPane.style.flexBasis = `${newWidth}px`;
+            }
+        }
+        // RIGHT bar: target width = viewportWidth - e.clientX
+        else {
+            const layoutWidth = document.getElementById("layout").clientWidth;
+            const rightWidth = layoutWidth - e.clientX;
+
+            if (rightWidth > 150 && rightWidth < 1000) {
+                targetPane.style.flexBasis = `${rightWidth}px`;
+            }
+        }
+    });
+
+    window.addEventListener("mouseup", () => {
+        if (isDragging) {
+            isDragging = false;
+            document.body.style.cursor = "default";
+            savePaneSizes(); // <--- save to localStorage
+        }
+    });
 }
 
 // automatically registered
