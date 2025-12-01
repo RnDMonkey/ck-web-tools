@@ -23,6 +23,14 @@ a {
     color: #fff;
 }
 
+code {
+    font-size: 1em;
+    color: #83b5ff;
+}
+.table {
+    --bs-table-striped-color: #fff;
+}
+
 .dark-text,
 .dark-text > * {
     color: #222;
@@ -95,7 +103,7 @@ input[type="checkbox"] {
     max-width: 850px;
     overflow-y: auto;
     overflow-x: hidden;
-    background-color: #2f2d57;
+    /* background-color: #2f2d57; */
     padding: 10px;
     box-sizing: border-box;
     border-right: 2px solid #222;
@@ -183,7 +191,7 @@ input[type="checkbox"] {
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    background-color: #2d2d55;
+    /* background-color: #2d2d55; */
     padding: 20px;
     border-left: 1px solid #444;
     border-right: 1px solid #444;
@@ -271,4 +279,29 @@ input[type="checkbox"] {
     pointer-events: none;
     transform: translate(10px, -10px);
     display: none;
+}
+
+/* CONTRIBUTION PAGE */
+.template-table {
+    /* width: 100%; */
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.template-table th,
+.template-table td {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px;
+}
+
+.template-preview {
+    width: 64px;
+    height: 64px;
+    image-rendering: pixelated;
+    display: block;
+    margin: auto;
+}
+
+.spaced {
+    margin-right: 12px;
 }
