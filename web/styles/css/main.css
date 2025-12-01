@@ -210,9 +210,11 @@ input[type="checkbox"] {
 #right-pane {
     flex: 0 0 600px;
     overflow-y: auto;
+    /* overflow-y: hidden; */
     overflow-x: hidden;
     padding: 10px;
     box-sizing: border-box;
+    max-inline-size: 95%;
 }
 
 .image-inputs-container {
@@ -242,7 +244,8 @@ input[type="checkbox"] {
 }
 
 .viewer-image {
-    max-width: 50%;
+    /* max-width: 50%; */
+    max-inline-size: 50%;
     image-rendering: auto;
     image-rendering: crisp-edges;
     image-rendering: pixelated;
@@ -251,15 +254,15 @@ input[type="checkbox"] {
 #mapped-image-container {
     position: relative;
     display: inline-block;
+    max-inline-size: 80%;
 }
 
 #output-canvas,
 #overlay-canvas {
-    width: 100%;
-    height: auto;
+    width: auto;
     display: block;
-    aspect-ratio: 1 / 1;
     max-width: 100%;
+    aspect-ratio: auto 1 / 1;
 }
 
 #overlay-canvas {

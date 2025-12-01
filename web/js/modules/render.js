@@ -140,11 +140,14 @@ export function renderPreview() {
         for (let x = 0, gx = chunkX * previewCellsDims; x < previewCellsDims; x++, gx++) {
             if (gy <= Globals.cachedData.length - 1 && gx <= Globals.cachedData[y].length - 1) {
                 let selection = Globals.cachedData[gy][gx];
+                const existingCell = Globals.previewCells[y][x];
                 Globals.previewCells[y][x].style.backgroundColor = "rgba(" + trimBrackets(selection["RGB"]) + ", 255)";
 
                 // previewCells[y][x].src = selection['imageSource']
                 // Use fallback-aware preview generator for each preview cell
-                const preview = createItemPreview(selection, Globals.ICON_DIMS); // replace 30px preview grid cells
+                let preview = createItemPreview(selection, Globals.ICON_DIMS); // replace 30px preview grid cells
+                preview.id = existingCell.id;
+
                 Globals.previewCells[y][x].replaceWith(preview);
 
                 // And update local reference since replaceWith() swaps DOM nodes

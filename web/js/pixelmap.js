@@ -52,9 +52,6 @@ export async function Initialize() {
     setupDragBar("drag-bar-left", "left-pane", true);
     setupDragBar("drag-bar-right", "right-pane", false);
 
-    // Build dynamic table BEFORE collecting Globals.previewCells
-    // buildPreviewTable(25);
-
     Globals.colorDB = await getColorDB("data/colordb.json");
 
     // preload fallback icon images at all supported sizes
@@ -151,6 +148,7 @@ export async function Initialize() {
         localStorage.setItem("cktool-grid-size", Globals.gridSizeDOM.value);
 
         if (Globals.imgDom.src && Globals.imgDom.naturalWidth > 0) {
+            buildPreviewCellsArray();
             processImage(); // auto-process like palette checkbox changes
         }
     });
@@ -168,21 +166,8 @@ export async function Initialize() {
         updateMaxDims(allowLargerChecked);
     });
 
-    let previewCellsDims = Math.min(parseInt(Globals.gridSizeDOM.value), 25);
-
     // populate Globals.previewCells
-    for (let y = 0; y < previewCellsDims; y++) {
-        for (let x = 0; x < previewCellsDims; x++) {
-            let id = "cell-" + x + "-" + y;
-            let cell = document.getElementById(id);
-            Globals.previewCells.push(cell);
-        }
-    }
-    // TODO optimize, eliminate this matrix conversion
-    // convert to 2d array
-    Globals.previewCells = Utils.convertToMatrix(Globals.previewCells, previewCellsDims);
-    console.log("preview grid cells");
-    console.log(Globals.previewCells);
+    buildPreviewCellsArray();
 
     // #region Button listeners
     Globals.btnToggleColorsDOM.addEventListener("click", Render.toggleColorSelection);
@@ -228,6 +213,26 @@ export async function Initialize() {
             processImage();
         }
     });
+}
+
+function buildPreviewCellsArray() {
+    Globals.previewCells = [];
+
+    let previewCellsDims = Math.min(parseInt(Globals.gridSizeDOM.value), 25);
+
+    // populate Globals.previewCells
+    for (let y = 0; y < previewCellsDims; y++) {
+        for (let x = 0; x < previewCellsDims; x++) {
+            let id = "cell-" + x + "-" + y;
+            let cell = document.getElementById(id);
+            Globals.previewCells.push(cell);
+        }
+    }
+    // TODO optimize, eliminate this matrix conversion
+    // convert to 2d array
+    Globals.previewCells = Utils.convertToMatrix(Globals.previewCells, previewCellsDims);
+    console.log("preview grid cells updated");
+    console.log(Globals.previewCells);
 }
 
 function registerPaletteCheckboxHandlers() {
