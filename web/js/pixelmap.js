@@ -172,7 +172,7 @@ export async function Initialize() {
     // #region Button listeners
     Globals.btnToggleColorsDOM.addEventListener("click", Render.toggleColorSelection);
     Globals.btnToggleCountersDOM.addEventListener("click", Render.toggleCounterSelection);
-    Globals.btnToggleImages.addEventListener("click", Render.toggleImages);
+    // Globals.btnToggleImages.addEventListener("click", Render.toggleImages);
     Globals.btnProcess.addEventListener("click", processImage);
     Globals.btnRenderPreview.addEventListener("click", Render.renderPreview);
     // #endregion
