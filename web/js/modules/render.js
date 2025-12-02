@@ -1,5 +1,6 @@
 import { Globals } from "./globals.js";
 import { trimBrackets } from "./utils.js";
+import * as Utils from "./utils.js";
 
 // in charge of drawing DOM elements
 
@@ -125,7 +126,6 @@ export function createItemPreview(entry, size = Globals.ICON_DIMS) {
 export function renderPreview() {
     let chunkX = parseInt(Globals.chunkInputX.value) - 1;
     let chunkY = parseInt(Globals.chunkInputY.value) - 1;
-    // let previewCellsDims = parseInt(gridSizeDOM.value) > 25 ? 25 : parseInt(gridSizeDOM.value)
     let previewCellsDims = Math.min(parseInt(Globals.gridSizeDOM.value), 25);
 
     // clear preview grid before drawing
@@ -158,6 +158,41 @@ export function renderPreview() {
             }
         }
     }
+}
+
+export function buildPreviewCellsArray() {
+    // clear preview grid before drawing
+    for (let row of Globals.previewCells) {
+        for (let cell of row) {
+            cell.style.backgroundColor = "transparent";
+            cell.src = "images/misc/empty.png";
+            // cell.src = "";
+            cell.width = 0;
+            cell.height = 0;
+            cell.alt = "";
+            cell.GUID = -1;
+        }
+    }
+
+    Globals.previewCells = [];
+
+    // let previewCellsDims = Math.min(parseInt(Globals.gridSizeDOM.value), 25);
+    // always create full 25x25 cell preview cell ids
+    const previewCellsDims = 25;
+
+    // populate Globals.previewCells
+    for (let y = 0; y < previewCellsDims; y++) {
+        for (let x = 0; x < previewCellsDims; x++) {
+            let id = "cell-" + x + "-" + y;
+            let cell = document.getElementById(id);
+            Globals.previewCells.push(cell);
+        }
+    }
+    // TODO optimize, eliminate this matrix conversion
+    // convert to 2d array
+    Globals.previewCells = Utils.convertToMatrix(Globals.previewCells, previewCellsDims);
+    console.log("preview grid cells updated");
+    console.log(Globals.previewCells);
 }
 
 export function generateItemSelection(db) {

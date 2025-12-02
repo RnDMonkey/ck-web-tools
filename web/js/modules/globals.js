@@ -56,7 +56,8 @@ export const Globals = {
     overlayCanvasDOM: null,
     overlayCtx: null,
     hoverTooltip: null,
-    iconSizeSelectDOM: null
+    iconSizeSelectDOM: null,
+    containWrapperDOM: null
 };
 
 export function initGlobals() {
@@ -86,4 +87,5 @@ export function initGlobals() {
     Globals.overlayCtx = Globals.overlayCanvasDOM.getContext("2d");
     Globals.hoverTooltip = document.getElementById("hover-tooltip");
     Globals.iconSizeSelectDOM = document.getElementById("icon-size-select");
+    Globals.containWrapperDOM = document.getElementById("contain-wrapper");
 }
