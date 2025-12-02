@@ -241,6 +241,15 @@
                     img.style.display = "block";
 
                     cell.appendChild(img);
+
+                    // Add chunk-border classes for every 5 tiles
+                    if (x % 5 === 0) cell.classList.add("chunk-left");
+                    if (y % 5 === 0) cell.classList.add("chunk-top");
+
+                    // Bold outer border
+                    if (x === tableDims - 1) cell.classList.add("chunk-right");
+                    if (y === tableDims - 1) cell.classList.add("chunk-bottom");
+
                     row.appendChild(cell);
                 }
                 previewTableDOM.appendChild(row);

@@ -169,6 +169,11 @@ export async function Initialize() {
     // populate Globals.previewCells
     Render.buildPreviewCellsArray();
 
+    // fire off drawSelectionFromInputs any time renderPreviewComplete event fires
+    document.addEventListener("renderPreviewComplete", () => {
+        drawSelectionFromInputs();
+    });
+
     // #region Button listeners
     Globals.btnToggleColorsDOM.addEventListener("click", Render.toggleColorSelection);
     Globals.btnToggleCountersDOM.addEventListener("click", Render.toggleCounterSelection);
@@ -401,7 +406,8 @@ function registerGridNavigationHandlers() {
 
     canvas.addEventListener("mouseleave", () => {
         // octx.clearRect(0, 0, overlay.width, overlay.height);
-        drawSelected(selX, selY, tilePx);
+        // drawSelected(selX, selY, tilePx);
+        drawSelectionFromInputs();
         hoverX = hoverY = -1;
         tooltip.style.display = "none"; // hide tooltip
     });
@@ -433,6 +439,23 @@ function registerGridNavigationHandlers() {
         octx.strokeRect(x * tilePx, y * tilePx, tilePx, tilePx);
     }
 }
+
+function drawSelectionFromInputs() {
+    const selX = Number(Globals.chunkInputX.value) - 1;
+    const selY = Number(Globals.chunkInputY.value) - 1;
+
+    const width = Globals.imgDom.naturalWidth;
+    const pixelSize = 1 + Math.trunc(2000 / width);
+    const previewCellsDims = Math.min(parseInt(Globals.gridSizeDOM.value), 25);
+    const tilePx = previewCellsDims * pixelSize;
+
+    Globals.overlayCtx.clearRect(0, 0, Globals.overlayCanvasDOM.width, Globals.overlayCanvasDOM.height);
+
+    Globals.overlayCtx.strokeStyle = "rgba(0,255,0,0.8)";
+    Globals.overlayCtx.lineWidth = 10;
+    Globals.overlayCtx.strokeRect(selX * tilePx, selY * tilePx, tilePx, tilePx);
+}
+
 // #endregion
 
 // #region Core Functions

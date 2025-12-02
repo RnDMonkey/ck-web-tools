@@ -200,6 +200,23 @@ input[type="checkbox"] {
     height: auto;
 }
 
+/* Chunk border lines */
+#preview-table td.chunk-top {
+    border-top: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+#preview-table td.chunk-left {
+    border-left: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+#preview-table td.chunk-right {
+    border-right: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+#preview-table td.chunk-bottom {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+}
+
 #preview-table img.preview-cell {
     padding: 0;
     display: block;

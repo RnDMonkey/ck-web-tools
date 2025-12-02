@@ -158,6 +158,7 @@ export function renderPreview() {
             }
         }
     }
+    document.dispatchEvent(new Event("renderPreviewComplete"));
 }
 
 export function buildPreviewCellsArray() {
