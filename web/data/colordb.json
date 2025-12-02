@@ -880,46 +880,6 @@
         "Image Src": "images/tiles/stone_wall.png"
     },
     {
-        "GUID": 88,
-        "Name": "Tilled Dirt Ground",
-        "RGB": [180, 127, 73],
-        "HSL": [30.28, 42.292, 49.608],
-        "HSV": [30.28, 59.444, 70.588],
-        "CAM16": [60.78664, 8.02731, 16.58022],
-        "Category": "Farm Ground",
-        "Image Src": "images/tiles/tilled_dirt_ground.png"
-    },
-    {
-        "GUID": 89,
-        "Name": "Tilled Dirt Ground Watered",
-        "RGB": [141, 102, 61],
-        "HSL": [30.75, 39.604, 39.608],
-        "HSV": [30.75, 56.738, 55.294],
-        "CAM16": [49.18157, 6.29013, 13.90327],
-        "Category": "Farm Ground",
-        "Image Src": "images/tiles/tilled_dirt_ground_watered.png"
-    },
-    {
-        "GUID": 90,
-        "Name": "Tilled Grass Ground",
-        "RGB": [13, 115, 42],
-        "HSL": [137.059, 79.688, 25.098],
-        "HSV": [137.059, 88.696, 45.098],
-        "CAM16": [42.62405, -23.88261, 14.83059],
-        "Category": "Farm Ground",
-        "Image Src": "images/tiles/tilled_grass_ground.png"
-    },
-    {
-        "GUID": 91,
-        "Name": "Tilled Grass Ground Watered",
-        "RGB": [28, 93, 46],
-        "HSL": [136.615, 53.719, 23.725],
-        "HSV": [136.615, 69.892, 36.471],
-        "CAM16": [35.35603, -19.59229, 10.77549],
-        "Category": "Farm Ground",
-        "Image Src": "images/tiles/tilled_grass_ground_watered.png"
-    },
-    {
         "GUID": 92,
         "Name": "Turf Ground",
         "RGB": [86, 128, 99],
