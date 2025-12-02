@@ -353,6 +353,9 @@ function registerGridNavigationHandlers() {
 
     let hoverX = -1;
     let hoverY = -1;
+    let tilePx = -1;
+    let selX = -1;
+    let selY = -1;
 
     canvas.addEventListener("mousemove", (e) => {
         if (!Globals.imgDom.naturalWidth) return;
@@ -374,12 +377,15 @@ function registerGridNavigationHandlers() {
         const width = Globals.imgDom.naturalWidth;
         const pixelSize = 1 + Math.trunc(2000 / width);
         const previewCellsDims = Math.min(parseInt(Globals.gridSizeDOM.value), 25);
-        const tilePx = previewCellsDims * pixelSize;
+        tilePx = previewCellsDims * pixelSize;
 
         hoverX = Math.floor(mx / tilePx);
         hoverY = Math.floor(my / tilePx);
 
-        drawHover(hoverX, hoverY, tilePx);
+        selX = Number(Globals.chunkInputX.value) - 1;
+        selY = Number(Globals.chunkInputY.value) - 1;
+
+        if (hoverX !== selX || hoverY !== selY) drawHover(hoverX, hoverY, tilePx);
 
         // update tooltip text
         tooltip.textContent = `(${hoverX + 1}, ${hoverY + 1})`;
@@ -394,7 +400,8 @@ function registerGridNavigationHandlers() {
     });
 
     canvas.addEventListener("mouseleave", () => {
-        octx.clearRect(0, 0, overlay.width, overlay.height);
+        // octx.clearRect(0, 0, overlay.width, overlay.height);
+        drawSelected(selX, selY, tilePx);
         hoverX = hoverY = -1;
         tooltip.style.display = "none"; // hide tooltip
     });
@@ -402,6 +409,7 @@ function registerGridNavigationHandlers() {
     canvas.addEventListener("click", () => {
         if (hoverX < 0 || hoverY < 0) return;
 
+        drawSelected(hoverX, hoverY, tilePx);
         Globals.chunkInputX.value = hoverX + 1;
         Globals.chunkInputY.value = hoverY + 1;
         Render.renderPreview();
@@ -409,8 +417,20 @@ function registerGridNavigationHandlers() {
 
     function drawHover(x, y, tilePx) {
         octx.clearRect(0, 0, overlay.width, overlay.height);
-        octx.fillStyle = "rgba(255,255,255,0.15)";
+        octx.fillStyle = "rgba(255,255,255,0.25)";
         octx.fillRect(x * tilePx, y * tilePx, tilePx, tilePx);
+
+        // also draw selected without clearing
+        octx.strokeStyle = "rgba(0,255,0,0.8)";
+        octx.lineWidth = 10;
+        octx.strokeRect(selX * tilePx, selY * tilePx, tilePx, tilePx);
+    }
+
+    function drawSelected(x, y, tilePx) {
+        octx.clearRect(0, 0, overlay.width, overlay.height);
+        octx.strokeStyle = "rgba(0,255,0,0.8)";
+        octx.lineWidth = 10;
+        octx.strokeRect(x * tilePx, y * tilePx, tilePx, tilePx);
     }
 }
 // #endregion
