@@ -197,36 +197,62 @@ export function buildPreviewCellsArray() {
 }
 
 export function generateItemSelection(db) {
-    const savedStates = JSON.parse(localStorage.getItem("cktool-checkbox-states") || "{}");
+    // load previous states (name: {guid, checked})
+    let savedStates = JSON.parse(localStorage.getItem("cktool-checkbox-states") || "{}");
 
-    db.forEach((element) => {
-        // Instead of a <div>, use a <label> for full block clickability
+    // MIGRATION: Old format was (guid: bool)
+    const isV1SavedStates = Object.keys(savedStates).length > 0 && typeof Object.values(savedStates)[0] === "boolean";
+    if (isV1SavedStates) {
+        const migrated = {};
+        for (const [guidStr, checked] of Object.entries(savedStates)) {
+            const guid = Number(guidStr);
+            const entry = db[guid];
+            if (entry) {
+                migrated[entry.Name] = { guid, checked };
+            }
+        }
+        savedStates = migrated;
+        localStorage.setItem("cktool-checkbox-states", JSON.stringify(savedStates));
+    }
+
+    db.forEach((entry) => {
+        const nameKey = entry.Name;
+        const guid = entry.GUID;
+
+        // if no saved data, default to checked
+        if (!savedStates[nameKey]) {
+            savedStates[nameKey] = { guid, checked: true };
+        }
+
+        // === UI creation ===
         let container = document.createElement("label");
         container.className = "item-selection";
 
         let checkBox = document.createElement("input");
         checkBox.type = "checkbox";
         checkBox.setAttribute("name", "item-selection");
-        checkBox.setAttribute("guid", element.GUID);
+        checkBox.setAttribute("guid", guid);
 
-        checkBox.checked = savedStates[element.GUID] ?? true;
+        // load checked state
+        checkBox.checked = savedStates[nameKey].checked;
 
+        // update saved state on change
         checkBox.addEventListener("change", () => {
-            savedStates[element.GUID] = checkBox.checked;
+            savedStates[nameKey] = { guid, checked: checkBox.checked };
             localStorage.setItem("cktool-checkbox-states", JSON.stringify(savedStates));
         });
 
-        let preview = createItemPreview(element, Globals.ICON_DIMS);
-        preview.dataset.guid = element.GUID;
+        let preview = createItemPreview(entry, Globals.ICON_DIMS);
+        preview.dataset.guid = guid;
 
-        // Order matters: putting checkbox first enables keyboard accessibility
+        // assemble container
         container.appendChild(checkBox);
         container.appendChild(preview);
 
         // label text (inside the <label> so it's clickable too)
-        let name = document.createElement("span");
-        name.textContent = element.Name;
-        container.appendChild(name);
+        let nameSpan = document.createElement("span");
+        nameSpan.textContent = entry.Name;
+        container.appendChild(nameSpan);
 
         Globals.itemSelectionsDOM.appendChild(container);
     });

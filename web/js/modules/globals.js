@@ -57,7 +57,8 @@ export const Globals = {
     overlayCtx: null,
     hoverTooltip: null,
     iconSizeSelectDOM: null,
-    containWrapperDOM: null
+    containWrapperDOM: null,
+    btnDownloadGIMP: null
 };
 
 export function initGlobals() {
@@ -88,4 +89,5 @@ export function initGlobals() {
     Globals.hoverTooltip = document.getElementById("hover-tooltip");
     Globals.iconSizeSelectDOM = document.getElementById("icon-size-select");
     Globals.containWrapperDOM = document.getElementById("contain-wrapper");
+    Globals.btnDownloadGIMP = document.getElementById("btn-export-palette");
 }

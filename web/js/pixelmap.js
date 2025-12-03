@@ -1,6 +1,6 @@
 // Originally written by Randy Panopio, resurrected by Ryan Rutledge
 import { Globals, initGlobals } from "./modules/globals.js";
-import { getColorDB } from "./modules/colordb.js";
+import { getColorDB, writeGimpPalette } from "./modules/colordb.js";
 import * as Utils from "./modules/utils.js";
 import * as Render from "./modules/render.js";
 
@@ -180,6 +180,9 @@ export async function Initialize() {
     // Globals.btnToggleImages.addEventListener("click", Render.toggleImages);
     Globals.btnProcess.addEventListener("click", processImage);
     Globals.btnRenderPreview.addEventListener("click", Render.renderPreview);
+    Globals.btnDownloadGIMP.addEventListener("click", () => {
+        writeGimpPalette(Globals.colorDB);
+    });
     // #endregion
 
     Globals.imageUploadDOM.addEventListener("change", function () {
