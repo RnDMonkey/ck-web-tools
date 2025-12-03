@@ -260,6 +260,8 @@
         <script>
             const leftPane = document.getElementById("left-pane");
             const middlePane = document.getElementById("middle-pane");
+            const rightPane = document.getElementById("right-pane");
+
             const dragLeft = document.getElementById("drag-bar-left");
             const dragRight = document.getElementById("drag-bar-right");
             const layout = document.getElementById("layout");
@@ -270,14 +272,15 @@
             // Restore saved widths (in px) if any
             (function restorePaneWidths() {
                 const leftWidth = Number(localStorage.getItem("cktool-left-width"));
-                const middleWidth = Number(localStorage.getItem("cktool-middle-width"));
+                const rightWidth = Number(localStorage.getItem("cktool-right-width"));
 
                 if (leftWidth > 0) {
                     leftPane.style.flexBasis = leftWidth + "px";
                 }
-                if (middleWidth > 0) {
-                    middlePane.style.flexBasis = middleWidth + "px";
+                if (rightWidth > 0) {
+                    rightPane.style.flexBasis = rightWidth + "px";
                 }
+                // middlePane autosizes
             })();
 
             dragLeft.addEventListener("mousedown", () => {
@@ -294,28 +297,27 @@
                 if (!draggingLeft && !draggingRight) return;
 
                 const layoutRect = layout.getBoundingClientRect();
-                const layoutWidth = layoutRect.width;
 
                 if (draggingLeft) {
-                    const newWidth = e.clientX - layoutRect.left;
-                    const clamped = Math.min(Math.max(newWidth, 250), 900);
+                    const newLeft = e.clientX - layoutRect.left;
+                    const clamped = Math.min(Math.max(newLeft, 250), 900);
                     leftPane.style.flexBasis = clamped + "px";
                 }
 
                 if (draggingRight) {
-                    const leftWidth = leftPane.getBoundingClientRect().width;
-                    const newMiddle = e.clientX - leftWidth - layoutRect.left;
-                    const clamped = Math.min(Math.max(newMiddle, 300), layoutWidth - leftWidth - 350);
-                    middlePane.style.flexBasis = clamped + "px";
+                    const layoutRight = layoutRect.left + layoutRect.width;
+                    const newRight = layoutRight - e.clientX; // distance from mouse to right edge
+                    const clamped = Math.min(Math.max(newRight, 450), 1000);
+                    rightPane.style.flexBasis = clamped + "px";
                 }
             });
 
             window.addEventListener("mouseup", () => {
                 if (draggingLeft || draggingRight) {
-                    const leftWidth = leftPane.getBoundingClientRect().width;
-                    const middleWidth = middlePane.getBoundingClientRect().width;
-                    localStorage.setItem("cktool-left-width", Math.round(leftWidth));
-                    localStorage.setItem("cktool-middle-width", Math.round(middleWidth));
+                    const leftWidth = Math.round(leftPane.getBoundingClientRect().width);
+                    const rightWidth = Math.round(rightPane.getBoundingClientRect().width);
+                    localStorage.setItem("cktool-left-width", leftWidth);
+                    localStorage.setItem("cktool-right-width", rightWidth);
                 }
 
                 draggingLeft = false;
