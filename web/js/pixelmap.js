@@ -170,7 +170,7 @@ export async function Initialize() {
             Globals.processModeSelectDOM.value === "CAM16" ? "inline-block" : "none";
 
         if (!Globals.isImageEmpty) {
-            processImage(); // auto-process like palette checkbox changes
+            processImage();
         }
     });
     // #endregion
@@ -187,16 +187,46 @@ export async function Initialize() {
 
         if (!Globals.isImageEmpty) {
             Render.buildPreviewCellsArray();
-            processImage(); // auto-process like palette checkbox changes
+            processImage();
+        }
+    });
+
+    // Restore saved grid line thickness
+    const savedGridLineThickness = localStorage.getItem("cktool-grid-line-thickness");
+    if (savedGridLineThickness) {
+        Globals.gridThicknessInputDOM.value = savedGridLineThickness;
+    }
+
+    // Save grid line thickness and redraw
+    Globals.gridThicknessInputDOM.addEventListener("change", () => {
+        localStorage.setItem("cktool-grid-line-thickness", Globals.gridThicknessInputDOM.value);
+
+        if (!Globals.isImageEmpty) {
+            drawGridAndSelectionOverlay();
+        }
+    });
+
+    // Restore grid lines visibility pref
+    const savedShowGridLines = localStorage.getItem("cktool-show-grid-lines");
+    if (savedShowGridLines) {
+        Globals.showGridLinesDOM.value = savedShowGridLines;
+    }
+
+    // Save grid lines visibility pref and redraw
+    Globals.showGridLinesDOM.addEventListener("change", () => {
+        localStorage.setItem("cktool-show-grid-lines", Globals.showGridLinesDOM.value);
+
+        if (!Globals.isImageEmpty) {
+            drawGridAndSelectionOverlay();
         }
     });
 
     // populate Globals.previewCells
     Render.buildPreviewCellsArray();
 
-    // fire off drawSelectionFromInputs any time renderPreviewComplete event fires
+    // fire off drawGridAndSelectionOverlay() any time renderPreviewComplete event fires
     document.addEventListener("renderPreviewComplete", () => {
-        drawSelectionFromInputs();
+        drawGridAndSelectionOverlay();
     });
 
     // #region Button listeners
@@ -496,43 +526,70 @@ function registerGridNavigationHandlers() {
     });
 
     canvas.addEventListener("mouseleave", () => {
-        // octx.clearRect(0, 0, overlay.width, overlay.height);
-        // drawSelected(selX, selY, tilePx);
-        drawSelectionFromInputs();
         hoverX = hoverY = -1;
         tooltip.style.display = "none"; // hide tooltip
+        drawGridAndSelectionOverlay();
     });
 
     canvas.addEventListener("click", () => {
         if (hoverX < 0 || hoverY < 0) return;
 
-        drawSelected(hoverX, hoverY, tilePx);
         Globals.chunkInputX.value = hoverX + 1;
         Globals.chunkInputY.value = hoverY + 1;
         Render.renderPreview();
+        drawGridAndSelectionOverlay();
     });
 
     function drawHover(x, y, tilePx) {
-        octx.clearRect(0, 0, overlay.width, overlay.height);
+        drawGridAndSelectionOverlay();
         octx.fillStyle = "rgba(255,255,255,0.25)";
         octx.fillRect(x * tilePx, y * tilePx, tilePx, tilePx);
-
-        // also draw selected without clearing
-        octx.strokeStyle = "rgba(0,255,0,0.8)";
-        octx.lineWidth = 10;
-        octx.strokeRect(selX * tilePx, selY * tilePx, tilePx, tilePx);
-    }
-
-    function drawSelected(x, y, tilePx) {
-        octx.clearRect(0, 0, overlay.width, overlay.height);
-        octx.strokeStyle = "rgba(0,255,0,0.8)";
-        octx.lineWidth = 10;
-        octx.strokeRect(x * tilePx, y * tilePx, tilePx, tilePx);
     }
 }
 
-function drawSelectionFromInputs() {
+function drawGridOverlay(clearFirst = false) {
     if (Globals.isImageEmpty) return;
+    const overlay = Globals.overlayCanvasDOM;
+    const octx = Globals.overlayCtx;
+
+    // Clear previous grid
+    if (clearFirst) octx.clearRect(0, 0, overlay.width, overlay.height);
+
+    if (!Globals.showGridLinesDOM.checked) return;
+
+    const width = Globals.uploadedImageDOM.naturalWidth;
+    const pixelSize = 1 + Math.trunc(2000 / width);
+    const previewCellsDims = Math.min(parseInt(Globals.gridSizeDOM.value), 25);
+
+    const canvasPixelWidth = overlay.width;
+    const canvasPixelHeight = overlay.height;
+
+    const offset = 0;
+    octx.lineWidth = parseInt(Globals.gridThicknessInputDOM.value);
+    octx.strokeStyle = "black";
+
+    // Vertical lines
+    for (let x = 0; x <= canvasPixelWidth; x += pixelSize * previewCellsDims) {
+        octx.beginPath();
+        octx.moveTo(offset + x, 0);
+        octx.lineTo(offset + x, canvasPixelHeight);
+        octx.stroke();
+    }
+
+    // Horizontal lines
+    for (let y = 0; y <= canvasPixelHeight; y += pixelSize * previewCellsDims) {
+        octx.beginPath();
+        octx.moveTo(0, offset + y);
+        octx.lineTo(canvasPixelWidth, offset + y);
+        octx.stroke();
+    }
+}
+
+function drawSelectionFromInputs(clearFirst = false) {
+    if (Globals.isImageEmpty) return;
+    const overlay = Globals.overlayCanvasDOM;
+    const octx = Globals.overlayCtx;
+
     const selX = Number(Globals.chunkInputX.value) - 1;
     const selY = Number(Globals.chunkInputY.value) - 1;
 
@@ -541,11 +598,16 @@ function drawSelectionFromInputs() {
     const previewCellsDims = Math.min(parseInt(Globals.gridSizeDOM.value), 25);
     const tilePx = previewCellsDims * pixelSize;
 
-    Globals.overlayCtx.clearRect(0, 0, Globals.overlayCanvasDOM.width, Globals.overlayCanvasDOM.height);
+    if (clearFirst) octx.clearRect(0, 0, overlay.width, overlay.height);
 
-    Globals.overlayCtx.strokeStyle = "rgba(0,255,0,0.8)";
-    Globals.overlayCtx.lineWidth = 10;
-    Globals.overlayCtx.strokeRect(selX * tilePx, selY * tilePx, tilePx, tilePx);
+    octx.strokeStyle = "rgba(0,255,0,1)";
+    octx.lineWidth = parseInt(Globals.gridThicknessInputDOM.value) + 5;
+    octx.strokeRect(selX * tilePx, selY * tilePx, tilePx, tilePx);
+}
+
+function drawGridAndSelectionOverlay() {
+    drawGridOverlay(true); // clear canvas once
+    drawSelectionFromInputs(false); // don't clear canvas
 }
 
 // #endregion
@@ -900,23 +962,8 @@ export async function processImage() {
     Globals.itemCountersDOM.appendChild(frag);
     updateSuppressionUI();
 
-    // draw grid over Mapped Image
-    const offset = 0.5;
-    if (Globals.showGridLinesDOM.checked) {
-        octx.lineWidth = parseInt(Globals.gridThicknessInputDOM.value);
-        octx.strokeStyle = "black";
-
-        for (let x = 0; x < canvasPixelWidth; x += pixelSize * previewCellsDims) {
-            octx.moveTo(offset + x, 0);
-            octx.lineTo(offset + x, canvasPixelHeight);
-        }
-
-        for (let y = 0; y < canvasPixelHeight; y += pixelSize * previewCellsDims) {
-            octx.moveTo(0, offset + y);
-            octx.lineTo(canvasPixelWidth, offset + y);
-        }
-        octx.stroke();
-    }
+    // draw grid and selection overlay
+    drawGridAndSelectionOverlay();
 
     // console.log("Globals.cachedData:");
     // console.log(Globals.cachedData);

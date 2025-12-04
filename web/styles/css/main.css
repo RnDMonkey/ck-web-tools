@@ -386,8 +386,7 @@ input[type="checkbox"] {
 #overlay-canvas {
     pointer-events: none;
     position: absolute;
-    top: output-canvas top;
-    left: output-canvas left;
+    image-rendering: auto;
 }
 
 #hover-tooltip {
