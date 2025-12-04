@@ -201,16 +201,10 @@ export function removeColorFromExclusion(guid) {
     }
 }
 
-// NOTE Optimize this, but not sure what would be the best/fastest approach.
 export function getExcludedColorDB(db, exclusions) {
-    let result = JSON.parse(JSON.stringify(db)); // GOTA DEEPCLONE
-    for (let i = result.length - 1; i >= 0; i--) {
-        let guid = result[i]["GUID"];
-        if (exclusions.includes(guid)) {
-            result.splice(i, 1);
-        }
-    }
-    console.log("spliced result");
-    console.log(result);
+    const exclusionSet = new Set(exclusions);
+    const result = db.filter((entry) => !exclusionSet.has(entry.guid));
+
+    console.log("getExcludedColorDB filtered result:", result);
     return result;
 }

@@ -122,7 +122,7 @@ export async function Initialize() {
     });
 
     // Render item icon images after reading icon size preference, then hook listeners
-    Render.generateItemSelection(Globals.colorDB); // generate icon images for item selection, etc.
+    Render.generateItemSelection(); // generate icon images for item selection, etc.
     registerPaletteCheckboxHandlers();
     registerCounterClickHandlers();
     registerGridNavigationHandlers();
@@ -802,29 +802,29 @@ export async function processImage() {
     overlayCanvas.height = outputCanvas.height;
 
     // Color / item selection filtering
-    let colorIdsToExclude = [];
+    let colorGuidsToExclude = [];
     const itemSelectionCheckboxes = document.querySelectorAll("input[type=checkbox][name=item-selection]");
 
     itemSelectionCheckboxes.forEach((element) => {
         if (!element.checked) {
             let guid = parseInt(element.getAttribute("guid"));
-            colorIdsToExclude.push(guid);
+            colorGuidsToExclude.push(guid);
         }
     });
 
     // Add temporarily suppressed items to exclusion list
     Globals.tempSuppressed.forEach((guid) => {
-        if (!colorIdsToExclude.includes(guid)) {
-            colorIdsToExclude.push(guid);
+        if (!colorGuidsToExclude.includes(guid)) {
+            colorGuidsToExclude.push(guid);
         }
     });
 
-    if (colorIdsToExclude.length > 0) {
-        console.log(`User-excluded GUIDs: ${colorIdsToExclude.join(", ")}`);
+    if (colorGuidsToExclude.length > 0) {
+        console.log(`User-excluded GUIDs: ${colorGuidsToExclude.join(", ")}`);
     }
 
-    colorIdsToExclude.sort();
-    let colorDBCache = Utils.getExcludedColorDB(Globals.colorDB, colorIdsToExclude);
+    colorGuidsToExclude.sort();
+    let colorDBCache = Utils.getExcludedColorDB(Globals.colorDB, colorGuidsToExclude);
 
     // Reset Globals.cachedData for this run
     Globals.cachedData = Array.from({ length: height }, () => new Array(width));
@@ -921,7 +921,8 @@ export async function processImage() {
         const match = rawEntries.find((e) => e.guid === guid);
         if (match) return match;
 
-        const entry = Globals.colorDB.find((e) => e.guid === guid);
+        const entry = Globals.paletteEntryByGuid[guid];
+        if (!entry) console.warn("Palette entry not found for GUID:", guid);
         return {
             guid,
             entry,

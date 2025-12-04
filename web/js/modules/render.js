@@ -191,7 +191,8 @@ export function buildPreviewCellsArray() {
     console.log(Globals.previewCells);
 }
 
-export function generateItemSelection(db) {
+export function generateItemSelection() {
+    const db = Globals.colorDB;
     // load previous states (name: {guid, checked})
     let savedStates = JSON.parse(localStorage.getItem("cktool-checkbox-states") || "{}");
 
@@ -201,7 +202,7 @@ export function generateItemSelection(db) {
         const migrated = {};
         for (const [guidStr, checked] of Object.entries(savedStates)) {
             const guid = Number(guidStr);
-            const entry = db[guid];
+            const entry = Globals.paletteEntryByGuid[guid];
             if (entry) {
                 migrated[entry.Name] = { guid, checked };
             }
@@ -259,7 +260,8 @@ export function redrawIconImages() {
     // Update item-selection icons
     document.querySelectorAll(".item-selection img").forEach((img) => {
         const guid = Number(img.dataset.guid);
-        const entry = Globals.colorDB.find((e) => e.guid === guid);
+        // const entry = Globals.colorDB.find((e) => e.guid === guid);
+        const entry = Globals.paletteEntryByGuid[guid];
 
         const newPreview = createItemPreview(entry, newSize);
         img.src = newPreview.src;
@@ -268,7 +270,8 @@ export function redrawIconImages() {
     // Update item-counter icons
     document.querySelectorAll(".item-counter img").forEach((img) => {
         const guid = Number(img.dataset.guid);
-        const entry = Globals.colorDB.find((e) => e.guid === guid);
+        // const entry = Globals.colorDB.find((e) => e.guid === guid);
+        const entry = Globals.paletteEntryByGuid[guid];
 
         const newPreview = createItemPreview(entry, newSize);
         img.src = newPreview.src;

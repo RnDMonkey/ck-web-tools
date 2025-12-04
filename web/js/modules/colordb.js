@@ -1,20 +1,51 @@
 import { trimBrackets } from "./utils.js";
 import { Globals } from "./globals.js";
 
+function validateColorDB(db) {
+    const seen = new Set();
+
+    for (const entry of db) {
+        if (typeof entry.guid !== "number") {
+            console.error("Invalid or missing GUID:", entry);
+            continue;
+        }
+        if (seen.has(entry.guid)) {
+            console.error("Duplicate GUID:", entry.guid);
+        }
+        seen.add(entry.guid);
+    }
+
+    console.log("Palette validation complete.");
+}
+
 export async function getColorDB(path = "data/colordb.json") {
     let data = null;
     const response = await fetch(path);
     data = await response.json();
 
-    // binding data
+    // Map RGB to [r,g,b] array
     data.forEach((element) => {
-        // Map RGB to int array
-        var trimmedRGB = trimBrackets(element["RGB"]);
-        element["RGB"] = trimmedRGB.split(",").map(Number);
+        var trimmedRGB = trimBrackets(element.RGB);
+        element.RGB = trimmedRGB.split(",").map(Number);
     });
 
-    console.log("Caching Color DB");
-    console.log(data);
+    console.log("Loaded palette entries:", data);
+    validateColorDB(data);
+
+    for (const entry of data) {
+        const guid = entry.guid;
+
+        if (guid == null) {
+            console.error("Entry missing GUID:", entry);
+            continue;
+        }
+        Globals.paletteEntryByGuid[guid] = entry;
+        Globals.paletteNameByGuid[guid] = entry.Name;
+    }
+
+    Object.freeze(Globals.paletteEntryByGuid);
+    Object.freeze(Globals.paletteNameByGuid);
+
     return data;
 }
 

@@ -5,6 +5,8 @@
 // use an object because individual variables are not properly mutable while an object instantiation is
 export const Globals = {
     colorDB: null,
+    paletteEntryByGuid: {},
+    paletteNameByGuid: {},
     CAM16_J_WEIGHT: 1,
 
     cacheBuildPromise: null,
