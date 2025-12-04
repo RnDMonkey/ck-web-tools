@@ -42,11 +42,49 @@ function updateMaxDims(isLargerAllowed) {
     Globals.maxDims = isLargerAllowed ? Globals.LARGE_MAXDIMS : Globals.NORMAL_MAXDIMS;
 }
 
+function loadImageFromDataURL(dataURL, options = {}) {
+    if (!dataURL) return;
+
+    const { allowLargeDims = false, overlayMessage = "Loading image..." } = options;
+
+    showProgressOverlay(overlayMessage);
+
+    // Set maxDims depending on where the image came from
+    updateMaxDims(allowLargeDims);
+
+    // Clear preview state before loading new image
+    Render.resetPreviewCells();
+
+    Globals.imageEpoch++;
+    const thisCacheBuildEpoch = Globals.imageEpoch;
+
+    Globals.uploadedImageDOM.onload = async () => {
+        try {
+            console.log("Image loaded, building caches…");
+            await buildPixelCaches(thisCacheBuildEpoch);
+            await processImage();
+        } finally {
+            hideProgressOverlay();
+        }
+    };
+
+    Globals.uploadedImageDOM.onerror = () => {
+        console.error("Failed to load image from data URL");
+        hideProgressOverlay();
+    };
+
+    Globals.uploadedImageDOM.src = dataURL;
+    console.log(
+        "Uploaded W: " + Globals.uploadedImageDOM.naturalWidth + ", H: " + Globals.uploadedImageDOM.naturalHeight
+    );
+}
+
 // #endregion
 
 // #region Initialization and Hooked Event Listeners
 export async function Initialize() {
     initGlobals();
+    showProgressOverlay("Loading page...");
 
     restorePaneSizes();
     setupDragBar("drag-bar-left", "left-pane", true);
@@ -100,7 +138,7 @@ export async function Initialize() {
 
     Globals.cam16WeightInputDOM.addEventListener("input", () => {
         Globals.CAM16_J_WEIGHT = parseFloat(Globals.cam16WeightInputDOM.value);
-        if (Globals.imgDom.src && Globals.imgDom.naturalWidth) {
+        if (!Globals.isImageEmpty) {
             processImage();
         }
     });
@@ -108,7 +146,7 @@ export async function Initialize() {
     Globals.cam16WeightInputDOM.addEventListener("change", () => {
         localStorage.setItem("cktool-cam16-weight", Globals.cam16WeightInputDOM.value);
         Globals.CAM16_J_WEIGHT = parseFloat(Globals.cam16WeightInputDOM.value);
-        if (Globals.imgDom.src && Globals.imgDom.naturalWidth) {
+        if (!Globals.isImageEmpty) {
             processImage();
         }
     });
@@ -131,7 +169,7 @@ export async function Initialize() {
         Globals.cam16WeightContainerDOM.style.display =
             Globals.processModeSelectDOM.value === "CAM16" ? "inline-block" : "none";
 
-        if (Globals.imgDom.src && Globals.imgDom.naturalWidth > 0) {
+        if (!Globals.isImageEmpty) {
             processImage(); // auto-process like palette checkbox changes
         }
     });
@@ -147,23 +185,10 @@ export async function Initialize() {
     Globals.gridSizeDOM.addEventListener("change", () => {
         localStorage.setItem("cktool-grid-size", Globals.gridSizeDOM.value);
 
-        if (Globals.imgDom.src && Globals.imgDom.naturalWidth > 0) {
+        if (!Globals.isImageEmpty) {
             Render.buildPreviewCellsArray();
             processImage(); // auto-process like palette checkbox changes
         }
-    });
-
-    // Restore saved allow-larger-images toggle + update maxDims
-    const savedAllowLargerImages = localStorage.getItem("cktool-allow-larger-images");
-    const allowLarger = savedAllowLargerImages === "true";
-    Globals.allowLargerImagesDOM.checked = allowLarger;
-    updateMaxDims(allowLarger);
-
-    // Save allow-larger-images toggle + update maxDims
-    Globals.allowLargerImagesDOM.addEventListener("change", () => {
-        const allowLargerChecked = Globals.allowLargerImagesDOM.checked;
-        localStorage.setItem("cktool-allow-larger-images", String(allowLargerChecked));
-        updateMaxDims(allowLargerChecked);
     });
 
     // populate Globals.previewCells
@@ -185,48 +210,111 @@ export async function Initialize() {
     });
     // #endregion
 
-    Globals.imageUploadDOM.addEventListener("change", function () {
-        console.log("Image input change event triggered, opening fs");
-        showProgressOverlay("Uploading file...");
-
-        const reader = new FileReader();
-
-        reader.onload = () => {
-            Render.resetPreviews();
-            Globals.imageEpoch++;
-            const thisCacheBuildEpoch = Globals.imageEpoch;
-
-            Globals.imgDom.onload = async () => {
-                console.log("Image fully loaded, building caches…");
-                await buildPixelCaches(thisCacheBuildEpoch);
-                await processImage();
-                hideProgressOverlay();
-            };
-
-            Globals.imgDom.src = reader.result;
-            console.log("Uploaded W: " + Globals.imgDom.naturalWidth + ", H: " + Globals.imgDom.naturalHeight);
-        };
-
-        reader.readAsDataURL(this.files[0]);
-    });
-
-    document.getElementById("btn-clear-suppressed").addEventListener("click", () => {
+    Globals.btnClearSuppressedDOM.addEventListener("click", () => {
         Globals.tempSuppressed.clear();
         updateSuppressionUI();
 
         // Remove visual cue
         document.querySelectorAll(".item-counter.suppressed").forEach((el) => el.classList.remove("suppressed"));
 
-        if (Globals.imgDom.src && Globals.imgDom.naturalWidth > 0) {
+        if (!Globals.isImageEmpty) {
             processImage();
         }
+    });
+
+    // ===============================
+    // Cached Image Support - KEEP LAST in Initialize()
+    // ===============================
+    const CACHE_KEY = "cktool-cached-image";
+
+    // Restore cache-image checkbox state (default: true)
+    const savedFlag = localStorage.getItem("cktool-image-cache-enabled");
+    if (!savedFlag) {
+        Globals.allowCachedImageDOM.checked = true;
+    } else {
+        Globals.allowCachedImageDOM.checked = savedFlag === "true";
+    }
+
+    // Show button if cached image exists
+    if (localStorage.getItem(CACHE_KEY)) {
+        Globals.btnClearImageCacheDOM.style.display = "inline-block";
+    }
+
+    // Save cache-image checkbox state
+    Globals.allowCachedImageDOM.addEventListener("change", () => {
+        localStorage.setItem("cktool-image-cache-enabled", Globals.allowCachedImageDOM.checked);
+        if (Globals.allowCachedImageDOM.checked) {
+            if (!Globals.isImageEmpty) {
+                localStorage.setItem(CACHE_KEY, Globals.uploadedImageDOM.src);
+                Globals.btnClearImageCacheDOM.style.display = "inline-block";
+            }
+        } else {
+            localStorage.removeItem(CACHE_KEY);
+            Globals.btnClearImageCacheDOM.style.display = "none";
+        }
+    });
+
+    // check for cached image
+    const cachedImageDataURL = localStorage.getItem(CACHE_KEY);
+    if (cachedImageDataURL) {
+        Globals.btnClearImageCacheDOM.style.display = "inline-block";
+    } else {
+        Globals.btnClearImageCacheDOM.style.display = "none";
+    }
+
+    // load cached image if present and cache enabled
+    if (cachedImageDataURL && Globals.allowCachedImageDOM.checked) {
+        loadImageFromDataURL(cachedImageDataURL, {
+            allowLargeDims: true,
+            overlayMessage: "Loading cached image..."
+        });
+    } else {
+        // No cached image to load; hide overlay if we showed it at top
+        hideProgressOverlay();
+    }
+
+    // handle new image uploads
+    Globals.imageUploadDOM.addEventListener("change", function () {
+        console.log("Image input change event triggered, opening fs");
+
+        const file = this.files[0];
+        if (!file) return;
+
+        showProgressOverlay("Uploading file...");
+
+        const reader = new FileReader();
+
+        reader.onload = () => {
+            const dataURL = reader.result;
+
+            if (Globals.allowCachedImageDOM.checked) {
+                localStorage.setItem(CACHE_KEY, dataURL);
+                Globals.btnClearImageCacheDOM.style.display = "inline-block";
+            }
+
+            loadImageFromDataURL(dataURL, {
+                allowLargeDims: false,
+                overlayMessage: "Uploading file..."
+            });
+        };
+
+        reader.readAsDataURL(file);
+    });
+
+    // Clear cached image (stored only, not loaded image)
+    Globals.btnClearImageCacheDOM.addEventListener("click", () => {
+        localStorage.removeItem(CACHE_KEY);
+        Globals.btnClearImageCacheDOM.style.display = "none";
+
+        Globals.allowCachedImageDOM.checked = false;
+        localStorage.setItem("cktool-image-cache-enabled", Globals.allowCachedImageDOM.checked);
     });
 }
 
 function registerPaletteCheckboxHandlers() {
     document.querySelectorAll("input[type=checkbox][name=item-selection]").forEach((cb) => {
         cb.addEventListener("change", () => {
-            if (Globals.imgDom.src && Globals.imgDom.naturalWidth > 0) {
+            if (!Globals.isImageEmpty) {
                 processImage();
             }
         });
@@ -251,7 +339,7 @@ function registerCounterClickHandlers() {
 
         updateSuppressionUI();
 
-        if (Globals.imgDom.src && Globals.imgDom.naturalWidth > 0) {
+        if (!Globals.isImageEmpty) {
             processImage();
         }
     });
@@ -261,12 +349,12 @@ function updateSuppressionUI() {
     const count = Globals.tempSuppressed.size;
 
     const countSpan = document.getElementById("suppression-count");
-    const clearBtn = document.getElementById("btn-clear-suppressed");
+    const btnClearSuppressed = document.getElementById("btn-clear-suppressed");
 
     countSpan.textContent = count;
 
     // Disable button if nothing to clear
-    clearBtn.disabled = count === 0;
+    btnClearSuppressed.disabled = count === 0;
 }
 
 function savePaneSizes() {
@@ -366,7 +454,7 @@ function registerGridNavigationHandlers() {
     let selY = -1;
 
     canvas.addEventListener("mousemove", (e) => {
-        if (!Globals.imgDom.naturalWidth) return;
+        if (Globals.isImageEmpty) return;
 
         const rect = canvas.getBoundingClientRect();
 
@@ -382,7 +470,7 @@ function registerGridNavigationHandlers() {
         const mx = mx_css * scaleX;
         const my = my_css * scaleY;
 
-        const width = Globals.imgDom.naturalWidth;
+        const width = Globals.uploadedImageDOM.naturalWidth;
         const pixelSize = 1 + Math.trunc(2000 / width);
         const previewCellsDims = Math.min(parseInt(Globals.gridSizeDOM.value), 25);
         tilePx = previewCellsDims * pixelSize;
@@ -444,10 +532,11 @@ function registerGridNavigationHandlers() {
 }
 
 function drawSelectionFromInputs() {
+    if (Globals.isImageEmpty) return;
     const selX = Number(Globals.chunkInputX.value) - 1;
     const selY = Number(Globals.chunkInputY.value) - 1;
 
-    const width = Globals.imgDom.naturalWidth;
+    const width = Globals.uploadedImageDOM.naturalWidth;
     const pixelSize = 1 + Math.trunc(2000 / width);
     const previewCellsDims = Math.min(parseInt(Globals.gridSizeDOM.value), 25);
     const tilePx = previewCellsDims * pixelSize;
@@ -475,7 +564,7 @@ export async function buildPixelCaches(thisCacheBuildEpoch) {
     }
 
     Globals.cacheBuildPromise = (async () => {
-        if (!Globals.uploadedImageDOM.naturalWidth || !Globals.uploadedImageDOM.naturalHeight) {
+        if (Globals.isImageEmpty) {
             console.warn("buildPixelCaches() called before image loaded.");
             return;
         }
@@ -568,6 +657,11 @@ export async function buildPixelCaches(thisCacheBuildEpoch) {
 }
 
 export async function processImage() {
+    if (Globals.isImageEmpty) {
+        console.log("No image to process");
+        return;
+    }
+
     // wait for cache rebuild if in process
     if (Globals.cacheBuildPromise) {
         console.log("Pixel cache build in progress - waiting...");
@@ -582,29 +676,43 @@ export async function processImage() {
     Globals.itemCountersDOM.innerHTML = "";
 
     // Basic image sanity checks
-    if (!Globals.imgDom.naturalWidth || !Globals.imgDom.naturalHeight) {
+    if (Globals.isImageEmpty) {
         console.error("No image loaded.");
         window.alert("Please load an image first.");
         return;
     }
 
-    const width = Globals.imgDom.naturalWidth;
-    const height = Globals.imgDom.naturalHeight;
+    const width = Globals.uploadedImageDOM.naturalWidth;
+    const height = Globals.uploadedImageDOM.naturalHeight;
     const totalPixels = width * height;
 
     if (width > Globals.maxDims || height > Globals.maxDims) {
-        const yourImageSizeMsg = `\n\nYour image: ${width}x${height}px`;
-        const imageSizeMsg = `\n\nMax resolution ${Globals.maxDims}x${Globals.maxDims}px`;
-        console.error(`Image too large!${yourImageSizeMsg}${imageSizeMsg}`);
-        window.alert(`Image too large!${yourImageSizeMsg}${imageSizeMsg}`);
-        return;
+        const yourImageSizeMsg = `your image (${width}x${height}px)`;
+        const imageSizeMsg = `max resolution (${Globals.maxDims}x${Globals.maxDims}px)`;
+        const proceed = window.confirm(
+            `Warning: ${yourImageSizeMsg} exceeds ${imageSizeMsg}.\n\n
+            Increase resolution limit to 10000x10000px?\n\n
+            (Processing WILL take a long time!)`
+        );
+
+        if (!proceed) {
+            console.error(`Image too large!\n\n${yourImageSizeMsg}\n\n${imageSizeMsg}`);
+            window.alert(`Image too large!\n\n${yourImageSizeMsg}\n\n${imageSizeMsg}`);
+            // TODO: clear image
+            return;
+        } else updateMaxDims(proceed);
     }
 
     if (width * height > Globals.LARGE_IMAGE_WARNING_THRESHOLD) {
         const proceed = window.confirm(
-            `Warning: This image is (${width}×${height}px) and may take a while to process.\n\nContinue?`
+            `Warning: This image is (${width}x${height}px) and may take a while to process.\n\n
+            Reminder: this corresponds to ${width}x${height} in-game tiles.\n\n
+            Continue?`
         );
-        if (!proceed) return;
+        if (!proceed) {
+            // TODO: clear image
+            return;
+        }
     }
 
     console.log("Processing currently uploaded image");
@@ -810,7 +918,12 @@ export async function processImage() {
         octx.stroke();
     }
 
-    console.log("Globals.cachedData");
-    console.log(Globals.cachedData);
+    // console.log("Globals.cachedData:");
+    // console.log(Globals.cachedData);
     console.log("out canvas pixel dims " + outputCanvas.width / pixelSize + ", " + outputCanvas.height / pixelSize);
+
+    // Show cached-image clear button if cached image exists
+    if (localStorage.getItem("cktool-cached-image")) {
+        Globals.btnClearImageCacheDOM.style.display = "inline-block";
+    }
 }

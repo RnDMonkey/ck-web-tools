@@ -129,12 +129,7 @@ export function renderPreview() {
     let previewCellsDims = Math.min(parseInt(Globals.gridSizeDOM.value), 25);
 
     // clear preview grid before drawing
-    for (let row of Globals.previewCells) {
-        for (let cell of row) {
-            cell.style.backgroundColor = "transparent";
-            cell.src = "images/misc/empty.png";
-        }
-    }
+    resetPreviewCells();
 
     for (let y = 0, gy = chunkY * previewCellsDims; y < previewCellsDims; y++, gy++) {
         for (let x = 0, gx = chunkX * previewCellsDims; x < previewCellsDims; x++, gx++) {
@@ -143,7 +138,7 @@ export function renderPreview() {
                 const existingCell = Globals.previewCells[y][x];
                 Globals.previewCells[y][x].style.backgroundColor = "rgba(" + trimBrackets(selection["RGB"]) + ", 255)";
 
-                // previewCells[y][x].src = selection['imageSource']
+                // Globals.previewCells[y][x].src = selection['imageSource']
                 // Use fallback-aware preview generator for each preview cell
                 let preview = createItemPreview(selection, Globals.ICON_DIMS); // replace 30px preview grid cells
                 preview.id = existingCell.id;
@@ -310,13 +305,15 @@ export function toggleCounterSelection() {
 }
 
 // TODO
-export function resetPreviews() {
-    // if (!previewCells === undefined || !previewCells.length == 0) {
-    //     console.log("Resetting previews")
-    //     previewCells.forEach(element => {
-    //         element.src = "images/misc/empty.png"
-    //         element.style.backgroundColor = "transparent"
-    //     })
-    // }
+export function resetPreviewCells() {
+    if (!Globals.previewCells === undefined || !Globals.previewCells.length == 0) {
+        console.log("Resetting previews");
+        for (let row of Globals.previewCells) {
+            for (let cell of row) {
+                cell.style.backgroundColor = "transparent";
+                cell.src = "images/misc/empty.png";
+            }
+        }
+    }
 }
 // #endregion

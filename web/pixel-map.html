@@ -120,10 +120,11 @@
 
                 <!-- TOP: Controls -->
                 <div id="rp-controls">
-                    <div class="rp-row">
-                        <label for="allow-larger-images">Allow Huge Images</label>
-                        <input type="checkbox" id="allow-larger-images" checked />
-
+                    <div class="rp-row-left">
+                        <span>
+                            <label for="cb-enable-image-cache">Cache Image</label>
+                            <input type="checkbox" id="cb-enable-image-cache" checked />
+                        </span>
                         <input type="file" id="image-upload" accept="image/png, image/jpeg" />
                     </div>
 
@@ -173,7 +174,12 @@
                 <!-- BOTTOM: Images -->
                 <div id="rp-image-inputs">
                     <div class="image-block original">
-                        <div class="image-label">Original Image:</div>
+                        <div class="image-header-row">
+                            <button type="button" id="btn-clear-cache" class="clear-cache-btn" style="display: none">
+                                Clear Cached Image
+                            </button>
+                            <div class="image-label">Original Image:</div>
+                        </div>
                         <div class="image-content">
                             <img class="viewer-image" id="upload-preview" src="images/misc/empty.png" />
                         </div>

@@ -20,7 +20,7 @@ export const Globals = {
 
     NORMAL_MAXDIMS: 2000,
     LARGE_MAXDIMS: 10000,
-    LARGE_IMAGE_WARNING_THRESHOLD: 100000,
+    LARGE_IMAGE_WARNING_THRESHOLD: 90000,
     ICON_DIMS: 64, // default value, will mirror CSS var
     previewCells: [],
     maxDims: 2000,
@@ -36,13 +36,13 @@ export const Globals = {
     showGridLinesDOM: null,
     gridThicknessInputDOM: null,
     imageUploadDOM: null,
-    imgDom: null,
-    previewTableDOM: null,
     uploadedImageDOM: null,
+    previewTableDOM: null,
     gridSizeDOM: null,
     imageInputsDOM: null,
     itemSelectionsDOM: null,
     itemCountersDOM: null,
+    btnClearSuppressedDOM: null,
     processModeSelectDOM: null,
     cam16WeightContainerDOM: null,
     cam16WeightInputDOM: null,
@@ -51,14 +51,23 @@ export const Globals = {
     btnToggleImages: null,
     btnProcess: null,
     btnRenderPreview: null,
-    allowLargerImagesDOM: null,
+    allowCachedImageDOM: null,
+    btnClearImageCacheDOM: null,
     outputCanvasDOM: null,
     overlayCanvasDOM: null,
     overlayCtx: null,
     hoverTooltip: null,
     iconSizeSelectDOM: null,
     containWrapperDOM: null,
-    btnDownloadGIMP: null
+    btnDownloadGIMP: null,
+
+    // object methods
+    get isImageEmpty() {
+        const img = Globals.uploadedImageDOM;
+        if (!img || !img.src) return true; // not initialized or no src set
+        if (img.src.includes("images/misc/empty.png")) return true; // empty placeholder
+        return img.naturalWidth * img.naturalHeight === 0;
+    }
 };
 
 export function initGlobals() {
@@ -67,13 +76,13 @@ export function initGlobals() {
     Globals.showGridLinesDOM = document.getElementById("show-grid-lines");
     Globals.gridThicknessInputDOM = document.getElementById("grid-thickness");
     Globals.imageUploadDOM = document.getElementById("image-upload");
-    Globals.imgDom = document.getElementById("upload-preview");
-    Globals.previewTableDOM = document.getElementById("preview-table");
     Globals.uploadedImageDOM = document.getElementById("upload-preview");
+    Globals.previewTableDOM = document.getElementById("preview-table");
     Globals.gridSizeDOM = document.getElementById("grid-size");
     Globals.imageInputsDOM = document.getElementById("image-inputs");
     Globals.itemSelectionsDOM = document.getElementById("item-selections");
     Globals.itemCountersDOM = document.getElementById("item-counters");
+    Globals.btnClearSuppressedDOM = document.getElementById("btn-clear-suppressed");
     Globals.processModeSelectDOM = document.getElementById("process-options");
     Globals.cam16WeightContainerDOM = document.getElementById("cam16-weight-container");
     Globals.cam16WeightInputDOM = document.getElementById("cam16-weight");
@@ -82,7 +91,8 @@ export function initGlobals() {
     Globals.btnToggleImages = document.getElementById("btn-toggle-images");
     Globals.btnProcess = document.getElementById("btn-process");
     Globals.btnRenderPreview = document.getElementById("btn-render-preview");
-    Globals.allowLargerImagesDOM = document.getElementById("allow-larger-images");
+    Globals.allowCachedImageDOM = document.getElementById("cb-enable-image-cache");
+    Globals.btnClearImageCacheDOM = document.getElementById("btn-clear-cache");
     Globals.outputCanvasDOM = document.getElementById("output-canvas");
     Globals.overlayCanvasDOM = document.getElementById("overlay-canvas");
     Globals.overlayCtx = Globals.overlayCanvasDOM.getContext("2d");

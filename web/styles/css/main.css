@@ -53,6 +53,17 @@ button {
     white-space: pre;
 }
 
+/* Input control styles */
+
+input[type="number"] {
+    width: 3.5em;
+}
+
+input[type="checkbox"] {
+    width: 1.18em;
+    height: 1.18em;
+}
+
 /* Footer icons */
 .site-footer-links {
     font-size: 2.5em;
@@ -143,17 +154,6 @@ button {
 .item-selection input[type="checkbox"] {
     flex-shrink: 0;
     pointer-events: auto;
-}
-
-/* Inputs in left pane, etc. */
-
-input[type="number"] {
-    width: 3.5em;
-}
-
-input[type="checkbox"] {
-    width: 1.18em;
-    height: 1.18em;
 }
 
 /* ============================
@@ -273,6 +273,25 @@ input[type="checkbox"] {
     gap: 12px;
 }
 
+.rp-row-left {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.rp-row-left span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
+
+.rp-row-left #image-upload {
+    flex: 1 1 auto;
+}
+
 .rp-row button#btn-process {
     background-color: #6ac4ff;
     border: none;
@@ -381,6 +400,32 @@ input[type="checkbox"] {
     pointer-events: none;
     transform: translate(10px, 10px);
     display: none;
+}
+
+/* ============================
+   Cached Image Controls
+   ============================ */
+
+.image-header-row {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* bottom aligned */
+    gap: 10px;
+    margin-bottom: 4px;
+}
+
+.clear-cache-btn {
+    background-color: #ff4c4c; /* bright red */
+    border: none;
+    padding: 4px 10px;
+    font-weight: bold;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.clear-cache-btn:hover {
+    background-color: #ff2222;
 }
 
 /* ============================
