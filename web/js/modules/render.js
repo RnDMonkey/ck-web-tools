@@ -67,7 +67,7 @@ export function preloadFallbackIcons(sizes = [32, 48, 64]) {
     if (!Globals.colorDB) return;
 
     Globals.colorDB.forEach((entry) => {
-        const guid = entry.GUID;
+        const guid = entry.guid;
 
         // Only preload for entries that don't have image sources defined
         if (!entry.imageSource) {
@@ -84,7 +84,7 @@ export function preloadFallbackIcons(sizes = [32, 48, 64]) {
 
 // Generates an <img> OR a fallback <canvas> with the Name drawn over the RGB background
 export function createItemPreview(entry, size = Globals.ICON_DIMS) {
-    const guid = entry.GUID;
+    const guid = entry.guid;
     const cacheKey = `${guid}_${size}`;
 
     // If matching-size fallback exists, reuse it
@@ -166,7 +166,7 @@ export function buildPreviewCellsArray() {
             cell.width = 0;
             cell.height = 0;
             cell.alt = "";
-            cell.GUID = -1;
+            cell.guid = -1;
         }
     }
 
@@ -212,7 +212,7 @@ export function generateItemSelection(db) {
 
     db.forEach((entry) => {
         const nameKey = entry.Name;
-        const guid = entry.GUID;
+        const guid = entry.guid;
 
         // if no saved data, default to checked
         if (!savedStates[nameKey]) {
@@ -259,7 +259,7 @@ export function redrawIconImages() {
     // Update item-selection icons
     document.querySelectorAll(".item-selection img").forEach((img) => {
         const guid = Number(img.dataset.guid);
-        const entry = Globals.colorDB[guid];
+        const entry = Globals.colorDB.find((e) => e.guid === guid);
 
         const newPreview = createItemPreview(entry, newSize);
         img.src = newPreview.src;
@@ -268,7 +268,7 @@ export function redrawIconImages() {
     // Update item-counter icons
     document.querySelectorAll(".item-counter img").forEach((img) => {
         const guid = Number(img.dataset.guid);
-        const entry = Globals.colorDB[guid];
+        const entry = Globals.colorDB.find((e) => e.guid === guid);
 
         const newPreview = createItemPreview(entry, newSize);
         img.src = newPreview.src;

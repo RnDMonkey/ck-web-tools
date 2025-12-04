@@ -863,7 +863,7 @@ export async function processImage() {
             octx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
 
             // Count items
-            const guid = closestValue.GUID;
+            const guid = closestValue.guid;
             counters[guid] = (counters[guid] || 0) + 1;
 
             // Progress update
@@ -892,11 +892,11 @@ export async function processImage() {
     Globals.itemCountersDOM.innerHTML = "";
 
     // Build raw list of {guid, entry, count, suppressed}
-    const rawEntries = Globals.colorDB.map((entry, guid) => ({
-        guid,
+    const rawEntries = Globals.colorDB.map((entry) => ({
+        guid: entry.guid,
         entry,
-        count: counters[guid] || 0,
-        suppressed: Globals.tempSuppressed.has(guid)
+        count: counters[entry.guid] || 0,
+        suppressed: Globals.tempSuppressed.has(entry.guid)
     }));
 
     //---------------------------------------------
@@ -919,14 +919,15 @@ export async function processImage() {
     // Always show initial items
     const initialItems = Globals.initialCounterOrder.map((guid) => {
         const match = rawEntries.find((e) => e.guid === guid);
-        return match
-            ? match
-            : {
-                  guid,
-                  entry: Globals.colorDB[guid],
-                  count: 0,
-                  suppressed: Globals.tempSuppressed.has(guid)
-              };
+        if (match) return match;
+
+        const entry = Globals.colorDB.find((e) => e.guid === guid);
+        return {
+            guid,
+            entry,
+            count: 0,
+            suppressed: Globals.tempSuppressed.has(guid)
+        };
     });
 
     // Extras: only those *not* in initialCounterOrder AND count > 0
