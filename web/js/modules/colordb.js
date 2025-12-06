@@ -39,12 +39,16 @@ export async function getColorDB(path = "data/colordb.json") {
             console.error("Entry missing GUID:", entry);
             continue;
         }
-        Globals.paletteEntryByGuid[guid] = entry;
-        Globals.paletteNameByGuid[guid] = entry.Name;
+        if (Globals.colorDB) {
+            Globals.paletteEntryByGuid[guid] = entry;
+            Globals.paletteNameByGuid[guid] = entry.Name;
+        }
     }
 
-    Object.freeze(Globals.paletteEntryByGuid);
-    Object.freeze(Globals.paletteNameByGuid);
+    if (Globals.colorDB) {
+        Object.freeze(Globals.paletteEntryByGuid);
+        Object.freeze(Globals.paletteNameByGuid);
+    }
 
     return data;
 }

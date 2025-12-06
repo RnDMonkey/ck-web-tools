@@ -1,11 +1,36 @@
-import { getColorDB } from "./colordb.js";
+import { getColorDB, writeGimpPalette } from "./colordb.js";
 import { createItemPreview } from "./render.js";
-import { Globals } from "./globals.js";
+// import { Globals } from "./globals.js";
 
 const tableBody = document.querySelector("#image-table tbody");
+let db = null;
+
+async function safeLoadImage(img, finalSrc, statusTd, missingImages) {
+    // Check if the file exists before assigning img.src
+    const exists = await fetch(finalSrc, { method: "HEAD" })
+        .then((r) => r.ok)
+        .catch(() => false);
+
+    if (exists) {
+        img.src = finalSrc;
+        img.classList.add("good");
+        statusTd.textContent = "OK";
+        return;
+    }
+
+    // If missing...
+    missingImages.push(finalSrc);
+    img.src = "images/tiles/image_needed.png";
+    img.classList.add("missing");
+    statusTd.textContent = "Missing Image";
+}
 
 async function buildContributionTable() {
-    const db = await getColorDB("data/colordb.json");
+    if (!db) {
+        db = await getColorDB("data/colordb.json");
+    }
+
+    const missingImages = [];
 
     // Preload icon size (use 64px default even if user changed it)
     const ICON_SIZE = 64;
@@ -26,24 +51,8 @@ async function buildContributionTable() {
 
         let finalSrc = entry["Image Src"];
 
-        // Try to load the image; if it fails, use fallback
-        await new Promise((resolve) => {
-            img.onload = () => {
-                img.classList.add("good");
-                statusTd.textContent = "OK";
-                resolve();
-            };
-            img.onerror = () => {
-                img.onerror = null;
-                img.onload = null; // prevent re-trigger from fallback load
-                img.src = "images/tiles/image_needed.png";
-                img.classList.add("missing");
-                statusTd.textContent = "Missing Image";
-                resolve();
-            };
-
-            img.src = finalSrc;
-        });
+        // Try to load the image
+        await safeLoadImage(img, finalSrc, statusTd, missingImages);
 
         imgTd.appendChild(img);
         nameTd.textContent = entry.Name;
@@ -55,6 +64,22 @@ async function buildContributionTable() {
         tr.appendChild(statusTd);
         tableBody.appendChild(tr);
     }
+
+    if (missingImages.length > 0) {
+        console.groupCollapsed(`Missing Images (${missingImages.length})`);
+        missingImages.forEach((path) => console.log(path));
+        console.groupEnd();
+    } else {
+        console.log("All tile images loaded successfully.");
+    }
 }
+
+document.getElementById("btn-export-palette").addEventListener("click", async () => {
+    if (!db) {
+        db = await getColorDB("data/colordb.json");
+    }
+    console.log("Exporting colorDB: ", db);
+    writeGimpPalette(db);
+});
 
 buildContributionTable();
