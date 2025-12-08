@@ -7,7 +7,8 @@
         "HSV": [191.739, 40.0, 45.098],
         "CAM16": [44.23304, -11.04564, -7.69583],
         "Category": "Ground",
-        "Image Src": "images/tiles/alien_tech_ground.png"
+        "Image Src": "images/tiles/alien_tech_ground.png",
+        "GUID": 0
     },
     {
         "guid": 1,
@@ -17,7 +18,8 @@
         "HSV": [276.0, 39.216, 40.0],
         "CAM16": [33.04323, 11.8488, -12.06857],
         "Category": "Wall",
-        "Image Src": "images/tiles/alien_tech_wall.png"
+        "Image Src": "images/tiles/alien_tech_wall.png",
+        "GUID": 1
     },
     {
         "guid": 2,
@@ -27,7 +29,8 @@
         "HSV": [196.32, 61.881, 79.216],
         "CAM16": [66.78984, -15.614, -16.52071],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/ancient_crate.png"
+        "Image Src": "images/tiles/ancient_crate.png",
+        "GUID": 2
     },
     {
         "guid": 3,
@@ -37,7 +40,8 @@
         "HSV": [2.667, 19.149, 92.157],
         "CAM16": [84.16669, 9.76089, 3.51509],
         "Category": "Ground",
-        "Image Src": "images/tiles/beach_ground.png"
+        "Image Src": "images/tiles/beach_ground.png",
+        "GUID": 3
     },
     {
         "guid": 4,
@@ -47,7 +51,8 @@
         "HSV": [347.273, 18.333, 70.588],
         "CAM16": [67.46981, 9.51243, 0.43262],
         "Category": "Wall",
-        "Image Src": "images/tiles/beach_wall.png"
+        "Image Src": "images/tiles/beach_wall.png",
+        "GUID": 4
     },
     {
         "guid": 5,
@@ -57,7 +62,8 @@
         "HSV": [0.0, 0.0, 50.98],
         "CAM16": [57.03469, -1.26716, -0.71795],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/caveling_floor_tile.png"
+        "Image Src": "images/tiles/caveling_floor_tile.png",
+        "GUID": 5
     },
     {
         "guid": 6,
@@ -67,7 +73,8 @@
         "HSV": [10.385, 41.27, 98.824],
         "CAM16": [79.89033, 17.17158, 10.03159],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/chrysalis.png"
+        "Image Src": "images/tiles/chrysalis.png",
+        "GUID": 6
     },
     {
         "guid": 7,
@@ -77,7 +84,8 @@
         "HSV": [16.063, 54.741, 90.98],
         "CAM16": [71.14865, 17.95857, 14.14825],
         "Category": "Ground",
-        "Image Src": "images/tiles/clay_ground.png"
+        "Image Src": "images/tiles/clay_ground.png",
+        "GUID": 7
     },
     {
         "guid": 8,
@@ -87,7 +95,8 @@
         "HSV": [19.714, 72.539, 75.686],
         "CAM16": [56.46998, 18.98429, 17.4998],
         "Category": "Wall",
-        "Image Src": "images/tiles/clay_wall.png"
+        "Image Src": "images/tiles/clay_wall.png",
+        "GUID": 8
     },
     {
         "guid": 9,
@@ -97,7 +106,8 @@
         "HSV": [220.286, 40.23, 68.235],
         "CAM16": [55.76432, -1.60577, -18.73331],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/conveyor_belt.png"
+        "Image Src": "images/tiles/conveyor_belt.png",
+        "GUID": 9
     },
     {
         "guid": 10,
@@ -107,7 +117,8 @@
         "HSV": [317.308, 48.826, 83.529],
         "CAM16": [65.29104, 27.60529, -8.73504],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/coral_floor.png"
+        "Image Src": "images/tiles/coral_floor.png",
+        "GUID": 10
     },
     {
         "guid": 11,
@@ -117,7 +128,8 @@
         "HSV": [210.741, 73.973, 85.882],
         "CAM16": [58.0669, -6.36945, -27.04588],
         "Category": "Ground",
-        "Image Src": "images/tiles/crystal_ground.png"
+        "Image Src": "images/tiles/crystal_ground.png",
+        "GUID": 11
     },
     {
         "guid": 12,
@@ -127,7 +139,8 @@
         "HSV": [225.612, 82.353, 93.333],
         "CAM16": [46.9904, 3.40044, -34.17571],
         "Category": "Wall",
-        "Image Src": "images/tiles/crystal_wall.png"
+        "Image Src": "images/tiles/crystal_wall.png",
+        "GUID": 12
     },
     {
         "guid": 13,
@@ -137,7 +150,8 @@
         "HSV": [20.93, 40.952, 82.353],
         "CAM16": [71.73488, 10.20816, 11.20287],
         "Category": "Ground",
-        "Image Src": "images/tiles/desert_ground.png"
+        "Image Src": "images/tiles/desert_ground.png",
+        "GUID": 13
     },
     {
         "guid": 14,
@@ -147,7 +161,8 @@
         "HSV": [342.0, 12.048, 65.098],
         "CAM16": [65.61672, 6.28831, -0.58081],
         "Category": "Wall",
-        "Image Src": "images/tiles/desert_wall.png"
+        "Image Src": "images/tiles/desert_wall.png",
+        "GUID": 14
     },
     {
         "guid": 15,
@@ -157,7 +172,8 @@
         "HSV": [35.065, 60.63, 49.804],
         "CAM16": [45.23912, 4.18362, 14.65777],
         "Category": "Ground",
-        "Image Src": "images/tiles/dirt_ground.png"
+        "Image Src": "images/tiles/dirt_ground.png",
+        "GUID": 15
     },
     {
         "guid": 16,
@@ -167,7 +183,8 @@
         "HSV": [36.207, 60.417, 37.647],
         "CAM16": [34.88062, 2.9661, 12.4842],
         "Category": "Wall",
-        "Image Src": "images/tiles/dirt_wall.png"
+        "Image Src": "images/tiles/dirt_wall.png",
+        "GUID": 16
     },
     {
         "guid": 17,
@@ -177,7 +194,8 @@
         "HSV": [21.176, 18.889, 35.294],
         "CAM16": [36.66305, 2.44265, 3.08487],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/electrical_wire.png"
+        "Image Src": "images/tiles/electrical_wire.png",
+        "GUID": 17
     },
     {
         "guid": 18,
@@ -187,7 +205,8 @@
         "HSV": [0.0, 0.0, 10.98],
         "CAM16": [13.64246, -0.54176, -0.30697],
         "Category": "Empty Ground",
-        "Image Src": "images/tiles/empty_ground.png"
+        "Image Src": "images/tiles/empty_ground.png",
+        "GUID": 18
     },
     {
         "guid": 19,
@@ -197,7 +216,8 @@
         "HSV": [53.806, 75.61, 80.392],
         "CAM16": [77.99604, -6.72886, 26.77013],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/flower_vessel.png"
+        "Image Src": "images/tiles/flower_vessel.png",
+        "GUID": 19
     },
     {
         "guid": 20,
@@ -207,7 +227,8 @@
         "HSV": [257.143, 10.145, 81.176],
         "CAM16": [79.30406, 3.65048, -8.27642],
         "Category": "Ground",
-        "Image Src": "images/tiles/fossil_ground.png"
+        "Image Src": "images/tiles/fossil_ground.png",
+        "GUID": 20
     },
     {
         "guid": 21,
@@ -217,7 +238,19 @@
         "HSV": [252.857, 14.0, 39.216],
         "CAM16": [39.53607, 2.81782, -6.84994],
         "Category": "Wall",
-        "Image Src": "images/tiles/fossil_wall.png"
+        "Image Src": "images/tiles/fossil_wall.png",
+        "GUID": 21
+    },
+    {
+        "guid": 104,
+        "Name": "Fungal Soil",
+        "RGB": [183, 83, 60],
+        "HSL": [11.22, 50.617, 47.647],
+        "HSV": [11.22, 67.213, 71.765],
+        "CAM16": [51.86352, 22.67714, 13.89672],
+        "Category": "Ground Decoration",
+        "Image Src": "images/tiles/fungal_soil.png",
+        "GUID": 22
     },
     {
         "guid": 22,
@@ -227,7 +260,8 @@
         "HSV": [0.0, 0.0, 77.255],
         "CAM16": [81.87422, -1.62583, -0.92113],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/galaxite_floor.png"
+        "Image Src": "images/tiles/galaxite_floor.png",
+        "GUID": 23
     },
     {
         "guid": 23,
@@ -237,7 +271,8 @@
         "HSV": [186.142, 49.804, 100.0],
         "CAM16": [89.87749, -21.47575, -10.59744],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/gleam_wood_floor.png"
+        "Image Src": "images/tiles/gleam_wood_floor.png",
+        "GUID": 24
     },
     {
         "guid": 24,
@@ -247,7 +282,8 @@
         "HSV": [121.915, 60.645, 60.784],
         "CAM16": [57.85059, -24.69282, 17.0119],
         "Category": "Ground",
-        "Image Src": "images/tiles/grass_ground.png"
+        "Image Src": "images/tiles/grass_ground.png",
+        "GUID": 25
     },
     {
         "guid": 25,
@@ -257,7 +293,8 @@
         "HSV": [123.303, 83.206, 51.373],
         "CAM16": [48.18413, -25.79759, 18.89172],
         "Category": "Wall",
-        "Image Src": "images/tiles/grass_wall.png"
+        "Image Src": "images/tiles/grass_wall.png",
+        "GUID": 26
     },
     {
         "guid": 26,
@@ -267,7 +304,19 @@
         "HSV": [51.321, 82.383, 75.686],
         "CAM16": [72.12576, -4.7971, 26.54935],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/ground_acid_slime.png"
+        "Image Src": "images/tiles/ground_acid_slime.png",
+        "GUID": 27
+    },
+    {
+        "guid": 103,
+        "Name": "Ground Magma Slime",
+        "RGB": [255, 84, 0],
+        "HSL": [19.765, 100.0, 50.0],
+        "HSV": [19.765, 100.0, 100.0],
+        "CAM16": [64.82419, 31.11179, 23.58946],
+        "Category": "Ground Decoration",
+        "Image Src": "images/tiles/ground_magma_slime.png",
+        "GUID": 28
     },
     {
         "guid": 27,
@@ -277,7 +326,8 @@
         "HSV": [311.633, 53.261, 72.157],
         "CAM16": [56.10216, 27.34606, -10.43322],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/ground_poison_slime.png"
+        "Image Src": "images/tiles/ground_poison_slime.png",
+        "GUID": 29
     },
     {
         "guid": 28,
@@ -287,7 +337,19 @@
         "HSV": [23.385, 89.862, 85.098],
         "CAM16": [60.08174, 22.23944, 22.33449],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/ground_slime.png"
+        "Image Src": "images/tiles/ground_slime.png",
+        "GUID": 30
+    },
+    {
+        "guid": 102,
+        "Name": "Ground Slippery Slime",
+        "RGB": [51, 51, 238],
+        "HSL": [240.0, 84.615, 56.667],
+        "HSV": [240.0, 78.571, 93.333],
+        "CAM16": [40.06648, 8.86012, -35.43765],
+        "Category": "Ground Decoration",
+        "Image Src": "images/tiles/ground_slippery_slime.png",
+        "GUID": 31
     },
     {
         "guid": 29,
@@ -297,7 +359,8 @@
         "HSV": [48.358, 57.265, 45.882],
         "CAM16": [46.33149, -2.18733, 15.71521],
         "Category": "Empty Ground",
-        "Image Src": "images/tiles/hive_water.png"
+        "Image Src": "images/tiles/hive_water.png",
+        "GUID": 32
     },
     {
         "guid": 30,
@@ -307,7 +370,8 @@
         "HSV": [10.8, 50.251, 78.039],
         "CAM16": [61.87856, 18.04385, 10.77008],
         "Category": "Ground",
-        "Image Src": "images/tiles/larva_hive_ground.png"
+        "Image Src": "images/tiles/larva_hive_ground.png",
+        "GUID": 33
     },
     {
         "guid": 31,
@@ -317,7 +381,8 @@
         "HSV": [9.75, 49.08, 63.922],
         "CAM16": [51.58026, 16.21999, 9.15908],
         "Category": "Wall",
-        "Image Src": "images/tiles/larva_hive_wall.png"
+        "Image Src": "images/tiles/larva_hive_wall.png",
+        "GUID": 34
     },
     {
         "guid": 32,
@@ -327,7 +392,8 @@
         "HSV": [255.0, 26.415, 41.569],
         "CAM16": [37.19516, 5.7276, -11.21523],
         "Category": "Ground",
-        "Image Src": "images/tiles/lava_rock_ground.png"
+        "Image Src": "images/tiles/lava_rock_ground.png",
+        "GUID": 35
     },
     {
         "guid": 33,
@@ -337,7 +403,8 @@
         "HSV": [252.632, 26.761, 27.843],
         "CAM16": [25.11561, 4.17763, -8.95151],
         "Category": "Wall",
-        "Image Src": "images/tiles/lava_rock_wall.png"
+        "Image Src": "images/tiles/lava_rock_wall.png",
+        "GUID": 36
     },
     {
         "guid": 34,
@@ -347,7 +414,8 @@
         "HSV": [46.0, 25.105, 93.725],
         "CAM16": [91.02649, -1.6059, 11.82551],
         "Category": "Ground",
-        "Image Src": "images/tiles/meadow_ground.png"
+        "Image Src": "images/tiles/meadow_ground.png",
+        "GUID": 37
     },
     {
         "guid": 35,
@@ -357,7 +425,8 @@
         "HSV": [49.134, 56.696, 87.843],
         "CAM16": [83.09426, -3.54372, 22.63661],
         "Category": "Wall",
-        "Image Src": "images/tiles/meadow_wall.png"
+        "Image Src": "images/tiles/meadow_wall.png",
+        "GUID": 38
     },
     {
         "guid": 36,
@@ -367,7 +436,8 @@
         "HSV": [185.333, 34.091, 51.765],
         "CAM16": [52.81153, -12.58082, -5.73585],
         "Category": "Ground",
-        "Image Src": "images/tiles/metropolis_ground.png"
+        "Image Src": "images/tiles/metropolis_ground.png",
+        "GUID": 39
     },
     {
         "guid": 37,
@@ -377,7 +447,8 @@
         "HSV": [195.789, 43.678, 34.118],
         "CAM16": [32.58887, -8.75338, -7.97188],
         "Category": "Wall",
-        "Image Src": "images/tiles/metropolis_wall.png"
+        "Image Src": "images/tiles/metropolis_wall.png",
+        "GUID": 40
     },
     {
         "guid": 38,
@@ -387,7 +458,8 @@
         "HSV": [198.621, 51.786, 87.843],
         "CAM16": [74.52463, -14.3743, -16.79042],
         "Category": "Ground",
-        "Image Src": "images/tiles/mold_ground.png"
+        "Image Src": "images/tiles/mold_ground.png",
+        "GUID": 41
     },
     {
         "guid": 39,
@@ -397,7 +469,8 @@
         "HSV": [0.0, 0.0, 89.804],
         "CAM16": [92.24818, -1.7797, -1.00829],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/mold_vessel.png"
+        "Image Src": "images/tiles/mold_vessel.png",
+        "GUID": 42
     },
     {
         "guid": 40,
@@ -407,7 +480,8 @@
         "HSV": [198.75, 51.613, 72.941],
         "CAM16": [63.34904, -12.97761, -15.2334],
         "Category": "Wall",
-        "Image Src": "images/tiles/mold_wall.png"
+        "Image Src": "images/tiles/mold_wall.png",
+        "GUID": 43
     },
     {
         "guid": 41,
@@ -417,7 +491,8 @@
         "HSV": [220.541, 54.815, 52.941],
         "CAM16": [38.52754, -1.04809, -19.97168],
         "Category": "Empty Ground",
-        "Image Src": "images/tiles/mold_water.png"
+        "Image Src": "images/tiles/mold_water.png",
+        "GUID": 44
     },
     {
         "guid": 42,
@@ -427,7 +502,8 @@
         "HSV": [23.916, 71.859, 78.039],
         "CAM16": [60.25922, 15.83595, 18.71985],
         "Category": "Ground",
-        "Image Src": "images/tiles/oasis_ground.png"
+        "Image Src": "images/tiles/oasis_ground.png",
+        "GUID": 45
     },
     {
         "guid": 43,
@@ -437,7 +513,8 @@
         "HSV": [20.0, 82.143, 65.882],
         "CAM16": [47.40912, 19.96777, 17.97211],
         "Category": "Wall",
-        "Image Src": "images/tiles/oasis_wall.png"
+        "Image Src": "images/tiles/oasis_wall.png",
+        "GUID": 46
     },
     {
         "guid": 44,
@@ -447,7 +524,8 @@
         "HSV": [180.0, 11.765, 33.333],
         "CAM16": [37.15839, -5.20158, -1.78711],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_black.png"
+        "Image Src": "images/tiles/paintable_floor_black.png",
+        "GUID": 47
     },
     {
         "guid": 45,
@@ -457,7 +535,8 @@
         "HSV": [218.71, 81.579, 89.412],
         "CAM16": [50.71847, -0.50505, -31.77898],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_blue.png"
+        "Image Src": "images/tiles/paintable_floor_blue.png",
+        "GUID": 48
     },
     {
         "guid": 46,
@@ -467,7 +546,8 @@
         "HSV": [19.646, 74.834, 59.216],
         "CAM16": [44.24646, 17.15961, 15.68757],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_brown.png"
+        "Image Src": "images/tiles/paintable_floor_brown.png",
+        "GUID": 49
     },
     {
         "guid": 47,
@@ -477,7 +557,8 @@
         "HSV": [165.081, 81.858, 88.627],
         "CAM16": [81.15067, -29.22526, 3.68288],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_cyan.png"
+        "Image Src": "images/tiles/paintable_floor_cyan.png",
+        "GUID": 50
     },
     {
         "guid": 48,
@@ -487,7 +568,8 @@
         "HSV": [100.417, 79.121, 71.373],
         "CAM16": [66.99357, -26.38864, 23.3035],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_green.png"
+        "Image Src": "images/tiles/paintable_floor_green.png",
+        "GUID": 51
     },
     {
         "guid": 49,
@@ -497,7 +579,8 @@
         "HSV": [198.462, 14.208, 71.765],
         "CAM16": [72.88646, -6.43332, -6.07487],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_grey.png"
+        "Image Src": "images/tiles/paintable_floor_grey.png",
+        "GUID": 52
     },
     {
         "guid": 50,
@@ -507,7 +590,8 @@
         "HSV": [25.976, 69.198, 92.941],
         "CAM16": [72.29114, 14.95166, 20.51455],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_orange.png"
+        "Image Src": "images/tiles/paintable_floor_orange.png",
+        "GUID": 53
     },
     {
         "guid": 51,
@@ -517,7 +601,8 @@
         "HSV": [12.366, 51.373, 100.0],
         "CAM16": [76.96, 20.11716, 13.03804],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_peach.png"
+        "Image Src": "images/tiles/paintable_floor_peach.png",
+        "GUID": 54
     },
     {
         "guid": 52,
@@ -527,7 +612,8 @@
         "HSV": [335.138, 72.4, 98.039],
         "CAM16": [64.59297, 38.08457, 0.46595],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_pink.png"
+        "Image Src": "images/tiles/paintable_floor_pink.png",
+        "GUID": 55
     },
     {
         "guid": 53,
@@ -537,7 +623,8 @@
         "HSV": [280.909, 52.695, 65.49],
         "CAM16": [48.02439, 20.53596, -17.84851],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_purple.png"
+        "Image Src": "images/tiles/paintable_floor_purple.png",
+        "GUID": 56
     },
     {
         "guid": 54,
@@ -547,7 +634,8 @@
         "HSV": [0.0, 100.0, 87.451],
         "CAM16": [51.99151, 38.68883, 20.03049],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_red.png"
+        "Image Src": "images/tiles/paintable_floor_red.png",
+        "GUID": 57
     },
     {
         "guid": 55,
@@ -557,7 +645,8 @@
         "HSV": [170.769, 90.506, 61.961],
         "CAM16": [59.53871, -24.4266, -0.09074],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_teal.png"
+        "Image Src": "images/tiles/paintable_floor_teal.png",
+        "GUID": 58
     },
     {
         "guid": 56,
@@ -567,7 +656,8 @@
         "HSV": [226.567, 27.801, 94.51],
         "CAM16": [79.73108, 0.59036, -18.54146],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_unpainted.png"
+        "Image Src": "images/tiles/paintable_floor_unpainted.png",
+        "GUID": 59
     },
     {
         "guid": 57,
@@ -577,7 +667,8 @@
         "HSV": [209.455, 23.605, 91.373],
         "CAM16": [83.56705, -6.10598, -12.96476],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_white.png"
+        "Image Src": "images/tiles/paintable_floor_white.png",
+        "GUID": 60
     },
     {
         "guid": 58,
@@ -587,7 +678,8 @@
         "HSV": [53.397, 81.961, 100.0],
         "CAM16": [92.17209, -7.18634, 30.69014],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_yellow.png"
+        "Image Src": "images/tiles/paintable_floor_yellow.png",
+        "GUID": 61
     },
     {
         "guid": 59,
@@ -597,7 +689,8 @@
         "HSV": [0.0, 0.0, 23.922],
         "CAM16": [27.74563, -0.81575, -0.46221],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_black.png"
+        "Image Src": "images/tiles/paintable_wall_black.png",
+        "GUID": 62
     },
     {
         "guid": 60,
@@ -607,7 +700,8 @@
         "HSV": [219.255, 87.037, 84.706],
         "CAM16": [45.42416, 0.43863, -31.94935],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_blue.png"
+        "Image Src": "images/tiles/paintable_wall_blue.png",
+        "GUID": 63
     },
     {
         "guid": 61,
@@ -617,7 +711,8 @@
         "HSV": [19.375, 77.419, 48.627],
         "CAM16": [35.97332, 16.03676, 14.37726],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_brown.png"
+        "Image Src": "images/tiles/paintable_wall_brown.png",
+        "GUID": 64
     },
     {
         "guid": 62,
@@ -627,7 +722,8 @@
         "HSV": [174.815, 83.938, 75.686],
         "CAM16": [71.75706, -25.78387, -3.41589],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_cyan.png"
+        "Image Src": "images/tiles/paintable_wall_cyan.png",
+        "GUID": 65
     },
     {
         "guid": 63,
@@ -637,7 +733,8 @@
         "HSV": [100.385, 92.308, 66.275],
         "CAM16": [61.94851, -27.2545, 23.6024],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_green.png"
+        "Image Src": "images/tiles/paintable_wall_green.png",
+        "GUID": 66
     },
     {
         "guid": 64,
@@ -647,7 +744,8 @@
         "HSV": [197.143, 17.61, 62.353],
         "CAM16": [63.7357, -7.02798, -6.28098],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_grey.png"
+        "Image Src": "images/tiles/paintable_wall_grey.png",
+        "GUID": 67
     },
     {
         "guid": 65,
@@ -657,7 +755,8 @@
         "HSV": [25.946, 81.858, 88.627],
         "CAM16": [65.88044, 17.9034, 22.44061],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_orange.png"
+        "Image Src": "images/tiles/paintable_wall_orange.png",
+        "GUID": 68
     },
     {
         "guid": 66,
@@ -667,7 +766,8 @@
         "HSV": [5.806, 55.357, 87.843],
         "CAM16": [64.82972, 24.19399, 11.40051],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_peach.png"
+        "Image Src": "images/tiles/paintable_wall_peach.png",
+        "GUID": 69
     },
     {
         "guid": 67,
@@ -677,7 +777,8 @@
         "HSV": [335.0, 87.805, 96.471],
         "CAM16": [60.0975, 41.3477, 3.01997],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_pink.png"
+        "Image Src": "images/tiles/paintable_wall_pink.png",
+        "GUID": 70
     },
     {
         "guid": 68,
@@ -687,7 +788,8 @@
         "HSV": [280.69, 63.504, 53.725],
         "CAM16": [36.20918, 20.57755, -17.82325],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_purple.png"
+        "Image Src": "images/tiles/paintable_wall_purple.png",
+        "GUID": 71
     },
     {
         "guid": 69,
@@ -697,7 +799,8 @@
         "HSV": [0.0, 93.048, 73.333],
         "CAM16": [44.14562, 35.38407, 17.48954],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_red.png"
+        "Image Src": "images/tiles/paintable_wall_red.png",
+        "GUID": 72
     },
     {
         "guid": 70,
@@ -707,7 +810,8 @@
         "HSV": [170.556, 80.597, 52.549],
         "CAM16": [51.34836, -21.93496, -0.50823],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_teal.png"
+        "Image Src": "images/tiles/paintable_wall_teal.png",
+        "GUID": 73
     },
     {
         "guid": 71,
@@ -717,7 +821,8 @@
         "HSV": [228.621, 27.358, 83.137],
         "CAM16": [71.33772, 1.27243, -17.39752],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_unpainted.png"
+        "Image Src": "images/tiles/paintable_wall_unpainted.png",
+        "GUID": 74
     },
     {
         "guid": 72,
@@ -727,7 +832,8 @@
         "HSV": [210.0, 22.66, 79.608],
         "CAM16": [74.82473, -5.35303, -11.74492],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_white.png"
+        "Image Src": "images/tiles/paintable_wall_white.png",
+        "GUID": 75
     },
     {
         "guid": 73,
@@ -737,7 +843,8 @@
         "HSV": [53.647, 80.189, 83.137],
         "CAM16": [79.79824, -6.78427, 27.91639],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_yellow.png"
+        "Image Src": "images/tiles/paintable_wall_yellow.png",
+        "GUID": 76
     },
     {
         "guid": 74,
@@ -747,7 +854,8 @@
         "HSV": [0.0, 0.0, 47.843],
         "CAM16": [53.79494, -1.2201, -0.69129],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/rail.png"
+        "Image Src": "images/tiles/rail.png",
+        "GUID": 77
     },
     {
         "guid": 75,
@@ -757,7 +865,8 @@
         "HSV": [300.0, 42.742, 48.627],
         "CAM16": [41.73203, 19.14441, -10.68943],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/rug.png"
+        "Image Src": "images/tiles/rug.png",
+        "GUID": 78
     },
     {
         "guid": 76,
@@ -767,7 +876,8 @@
         "HSV": [46.721, 57.547, 83.137],
         "CAM16": [78.21621, -2.01805, 21.69423],
         "Category": "Ground",
-        "Image Src": "images/tiles/sand_ground.png"
+        "Image Src": "images/tiles/sand_ground.png",
+        "GUID": 79
     },
     {
         "guid": 77,
@@ -777,7 +887,8 @@
         "HSV": [44.602, 65.698, 67.451],
         "CAM16": [63.37517, -0.44194, 20.79827],
         "Category": "Wall",
-        "Image Src": "images/tiles/sand_wall.png"
+        "Image Src": "images/tiles/sand_wall.png",
+        "GUID": 80
     },
     {
         "guid": 78,
@@ -787,7 +898,8 @@
         "HSV": [352.286, 83.333, 65.882],
         "CAM16": [41.12079, 32.97953, 10.93393],
         "Category": "Ground",
-        "Image Src": "images/tiles/scarlet_bridge.png"
+        "Image Src": "images/tiles/scarlet_bridge.png",
+        "GUID": 81
     },
     {
         "guid": 79,
@@ -797,7 +909,8 @@
         "HSV": [352.34, 73.438, 50.196],
         "CAM16": [32.94745, 26.54573, 7.45067],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/scarlet_fence.png"
+        "Image Src": "images/tiles/scarlet_fence.png",
+        "GUID": 82
     },
     {
         "guid": 80,
@@ -807,7 +920,8 @@
         "HSV": [6.429, 78.652, 69.804],
         "CAM16": [45.81119, 28.87289, 15.03829],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/scarlet_floor.png"
+        "Image Src": "images/tiles/scarlet_floor.png",
+        "GUID": 83
     },
     {
         "guid": 81,
@@ -817,7 +931,8 @@
         "HSV": [7.869, 84.722, 56.471],
         "CAM16": [36.44541, 26.70498, 14.73625],
         "Category": "Wall",
-        "Image Src": "images/tiles/scarlet_wall.png"
+        "Image Src": "images/tiles/scarlet_wall.png",
+        "GUID": 84
     },
     {
         "guid": 82,
@@ -827,7 +942,8 @@
         "HSV": [225.0, 7.018, 44.706],
         "CAM16": [48.02163, -0.81282, -4.20759],
         "Category": "Wall",
-        "Image Src": "images/tiles/stone_bricks_wall.png"
+        "Image Src": "images/tiles/stone_bricks_wall.png",
+        "GUID": 85
     },
     {
         "guid": 83,
@@ -837,7 +953,8 @@
         "HSV": [33.75, 12.903, 48.627],
         "CAM16": [52.18247, 0.45294, 3.43249],
         "Category": "Ground",
-        "Image Src": "images/tiles/stone_bridge.png"
+        "Image Src": "images/tiles/stone_bridge.png",
+        "GUID": 86
     },
     {
         "guid": 84,
@@ -847,7 +964,8 @@
         "HSV": [32.727, 11.458, 37.647],
         "CAM16": [41.12311, 0.34439, 2.50265],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/stone_fence.png"
+        "Image Src": "images/tiles/stone_fence.png",
+        "GUID": 87
     },
     {
         "guid": 85,
@@ -857,7 +975,8 @@
         "HSV": [223.636, 7.857, 54.902],
         "CAM16": [57.82966, -1.0207, -5.14764],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/stone_floor.png"
+        "Image Src": "images/tiles/stone_floor.png",
+        "GUID": 88
     },
     {
         "guid": 86,
@@ -867,7 +986,8 @@
         "HSV": [205.532, 31.126, 59.216],
         "CAM16": [55.76105, -6.83667, -11.37408],
         "Category": "Ground",
-        "Image Src": "images/tiles/stone_ground.png"
+        "Image Src": "images/tiles/stone_ground.png",
+        "GUID": 89
     },
     {
         "guid": 87,
@@ -877,7 +997,8 @@
         "HSV": [204.231, 41.6, 49.02],
         "CAM16": [44.38926, -7.52853, -12.1492],
         "Category": "Wall",
-        "Image Src": "images/tiles/stone_wall.png"
+        "Image Src": "images/tiles/stone_wall.png",
+        "GUID": 90
     },
     {
         "guid": 92,
@@ -887,7 +1008,8 @@
         "HSV": [138.571, 32.812, 50.196],
         "CAM16": [51.56577, -15.04283, 6.1085],
         "Category": "Ground",
-        "Image Src": "images/tiles/turf_ground.png"
+        "Image Src": "images/tiles/turf_ground.png",
+        "GUID": 91
     },
     {
         "guid": 93,
@@ -897,7 +1019,8 @@
         "HSV": [138.182, 31.731, 40.784],
         "CAM16": [42.46455, -13.04525, 5.27824],
         "Category": "Wall",
-        "Image Src": "images/tiles/turf_wall.png"
+        "Image Src": "images/tiles/turf_wall.png",
+        "GUID": 92
     },
     {
         "guid": 94,
@@ -907,7 +1030,8 @@
         "HSV": [220.396, 78.295, 50.588],
         "CAM16": [29.31927, -0.09308, -23.8272],
         "Category": "Empty Ground",
-        "Image Src": "images/tiles/water.png"
+        "Image Src": "images/tiles/water.png",
+        "GUID": 93
     },
     {
         "guid": 95,
@@ -917,7 +1041,8 @@
         "HSV": [29.412, 72.857, 54.902],
         "CAM16": [45.24905, 9.48943, 16.71019],
         "Category": "Ground",
-        "Image Src": "images/tiles/wood_bridge.png"
+        "Image Src": "images/tiles/wood_bridge.png",
+        "GUID": 94
     },
     {
         "guid": 96,
@@ -927,7 +1052,8 @@
         "HSV": [30.0, 69.643, 43.922],
         "CAM16": [37.18623, 7.4438, 14.23531],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/wood_fence.png"
+        "Image Src": "images/tiles/wood_fence.png",
+        "GUID": 95
     },
     {
         "guid": 97,
@@ -937,7 +1063,8 @@
         "HSV": [34.5, 60.302, 78.039],
         "CAM16": [68.16276, 5.85284, 18.7954],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/wood_floor.png"
+        "Image Src": "images/tiles/wood_floor.png",
+        "GUID": 96
     },
     {
         "guid": 98,
@@ -947,7 +1074,8 @@
         "HSV": [33.673, 66.216, 58.039],
         "CAM16": [50.71448, 6.06775, 16.91261],
         "Category": "Wall",
-        "Image Src": "images/tiles/wood_wall.png"
+        "Image Src": "images/tiles/wood_wall.png",
+        "GUID": 97
     },
     {
         "guid": 99,
@@ -957,7 +1085,8 @@
         "HSV": [28.515, 88.596, 44.706],
         "CAM16": [34.42684, 11.51998, 16.79405],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/wooden_crate.png"
+        "Image Src": "images/tiles/wooden_crate.png",
+        "GUID": 98
     },
     {
         "guid": 100,
@@ -967,7 +1096,8 @@
         "HSV": [123.75, 57.554, 54.51],
         "CAM16": [52.59479, -22.69698, 14.99742],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/woven_mat.png"
+        "Image Src": "images/tiles/woven_mat.png",
+        "GUID": 99
     },
     {
         "guid": 101,
@@ -977,6 +1107,7 @@
         "HSV": [54.93, 55.686, 100.0],
         "CAM16": [94.98056, -7.29989, 25.13097],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/woven_straw_floor.png"
+        "Image Src": "images/tiles/woven_straw_floor.png",
+        "GUID": 100
     }
 ]
