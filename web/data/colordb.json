@@ -7,8 +7,7 @@
         "HSV": [191.739, 40.0, 45.098],
         "CAM16": [44.23304, -11.04564, -7.69583],
         "Category": "Ground",
-        "Image Src": "images/tiles/alien_tech_ground.png",
-        "GUID": 0
+        "imgPNG": "images/tiles/alien_tech_ground.png"
     },
     {
         "guid": 1,
@@ -18,8 +17,7 @@
         "HSV": [276.0, 39.216, 40.0],
         "CAM16": [33.04323, 11.8488, -12.06857],
         "Category": "Wall",
-        "Image Src": "images/tiles/alien_tech_wall.png",
-        "GUID": 1
+        "imgPNG": "images/tiles/alien_tech_wall.png"
     },
     {
         "guid": 2,
@@ -29,8 +27,7 @@
         "HSV": [196.32, 61.881, 79.216],
         "CAM16": [66.78984, -15.614, -16.52071],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/ancient_crate.png",
-        "GUID": 2
+        "imgPNG": "images/tiles/ancient_crate.png"
     },
     {
         "guid": 3,
@@ -40,8 +37,7 @@
         "HSV": [2.667, 19.149, 92.157],
         "CAM16": [84.16669, 9.76089, 3.51509],
         "Category": "Ground",
-        "Image Src": "images/tiles/beach_ground.png",
-        "GUID": 3
+        "imgPNG": "images/tiles/beach_ground.png"
     },
     {
         "guid": 4,
@@ -51,8 +47,7 @@
         "HSV": [347.273, 18.333, 70.588],
         "CAM16": [67.46981, 9.51243, 0.43262],
         "Category": "Wall",
-        "Image Src": "images/tiles/beach_wall.png",
-        "GUID": 4
+        "imgPNG": "images/tiles/beach_wall.png"
     },
     {
         "guid": 5,
@@ -62,8 +57,7 @@
         "HSV": [0.0, 0.0, 50.98],
         "CAM16": [57.03469, -1.26716, -0.71795],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/caveling_floor_tile.png",
-        "GUID": 5
+        "imgPNG": "images/tiles/caveling_floor_tile.png"
     },
     {
         "guid": 6,
@@ -73,8 +67,7 @@
         "HSV": [10.385, 41.27, 98.824],
         "CAM16": [79.89033, 17.17158, 10.03159],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/chrysalis.png",
-        "GUID": 6
+        "imgPNG": "images/tiles/chrysalis.png"
     },
     {
         "guid": 7,
@@ -84,8 +77,7 @@
         "HSV": [16.063, 54.741, 90.98],
         "CAM16": [71.14865, 17.95857, 14.14825],
         "Category": "Ground",
-        "Image Src": "images/tiles/clay_ground.png",
-        "GUID": 7
+        "imgPNG": "images/tiles/clay_ground.png"
     },
     {
         "guid": 8,
@@ -95,8 +87,7 @@
         "HSV": [19.714, 72.539, 75.686],
         "CAM16": [56.46998, 18.98429, 17.4998],
         "Category": "Wall",
-        "Image Src": "images/tiles/clay_wall.png",
-        "GUID": 8
+        "imgPNG": "images/tiles/clay_wall.png"
     },
     {
         "guid": 9,
@@ -106,8 +97,7 @@
         "HSV": [220.286, 40.23, 68.235],
         "CAM16": [55.76432, -1.60577, -18.73331],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/conveyor_belt.png",
-        "GUID": 9
+        "imgPNG": "images/tiles/conveyor_belt.png"
     },
     {
         "guid": 10,
@@ -117,8 +107,7 @@
         "HSV": [317.308, 48.826, 83.529],
         "CAM16": [65.29104, 27.60529, -8.73504],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/coral_floor.png",
-        "GUID": 10
+        "imgPNG": "images/tiles/coral_floor.png"
     },
     {
         "guid": 11,
@@ -128,8 +117,7 @@
         "HSV": [210.741, 73.973, 85.882],
         "CAM16": [58.0669, -6.36945, -27.04588],
         "Category": "Ground",
-        "Image Src": "images/tiles/crystal_ground.png",
-        "GUID": 11
+        "imgPNG": "images/tiles/crystal_ground.png"
     },
     {
         "guid": 12,
@@ -139,8 +127,7 @@
         "HSV": [225.612, 82.353, 93.333],
         "CAM16": [46.9904, 3.40044, -34.17571],
         "Category": "Wall",
-        "Image Src": "images/tiles/crystal_wall.png",
-        "GUID": 12
+        "imgPNG": "images/tiles/crystal_wall.png"
     },
     {
         "guid": 13,
@@ -150,8 +137,7 @@
         "HSV": [20.93, 40.952, 82.353],
         "CAM16": [71.73488, 10.20816, 11.20287],
         "Category": "Ground",
-        "Image Src": "images/tiles/desert_ground.png",
-        "GUID": 13
+        "imgPNG": "images/tiles/desert_ground.png"
     },
     {
         "guid": 14,
@@ -161,8 +147,7 @@
         "HSV": [342.0, 12.048, 65.098],
         "CAM16": [65.61672, 6.28831, -0.58081],
         "Category": "Wall",
-        "Image Src": "images/tiles/desert_wall.png",
-        "GUID": 14
+        "imgPNG": "images/tiles/desert_wall.png"
     },
     {
         "guid": 15,
@@ -172,8 +157,7 @@
         "HSV": [35.065, 60.63, 49.804],
         "CAM16": [45.23912, 4.18362, 14.65777],
         "Category": "Ground",
-        "Image Src": "images/tiles/dirt_ground.png",
-        "GUID": 15
+        "imgPNG": "images/tiles/dirt_ground.png"
     },
     {
         "guid": 16,
@@ -183,8 +167,7 @@
         "HSV": [36.207, 60.417, 37.647],
         "CAM16": [34.88062, 2.9661, 12.4842],
         "Category": "Wall",
-        "Image Src": "images/tiles/dirt_wall.png",
-        "GUID": 16
+        "imgPNG": "images/tiles/dirt_wall.png"
     },
     {
         "guid": 17,
@@ -194,8 +177,7 @@
         "HSV": [21.176, 18.889, 35.294],
         "CAM16": [36.66305, 2.44265, 3.08487],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/electrical_wire.png",
-        "GUID": 17
+        "imgPNG": "images/tiles/electrical_wire.png"
     },
     {
         "guid": 18,
@@ -205,8 +187,7 @@
         "HSV": [0.0, 0.0, 10.98],
         "CAM16": [13.64246, -0.54176, -0.30697],
         "Category": "Empty Ground",
-        "Image Src": "images/tiles/empty_ground.png",
-        "GUID": 18
+        "imgPNG": "images/tiles/empty_ground.png"
     },
     {
         "guid": 19,
@@ -216,8 +197,7 @@
         "HSV": [53.806, 75.61, 80.392],
         "CAM16": [77.99604, -6.72886, 26.77013],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/flower_vessel.png",
-        "GUID": 19
+        "imgPNG": "images/tiles/flower_vessel.png"
     },
     {
         "guid": 20,
@@ -227,8 +207,7 @@
         "HSV": [257.143, 10.145, 81.176],
         "CAM16": [79.30406, 3.65048, -8.27642],
         "Category": "Ground",
-        "Image Src": "images/tiles/fossil_ground.png",
-        "GUID": 20
+        "imgPNG": "images/tiles/fossil_ground.png"
     },
     {
         "guid": 21,
@@ -238,876 +217,796 @@
         "HSV": [252.857, 14.0, 39.216],
         "CAM16": [39.53607, 2.81782, -6.84994],
         "Category": "Wall",
-        "Image Src": "images/tiles/fossil_wall.png",
-        "GUID": 21
+        "imgPNG": "images/tiles/fossil_wall.png"
     },
     {
-        "guid": 104,
+        "guid": 22,
         "Name": "Fungal Soil",
         "RGB": [183, 83, 60],
         "HSL": [11.22, 50.617, 47.647],
         "HSV": [11.22, 67.213, 71.765],
         "CAM16": [51.86352, 22.67714, 13.89672],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/fungal_soil.png",
-        "GUID": 22
+        "imgPNG": "images/tiles/fungal_soil.png"
     },
     {
-        "guid": 22,
+        "guid": 23,
         "Name": "Galaxite Floor",
         "RGB": [197, 197, 197],
         "HSL": [0.0, 0.0, 77.255],
         "HSV": [0.0, 0.0, 77.255],
         "CAM16": [81.87422, -1.62583, -0.92113],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/galaxite_floor.png",
-        "GUID": 23
+        "imgPNG": "images/tiles/galaxite_floor.png"
     },
     {
-        "guid": 23,
+        "guid": 24,
         "Name": "Gleam Wood Floor",
         "RGB": [128, 242, 255],
         "HSL": [186.142, 100.0, 75.098],
         "HSV": [186.142, 49.804, 100.0],
         "CAM16": [89.87749, -21.47575, -10.59744],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/gleam_wood_floor.png",
-        "GUID": 24
+        "imgPNG": "images/tiles/gleam_wood_floor.png"
     },
     {
-        "guid": 24,
+        "guid": 25,
         "Name": "Grass Ground",
         "RGB": [61, 155, 64],
         "HSL": [121.915, 43.519, 42.353],
         "HSV": [121.915, 60.645, 60.784],
         "CAM16": [57.85059, -24.69282, 17.0119],
         "Category": "Ground",
-        "Image Src": "images/tiles/grass_ground.png",
-        "GUID": 25
+        "imgPNG": "images/tiles/grass_ground.png"
     },
     {
-        "guid": 25,
+        "guid": 26,
         "Name": "Grass Wall",
         "RGB": [22, 131, 28],
         "HSL": [123.303, 71.242, 30.0],
         "HSV": [123.303, 83.206, 51.373],
         "CAM16": [48.18413, -25.79759, 18.89172],
         "Category": "Wall",
-        "Image Src": "images/tiles/grass_wall.png",
-        "GUID": 26
+        "imgPNG": "images/tiles/grass_wall.png"
     },
     {
-        "guid": 26,
+        "guid": 27,
         "Name": "Ground Acid Slime",
         "RGB": [193, 170, 34],
         "HSL": [51.321, 70.044, 44.51],
         "HSV": [51.321, 82.383, 75.686],
         "CAM16": [72.12576, -4.7971, 26.54935],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/ground_acid_slime.png",
-        "GUID": 27
+        "imgPNG": "images/tiles/ground_acid_slime.png"
     },
     {
-        "guid": 103,
+        "guid": 28,
         "Name": "Ground Magma Slime",
         "RGB": [255, 84, 0],
         "HSL": [19.765, 100.0, 50.0],
         "HSV": [19.765, 100.0, 100.0],
         "CAM16": [64.82419, 31.11179, 23.58946],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/ground_magma_slime.png",
-        "GUID": 28
+        "imgPNG": "images/tiles/ground_magma_slime.png"
     },
     {
-        "guid": 27,
+        "guid": 29,
         "Name": "Ground Poison Slime",
         "RGB": [184, 86, 165],
         "HSL": [311.633, 40.833, 52.941],
         "HSV": [311.633, 53.261, 72.157],
         "CAM16": [56.10216, 27.34606, -10.43322],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/ground_poison_slime.png",
-        "GUID": 29
+        "imgPNG": "images/tiles/ground_poison_slime.png"
     },
     {
-        "guid": 28,
+        "guid": 30,
         "Name": "Ground Slime",
         "RGB": [217, 98, 22],
         "HSL": [23.385, 81.59, 46.863],
         "HSV": [23.385, 89.862, 85.098],
         "CAM16": [60.08174, 22.23944, 22.33449],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/ground_slime.png",
-        "GUID": 30
+        "imgPNG": "images/tiles/ground_slime.png"
     },
     {
-        "guid": 102,
+        "guid": 31,
         "Name": "Ground Slippery Slime",
         "RGB": [51, 51, 238],
         "HSL": [240.0, 84.615, 56.667],
         "HSV": [240.0, 78.571, 93.333],
         "CAM16": [40.06648, 8.86012, -35.43765],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/ground_slippery_slime.png",
-        "GUID": 31
+        "imgPNG": "images/tiles/ground_slippery_slime.png"
     },
     {
-        "guid": 29,
+        "guid": 32,
         "Name": "Hive Water",
         "RGB": [117, 104, 50],
         "HSL": [48.358, 40.12, 32.745],
         "HSV": [48.358, 57.265, 45.882],
         "CAM16": [46.33149, -2.18733, 15.71521],
         "Category": "Empty Ground",
-        "Image Src": "images/tiles/hive_water.png",
-        "GUID": 32
+        "imgPNG": "images/tiles/hive_water.png"
     },
     {
-        "guid": 30,
+        "guid": 33,
         "Name": "Larva Hive Ground",
         "RGB": [199, 117, 99],
         "HSL": [10.8, 47.17, 58.431],
         "HSV": [10.8, 50.251, 78.039],
         "CAM16": [61.87856, 18.04385, 10.77008],
         "Category": "Ground",
-        "Image Src": "images/tiles/larva_hive_ground.png",
-        "GUID": 33
+        "imgPNG": "images/tiles/larva_hive_ground.png"
     },
     {
-        "guid": 31,
+        "guid": 34,
         "Name": "Larva Hive Wall",
         "RGB": [163, 96, 83],
         "HSL": [9.75, 32.52, 48.235],
         "HSV": [9.75, 49.08, 63.922],
         "CAM16": [51.58026, 16.21999, 9.15908],
         "Category": "Wall",
-        "Image Src": "images/tiles/larva_hive_wall.png",
-        "GUID": 34
+        "imgPNG": "images/tiles/larva_hive_wall.png"
     },
     {
-        "guid": 32,
+        "guid": 35,
         "Name": "Lava Rock Ground",
         "RGB": [85, 78, 106],
         "HSL": [255.0, 15.217, 36.078],
         "HSV": [255.0, 26.415, 41.569],
         "CAM16": [37.19516, 5.7276, -11.21523],
         "Category": "Ground",
-        "Image Src": "images/tiles/lava_rock_ground.png",
-        "GUID": 35
+        "imgPNG": "images/tiles/lava_rock_ground.png"
     },
     {
-        "guid": 33,
+        "guid": 36,
         "Name": "Lava Rock Wall",
         "RGB": [56, 52, 71],
         "HSL": [252.632, 15.447, 24.118],
         "HSV": [252.632, 26.761, 27.843],
         "CAM16": [25.11561, 4.17763, -8.95151],
         "Category": "Wall",
-        "Image Src": "images/tiles/lava_rock_wall.png",
-        "GUID": 36
+        "imgPNG": "images/tiles/lava_rock_wall.png"
     },
     {
-        "guid": 34,
+        "guid": 37,
         "Name": "Meadow Ground",
         "RGB": [239, 225, 179],
         "HSL": [46.0, 65.217, 81.961],
         "HSV": [46.0, 25.105, 93.725],
         "CAM16": [91.02649, -1.6059, 11.82551],
         "Category": "Ground",
-        "Image Src": "images/tiles/meadow_ground.png",
-        "GUID": 37
+        "imgPNG": "images/tiles/meadow_ground.png"
     },
     {
-        "guid": 35,
+        "guid": 38,
         "Name": "Meadow Wall",
         "RGB": [224, 201, 97],
         "HSL": [49.134, 67.196, 62.941],
         "HSV": [49.134, 56.696, 87.843],
         "CAM16": [83.09426, -3.54372, 22.63661],
         "Category": "Wall",
-        "Image Src": "images/tiles/meadow_wall.png",
-        "GUID": 38
+        "imgPNG": "images/tiles/meadow_wall.png"
     },
     {
-        "guid": 36,
+        "guid": 39,
         "Name": "Metropolis Ground",
         "RGB": [87, 128, 132],
         "HSL": [185.333, 20.548, 42.941],
         "HSV": [185.333, 34.091, 51.765],
         "CAM16": [52.81153, -12.58082, -5.73585],
         "Category": "Ground",
-        "Image Src": "images/tiles/metropolis_ground.png",
-        "GUID": 39
+        "imgPNG": "images/tiles/metropolis_ground.png"
     },
     {
-        "guid": 37,
+        "guid": 40,
         "Name": "Metropolis Wall",
         "RGB": [49, 77, 87],
         "HSL": [195.789, 27.941, 26.667],
         "HSV": [195.789, 43.678, 34.118],
         "CAM16": [32.58887, -8.75338, -7.97188],
         "Category": "Wall",
-        "Image Src": "images/tiles/metropolis_wall.png",
-        "GUID": 40
+        "imgPNG": "images/tiles/metropolis_wall.png"
     },
     {
-        "guid": 38,
+        "guid": 41,
         "Name": "Mold Ground",
         "RGB": [108, 188, 224],
         "HSL": [198.621, 65.169, 65.098],
         "HSV": [198.621, 51.786, 87.843],
         "CAM16": [74.52463, -14.3743, -16.79042],
         "Category": "Ground",
-        "Image Src": "images/tiles/mold_ground.png",
-        "GUID": 41
+        "imgPNG": "images/tiles/mold_ground.png"
     },
     {
-        "guid": 39,
+        "guid": 42,
         "Name": "Mold Vessel",
         "RGB": [229, 229, 229],
         "HSL": [0.0, 0.0, 89.804],
         "HSV": [0.0, 0.0, 89.804],
         "CAM16": [92.24818, -1.7797, -1.00829],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/mold_vessel.png",
-        "GUID": 42
+        "imgPNG": "images/tiles/mold_vessel.png"
     },
     {
-        "guid": 40,
+        "guid": 43,
         "Name": "Mold Wall",
         "RGB": [90, 156, 186],
         "HSL": [198.75, 41.026, 54.118],
         "HSV": [198.75, 51.613, 72.941],
         "CAM16": [63.34904, -12.97761, -15.2334],
         "Category": "Wall",
-        "Image Src": "images/tiles/mold_wall.png",
-        "GUID": 43
+        "imgPNG": "images/tiles/mold_wall.png"
     },
     {
-        "guid": 41,
+        "guid": 44,
         "Name": "Mold Water",
         "RGB": [61, 85, 135],
         "HSL": [220.541, 37.755, 38.431],
         "HSV": [220.541, 54.815, 52.941],
         "CAM16": [38.52754, -1.04809, -19.97168],
         "Category": "Empty Ground",
-        "Image Src": "images/tiles/mold_water.png",
-        "GUID": 44
+        "imgPNG": "images/tiles/mold_water.png"
     },
     {
-        "guid": 42,
+        "guid": 45,
         "Name": "Oasis Ground",
         "RGB": [199, 113, 56],
         "HSL": [23.916, 56.078, 50.0],
         "HSV": [23.916, 71.859, 78.039],
         "CAM16": [60.25922, 15.83595, 18.71985],
         "Category": "Ground",
-        "Image Src": "images/tiles/oasis_ground.png",
-        "GUID": 45
+        "imgPNG": "images/tiles/oasis_ground.png"
     },
     {
-        "guid": 43,
+        "guid": 46,
         "Name": "Oasis Wall",
         "RGB": [168, 76, 30],
         "HSL": [20.0, 69.697, 38.824],
         "HSV": [20.0, 82.143, 65.882],
         "CAM16": [47.40912, 19.96777, 17.97211],
         "Category": "Wall",
-        "Image Src": "images/tiles/oasis_wall.png",
-        "GUID": 46
+        "imgPNG": "images/tiles/oasis_wall.png"
     },
     {
-        "guid": 44,
+        "guid": 47,
         "Name": "Paintable Floor - Black",
         "RGB": [75, 85, 85],
         "HSL": [180.0, 6.25, 31.373],
         "HSV": [180.0, 11.765, 33.333],
         "CAM16": [37.15839, -5.20158, -1.78711],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_black.png",
-        "GUID": 47
+        "imgPNG": "images/tiles/paintable_floor_black.png"
     },
     {
-        "guid": 45,
+        "guid": 48,
         "Name": "Paintable Floor - Blue",
         "RGB": [42, 108, 228],
         "HSL": [218.71, 77.5, 52.941],
         "HSV": [218.71, 81.579, 89.412],
         "CAM16": [50.71847, -0.50505, -31.77898],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_blue.png",
-        "GUID": 48
+        "imgPNG": "images/tiles/paintable_floor_blue.png"
     },
     {
-        "guid": 46,
+        "guid": 49,
         "Name": "Paintable Floor - Brown",
         "RGB": [151, 75, 38],
         "HSL": [19.646, 59.788, 37.059],
         "HSV": [19.646, 74.834, 59.216],
         "CAM16": [44.24646, 17.15961, 15.68757],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_brown.png",
-        "GUID": 49
+        "imgPNG": "images/tiles/paintable_floor_brown.png"
     },
     {
-        "guid": 47,
+        "guid": 50,
         "Name": "Paintable Floor - Cyan",
         "RGB": [41, 226, 180],
         "HSL": [165.081, 76.132, 52.353],
         "HSV": [165.081, 81.858, 88.627],
         "CAM16": [81.15067, -29.22526, 3.68288],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_cyan.png",
-        "GUID": 50
+        "imgPNG": "images/tiles/paintable_floor_cyan.png"
     },
     {
-        "guid": 48,
+        "guid": 51,
         "Name": "Paintable Floor - Green",
         "RGB": [85, 182, 38],
         "HSL": [100.417, 65.455, 43.137],
         "HSV": [100.417, 79.121, 71.373],
         "CAM16": [66.99357, -26.38864, 23.3035],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_green.png",
-        "GUID": 51
+        "imgPNG": "images/tiles/paintable_floor_green.png"
     },
     {
-        "guid": 49,
+        "guid": 52,
         "Name": "Paintable Floor - Grey",
         "RGB": [157, 175, 183],
         "HSL": [198.462, 15.294, 66.667],
         "HSV": [198.462, 14.208, 71.765],
         "CAM16": [72.88646, -6.43332, -6.07487],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_grey.png",
-        "GUID": 52
+        "imgPNG": "images/tiles/paintable_floor_grey.png"
     },
     {
-        "guid": 50,
+        "guid": 53,
         "Name": "Paintable Floor - Orange",
         "RGB": [237, 144, 73],
         "HSL": [25.976, 82.0, 60.784],
         "HSV": [25.976, 69.198, 92.941],
         "CAM16": [72.29114, 14.95166, 20.51455],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_orange.png",
-        "GUID": 53
+        "imgPNG": "images/tiles/paintable_floor_orange.png"
     },
     {
-        "guid": 51,
+        "guid": 54,
         "Name": "Paintable Floor - Peach",
         "RGB": [255, 151, 124],
         "HSL": [12.366, 100.0, 74.314],
         "HSV": [12.366, 51.373, 100.0],
         "CAM16": [76.96, 20.11716, 13.03804],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_peach.png",
-        "GUID": 54
+        "imgPNG": "images/tiles/paintable_floor_peach.png"
     },
     {
-        "guid": 52,
+        "guid": 55,
         "Name": "Paintable Floor - Pink",
         "RGB": [250, 69, 144],
         "HSL": [335.138, 94.764, 62.549],
         "HSV": [335.138, 72.4, 98.039],
         "CAM16": [64.59297, 38.08457, 0.46595],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_pink.png",
-        "GUID": 55
+        "imgPNG": "images/tiles/paintable_floor_pink.png"
     },
     {
-        "guid": 53,
+        "guid": 56,
         "Name": "Paintable Floor - Purple",
         "RGB": [139, 79, 167],
         "HSL": [280.909, 35.772, 48.235],
         "HSV": [280.909, 52.695, 65.49],
         "CAM16": [48.02439, 20.53596, -17.84851],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_purple.png",
-        "GUID": 56
+        "imgPNG": "images/tiles/paintable_floor_purple.png"
     },
     {
-        "guid": 54,
+        "guid": 57,
         "Name": "Paintable Floor - Red",
         "RGB": [223, 0, 0],
         "HSL": [0.0, 100.0, 43.725],
         "HSV": [0.0, 100.0, 87.451],
         "CAM16": [51.99151, 38.68883, 20.03049],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_red.png",
-        "GUID": 57
+        "imgPNG": "images/tiles/paintable_floor_red.png"
     },
     {
-        "guid": 55,
+        "guid": 58,
         "Name": "Paintable Floor - Teal",
         "RGB": [15, 158, 136],
         "HSL": [170.769, 82.659, 33.922],
         "HSV": [170.769, 90.506, 61.961],
         "CAM16": [59.53871, -24.4266, -0.09074],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_teal.png",
-        "GUID": 58
+        "imgPNG": "images/tiles/paintable_floor_teal.png"
     },
     {
-        "guid": 56,
+        "guid": 59,
         "Name": "Paintable Floor - Unpainted",
         "RGB": [174, 189, 241],
         "HSL": [226.567, 70.526, 81.373],
         "HSV": [226.567, 27.801, 94.51],
         "CAM16": [79.73108, 0.59036, -18.54146],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_unpainted.png",
-        "GUID": 59
+        "imgPNG": "images/tiles/paintable_floor_unpainted.png"
     },
     {
-        "guid": 57,
+        "guid": 60,
         "Name": "Paintable Floor - White",
         "RGB": [178, 206, 233],
         "HSL": [209.455, 55.556, 80.588],
         "HSV": [209.455, 23.605, 91.373],
         "CAM16": [83.56705, -6.10598, -12.96476],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_white.png",
-        "GUID": 60
+        "imgPNG": "images/tiles/paintable_floor_white.png"
     },
     {
-        "guid": 58,
+        "guid": 61,
         "Name": "Paintable Floor - Yellow",
         "RGB": [255, 232, 46],
         "HSL": [53.397, 100.0, 59.02],
         "HSV": [53.397, 81.961, 100.0],
         "CAM16": [92.17209, -7.18634, 30.69014],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/paintable_floor_yellow.png",
-        "GUID": 61
+        "imgPNG": "images/tiles/paintable_floor_yellow.png"
     },
     {
-        "guid": 59,
+        "guid": 62,
         "Name": "Paintable Wall - Black",
         "RGB": [61, 61, 61],
         "HSL": [0.0, 0.0, 23.922],
         "HSV": [0.0, 0.0, 23.922],
         "CAM16": [27.74563, -0.81575, -0.46221],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_black.png",
-        "GUID": 62
+        "imgPNG": "images/tiles/paintable_wall_black.png"
     },
     {
-        "guid": 60,
+        "guid": 63,
         "Name": "Paintable Wall - Blue",
         "RGB": [28, 93, 216],
         "HSL": [219.255, 77.049, 47.843],
         "HSV": [219.255, 87.037, 84.706],
         "CAM16": [45.42416, 0.43863, -31.94935],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_blue.png",
-        "GUID": 63
+        "imgPNG": "images/tiles/paintable_wall_blue.png"
     },
     {
-        "guid": 61,
+        "guid": 64,
         "Name": "Paintable Wall - Brown",
         "RGB": [124, 59, 28],
         "HSL": [19.375, 63.158, 29.804],
         "HSV": [19.375, 77.419, 48.627],
         "CAM16": [35.97332, 16.03676, 14.37726],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_brown.png",
-        "GUID": 64
+        "imgPNG": "images/tiles/paintable_wall_brown.png"
     },
     {
-        "guid": 62,
+        "guid": 65,
         "Name": "Paintable Wall - Cyan",
         "RGB": [31, 193, 179],
         "HSL": [174.815, 72.321, 43.922],
         "HSV": [174.815, 83.938, 75.686],
         "CAM16": [71.75706, -25.78387, -3.41589],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_cyan.png",
-        "GUID": 65
+        "imgPNG": "images/tiles/paintable_wall_cyan.png"
     },
     {
-        "guid": 63,
+        "guid": 66,
         "Name": "Paintable Wall - Green",
         "RGB": [64, 169, 13],
         "HSL": [100.385, 85.714, 35.686],
         "HSV": [100.385, 92.308, 66.275],
         "CAM16": [61.94851, -27.2545, 23.6024],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_green.png",
-        "GUID": 66
+        "imgPNG": "images/tiles/paintable_wall_green.png"
     },
     {
-        "guid": 64,
+        "guid": 67,
         "Name": "Paintable Wall - Grey",
         "RGB": [131, 151, 159],
         "HSL": [197.143, 12.727, 56.863],
         "HSV": [197.143, 17.61, 62.353],
         "CAM16": [63.7357, -7.02798, -6.28098],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_grey.png",
-        "GUID": 67
+        "imgPNG": "images/tiles/paintable_wall_grey.png"
     },
     {
-        "guid": 65,
+        "guid": 68,
         "Name": "Paintable Wall - Orange",
         "RGB": [226, 121, 41],
         "HSL": [25.946, 76.132, 52.353],
         "HSV": [25.946, 81.858, 88.627],
         "CAM16": [65.88044, 17.9034, 22.44061],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_orange.png",
-        "GUID": 68
+        "imgPNG": "images/tiles/paintable_wall_orange.png"
     },
     {
-        "guid": 66,
+        "guid": 69,
         "Name": "Paintable Wall - Peach",
         "RGB": [224, 112, 100],
         "HSL": [5.806, 66.667, 63.529],
         "HSV": [5.806, 55.357, 87.843],
         "CAM16": [64.82972, 24.19399, 11.40051],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_peach.png",
-        "GUID": 69
+        "imgPNG": "images/tiles/paintable_wall_peach.png"
     },
     {
-        "guid": 67,
+        "guid": 70,
         "Name": "Paintable Wall - Pink",
         "RGB": [246, 30, 120],
         "HSL": [335.0, 92.308, 54.118],
         "HSV": [335.0, 87.805, 96.471],
         "CAM16": [60.0975, 41.3477, 3.01997],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_pink.png",
-        "GUID": 70
+        "imgPNG": "images/tiles/paintable_wall_pink.png"
     },
     {
-        "guid": 68,
+        "guid": 71,
         "Name": "Paintable Wall - Purple",
         "RGB": [109, 50, 137],
         "HSL": [280.69, 46.524, 36.667],
         "HSV": [280.69, 63.504, 53.725],
         "CAM16": [36.20918, 20.57755, -17.82325],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_purple.png",
-        "GUID": 71
+        "imgPNG": "images/tiles/paintable_wall_purple.png"
     },
     {
-        "guid": 69,
+        "guid": 72,
         "Name": "Paintable Wall - Red",
         "RGB": [187, 13, 13],
         "HSL": [0.0, 87.0, 39.216],
         "HSV": [0.0, 93.048, 73.333],
         "CAM16": [44.14562, 35.38407, 17.48954],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_red.png",
-        "GUID": 72
+        "imgPNG": "images/tiles/paintable_wall_red.png"
     },
     {
-        "guid": 70,
+        "guid": 73,
         "Name": "Paintable Wall - Teal",
         "RGB": [26, 134, 117],
         "HSL": [170.556, 67.5, 31.373],
         "HSV": [170.556, 80.597, 52.549],
         "CAM16": [51.34836, -21.93496, -0.50823],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_teal.png",
-        "GUID": 73
+        "imgPNG": "images/tiles/paintable_wall_teal.png"
     },
     {
-        "guid": 71,
+        "guid": 74,
         "Name": "Paintable Wall - Unpainted",
         "RGB": [154, 165, 212],
         "HSL": [228.621, 40.278, 71.765],
         "HSV": [228.621, 27.358, 83.137],
         "CAM16": [71.33772, 1.27243, -17.39752],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_unpainted.png",
-        "GUID": 74
+        "imgPNG": "images/tiles/paintable_wall_unpainted.png"
     },
     {
-        "guid": 72,
+        "guid": 75,
         "Name": "Paintable Wall - White",
         "RGB": [157, 180, 203],
         "HSL": [210.0, 30.667, 70.588],
         "HSV": [210.0, 22.66, 79.608],
         "CAM16": [74.82473, -5.35303, -11.74492],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_white.png",
-        "GUID": 75
+        "imgPNG": "images/tiles/paintable_wall_white.png"
     },
     {
-        "guid": 73,
+        "guid": 76,
         "Name": "Paintable Wall - Yellow",
         "RGB": [212, 194, 42],
         "HSL": [53.647, 66.929, 49.804],
         "HSV": [53.647, 80.189, 83.137],
         "CAM16": [79.79824, -6.78427, 27.91639],
         "Category": "Wall",
-        "Image Src": "images/tiles/paintable_wall_yellow.png",
-        "GUID": 76
+        "imgPNG": "images/tiles/paintable_wall_yellow.png"
     },
     {
-        "guid": 74,
+        "guid": 77,
         "Name": "Rail",
         "RGB": [122, 122, 122],
         "HSL": [0.0, 0.0, 47.843],
         "HSV": [0.0, 0.0, 47.843],
         "CAM16": [53.79494, -1.2201, -0.69129],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/rail.png",
-        "GUID": 77
+        "imgPNG": "images/tiles/rail.png"
     },
     {
-        "guid": 75,
+        "guid": 78,
         "Name": "Rug",
         "RGB": [124, 71, 124],
         "HSL": [300.0, 27.179, 38.235],
         "HSV": [300.0, 42.742, 48.627],
         "CAM16": [41.73203, 19.14441, -10.68943],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/rug.png",
-        "GUID": 78
+        "imgPNG": "images/tiles/rug.png"
     },
     {
-        "guid": 76,
+        "guid": 79,
         "Name": "Sand Ground",
         "RGB": [212, 185, 90],
         "HSL": [46.721, 58.654, 59.216],
         "HSV": [46.721, 57.547, 83.137],
         "CAM16": [78.21621, -2.01805, 21.69423],
         "Category": "Ground",
-        "Image Src": "images/tiles/sand_ground.png",
-        "GUID": 79
+        "imgPNG": "images/tiles/sand_ground.png"
     },
     {
-        "guid": 77,
+        "guid": 80,
         "Name": "Sand Wall",
         "RGB": [172, 143, 59],
         "HSL": [44.602, 48.918, 45.294],
         "HSV": [44.602, 65.698, 67.451],
         "CAM16": [63.37517, -0.44194, 20.79827],
         "Category": "Wall",
-        "Image Src": "images/tiles/sand_wall.png",
-        "GUID": 80
+        "imgPNG": "images/tiles/sand_wall.png"
     },
     {
-        "guid": 78,
+        "guid": 81,
         "Name": "Scarlet Bridge",
         "RGB": [168, 28, 46],
         "HSL": [352.286, 71.429, 38.431],
         "HSV": [352.286, 83.333, 65.882],
         "CAM16": [41.12079, 32.97953, 10.93393],
         "Category": "Ground",
-        "Image Src": "images/tiles/scarlet_bridge.png",
-        "GUID": 81
+        "imgPNG": "images/tiles/scarlet_bridge.png"
     },
     {
-        "guid": 79,
+        "guid": 82,
         "Name": "Scarlet Fence [or Gate]",
         "RGB": [128, 34, 46],
         "HSL": [352.34, 58.025, 31.765],
         "HSV": [352.34, 73.438, 50.196],
         "CAM16": [32.94745, 26.54573, 7.45067],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/scarlet_fence.png",
-        "GUID": 82
+        "imgPNG": "images/tiles/scarlet_fence.png"
     },
     {
-        "guid": 80,
+        "guid": 83,
         "Name": "Scarlet Floor",
         "RGB": [178, 53, 38],
         "HSL": [6.429, 64.815, 42.353],
         "HSV": [6.429, 78.652, 69.804],
         "CAM16": [45.81119, 28.87289, 15.03829],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/scarlet_floor.png",
-        "GUID": 83
+        "imgPNG": "images/tiles/scarlet_floor.png"
     },
     {
-        "guid": 81,
+        "guid": 84,
         "Name": "Scarlet Wall",
         "RGB": [144, 38, 22],
         "HSL": [7.869, 73.494, 32.549],
         "HSV": [7.869, 84.722, 56.471],
         "CAM16": [36.44541, 26.70498, 14.73625],
         "Category": "Wall",
-        "Image Src": "images/tiles/scarlet_wall.png",
-        "GUID": 84
+        "imgPNG": "images/tiles/scarlet_wall.png"
     },
     {
-        "guid": 82,
+        "guid": 85,
         "Name": "Stone Bricks Wall",
         "RGB": [106, 108, 114],
         "HSL": [225.0, 3.636, 43.137],
         "HSV": [225.0, 7.018, 44.706],
         "CAM16": [48.02163, -0.81282, -4.20759],
         "Category": "Wall",
-        "Image Src": "images/tiles/stone_bricks_wall.png",
-        "GUID": 85
+        "imgPNG": "images/tiles/stone_bricks_wall.png"
     },
     {
-        "guid": 83,
+        "guid": 86,
         "Name": "Stone Bridge",
         "RGB": [124, 117, 108],
         "HSL": [33.75, 6.897, 45.49],
         "HSV": [33.75, 12.903, 48.627],
         "CAM16": [52.18247, 0.45294, 3.43249],
         "Category": "Ground",
-        "Image Src": "images/tiles/stone_bridge.png",
-        "GUID": 86
+        "imgPNG": "images/tiles/stone_bridge.png"
     },
     {
-        "guid": 84,
+        "guid": 87,
         "Name": "Stone Fence [or Gate]",
         "RGB": [96, 91, 85],
         "HSL": [32.727, 6.077, 35.49],
         "HSV": [32.727, 11.458, 37.647],
         "CAM16": [41.12311, 0.34439, 2.50265],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/stone_fence.png",
-        "GUID": 87
+        "imgPNG": "images/tiles/stone_fence.png"
     },
     {
-        "guid": 85,
+        "guid": 88,
         "Name": "Stone Floor",
         "RGB": [129, 132, 140],
         "HSL": [223.636, 4.564, 52.745],
         "HSV": [223.636, 7.857, 54.902],
         "CAM16": [57.82966, -1.0207, -5.14764],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/stone_floor.png",
-        "GUID": 88
+        "imgPNG": "images/tiles/stone_floor.png"
     },
     {
-        "guid": 86,
+        "guid": 89,
         "Name": "Stone Ground",
         "RGB": [104, 131, 151],
         "HSL": [205.532, 18.431, 50.0],
         "HSV": [205.532, 31.126, 59.216],
         "CAM16": [55.76105, -6.83667, -11.37408],
         "Category": "Ground",
-        "Image Src": "images/tiles/stone_ground.png",
-        "GUID": 89
+        "imgPNG": "images/tiles/stone_ground.png"
     },
     {
-        "guid": 87,
+        "guid": 90,
         "Name": "Stone Wall",
         "RGB": [73, 104, 125],
         "HSL": [204.231, 26.263, 38.824],
         "HSV": [204.231, 41.6, 49.02],
         "CAM16": [44.38926, -7.52853, -12.1492],
         "Category": "Wall",
-        "Image Src": "images/tiles/stone_wall.png",
-        "GUID": 90
+        "imgPNG": "images/tiles/stone_wall.png"
     },
     {
-        "guid": 92,
+        "guid": 91,
         "Name": "Turf Ground",
         "RGB": [86, 128, 99],
         "HSL": [138.571, 19.626, 41.961],
         "HSV": [138.571, 32.812, 50.196],
         "CAM16": [51.56577, -15.04283, 6.1085],
         "Category": "Ground",
-        "Image Src": "images/tiles/turf_ground.png",
-        "GUID": 91
+        "imgPNG": "images/tiles/turf_ground.png"
     },
     {
-        "guid": 93,
+        "guid": 92,
         "Name": "Turf Wall",
         "RGB": [71, 104, 81],
         "HSL": [138.182, 18.857, 34.314],
         "HSV": [138.182, 31.731, 40.784],
         "CAM16": [42.46455, -13.04525, 5.27824],
         "Category": "Wall",
-        "Image Src": "images/tiles/turf_wall.png",
-        "GUID": 92
+        "imgPNG": "images/tiles/turf_wall.png"
     },
     {
-        "guid": 94,
+        "guid": 93,
         "Name": "Water",
         "RGB": [28, 61, 129],
         "HSL": [220.396, 64.331, 30.784],
         "HSV": [220.396, 78.295, 50.588],
         "CAM16": [29.31927, -0.09308, -23.8272],
         "Category": "Empty Ground",
-        "Image Src": "images/tiles/water.png",
-        "GUID": 93
+        "imgPNG": "images/tiles/water.png"
     },
     {
-        "guid": 95,
+        "guid": 94,
         "Name": "Wood Bridge",
         "RGB": [140, 88, 38],
         "HSL": [29.412, 57.303, 34.902],
         "HSV": [29.412, 72.857, 54.902],
         "CAM16": [45.24905, 9.48943, 16.71019],
         "Category": "Ground",
-        "Image Src": "images/tiles/wood_bridge.png",
-        "GUID": 94
+        "imgPNG": "images/tiles/wood_bridge.png"
     },
     {
-        "guid": 96,
+        "guid": 95,
         "Name": "Wood Fence [or Gate]",
         "RGB": [112, 73, 34],
         "HSL": [30.0, 53.425, 28.627],
         "HSV": [30.0, 69.643, 43.922],
         "CAM16": [37.18623, 7.4438, 14.23531],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/wood_fence.png",
-        "GUID": 95
+        "imgPNG": "images/tiles/wood_fence.png"
     },
     {
-        "guid": 97,
+        "guid": 96,
         "Name": "Wood Floor",
         "RGB": [199, 148, 79],
         "HSL": [34.5, 51.724, 54.51],
         "HSV": [34.5, 60.302, 78.039],
         "CAM16": [68.16276, 5.85284, 18.7954],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/wood_floor.png",
-        "GUID": 96
+        "imgPNG": "images/tiles/wood_floor.png"
     },
     {
-        "guid": 98,
+        "guid": 97,
         "Name": "Wood Wall",
         "RGB": [148, 105, 50],
         "HSL": [33.673, 49.495, 38.824],
         "HSV": [33.673, 66.216, 58.039],
         "CAM16": [50.71448, 6.06775, 16.91261],
         "Category": "Wall",
-        "Image Src": "images/tiles/wood_wall.png",
-        "GUID": 97
+        "imgPNG": "images/tiles/wood_wall.png"
     },
     {
-        "guid": 99,
+        "guid": 98,
         "Name": "Wooden Crate",
         "RGB": [114, 61, 13],
         "HSL": [28.515, 79.528, 24.902],
         "HSV": [28.515, 88.596, 44.706],
         "CAM16": [34.42684, 11.51998, 16.79405],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/wooden_crate.png",
-        "GUID": 98
+        "imgPNG": "images/tiles/wooden_crate.png"
     },
     {
-        "guid": 100,
+        "guid": 99,
         "Name": "Woven Mat",
         "RGB": [59, 139, 64],
         "HSL": [123.75, 40.404, 38.824],
         "HSV": [123.75, 57.554, 54.51],
         "CAM16": [52.59479, -22.69698, 14.99742],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/woven_mat.png",
-        "GUID": 99
+        "imgPNG": "images/tiles/woven_mat.png"
     },
     {
-        "guid": 101,
+        "guid": 100,
         "Name": "Woven Straw Floor",
         "RGB": [255, 243, 113],
         "HSL": [54.93, 100.0, 72.157],
         "HSV": [54.93, 55.686, 100.0],
         "CAM16": [94.98056, -7.29989, 25.13097],
         "Category": "Ground Decoration",
-        "Image Src": "images/tiles/woven_straw_floor.png",
-        "GUID": 100
+        "imgPNG": "images/tiles/woven_straw_floor.png"
     }
 ]

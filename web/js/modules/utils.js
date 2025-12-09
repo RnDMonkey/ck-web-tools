@@ -160,6 +160,14 @@ export function getDBClosestValue(db, inputColor, colorSpace = "RGB") {
     return closest.val;
 }
 
+export function blobToDataURL(blob) {
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.readAsDataURL(blob);
+    });
+}
+
 export function convertToMatrix(array, width) {
     var matrix = [],
         i,

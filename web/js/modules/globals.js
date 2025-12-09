@@ -18,7 +18,7 @@ export const Globals = {
     pixelHSL: [],
     pixelHSV: [],
     pixelCAM16: [],
-    fallbackCache: {},
+    iconCache: {},
 
     NORMAL_MAXDIMS: 2000,
     LARGE_MAXDIMS: 10000,
@@ -27,6 +27,7 @@ export const Globals = {
     previewCells: [],
     maxDims: 2000,
 
+    useFancyIcons: false,
     showImageInputs: true,
     showSelections: true,
     showCounters: true,
@@ -61,7 +62,7 @@ export const Globals = {
     hoverTooltip: null,
     iconSizeSelectDOM: null,
     containWrapperDOM: null,
-    btnDownloadGIMP: null,
+    enableFancyIconsDOM: null,
 
     // object methods
     get isImageEmpty() {
@@ -101,5 +102,5 @@ export function initGlobals() {
     Globals.hoverTooltip = document.getElementById("hover-tooltip");
     Globals.iconSizeSelectDOM = document.getElementById("icon-size-select");
     Globals.containWrapperDOM = document.getElementById("contain-wrapper");
-    Globals.btnDownloadGIMP = document.getElementById("btn-export-palette");
+    Globals.enableFancyIconsDOM = document.getElementById("cb-enable-fancy-icons");
 }

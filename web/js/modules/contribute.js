@@ -49,7 +49,7 @@ async function buildContributionTable() {
         img.height = ICON_SIZE;
         img.style.imageRendering = "pixelated";
 
-        let finalSrc = entry["Image Src"];
+        let finalSrc = entry["imgPNG"];
 
         // Try to load the image
         await safeLoadImage(img, finalSrc, statusTd, missingImages);

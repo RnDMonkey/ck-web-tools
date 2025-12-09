@@ -92,8 +92,9 @@ export async function Initialize() {
 
     Globals.colorDB = await getColorDB("data/colordb.json");
 
-    // preload fallback icon images at all supported sizes
-    Render.preloadFallbackIcons([32, 48, 64]);
+    // preload icon images at all supported sizes
+    await Render.preloadSimpleIcons([32, 48, 64]);
+    await Render.preloadFancyIcons([32, 48, 64]);
 
     // #region icon size choice
     // Restore saved icon size choice
@@ -115,6 +116,29 @@ export async function Initialize() {
         Globals.ICON_DIMS = newIconSize;
         // Update CSS var
         document.documentElement.style.setProperty("--icon-size", `${newIconSize}px`);
+
+        // Re-render icon images at new size
+        Render.redrawIconImages();
+        processImage();
+    });
+
+    // Restore fancy icons pref
+    const savedEnableFancyIcons = localStorage.getItem("cktool-enable-fancy-icons");
+    if (savedEnableFancyIcons) {
+        if (!savedEnableFancyIcons) {
+            Globals.enableFancyIconsDOM.checked = false;
+        } else {
+            Globals.enableFancyIconsDOM.checked = savedEnableFancyIcons === "true";
+        }
+
+        Globals.useFancyIcons = Globals.enableFancyIconsDOM.checked;
+    }
+
+    // Save icon style + swap when changed
+    Globals.enableFancyIconsDOM.addEventListener("change", () => {
+        localStorage.setItem("cktool-enable-fancy-icons", Globals.enableFancyIconsDOM.checked);
+
+        Globals.useFancyIcons = Globals.enableFancyIconsDOM.checked;
 
         // Re-render icon images at new size
         Render.redrawIconImages();
@@ -235,9 +259,6 @@ export async function Initialize() {
     // Globals.btnToggleImages.addEventListener("click", Render.toggleImages);
     Globals.btnProcess.addEventListener("click", processImage);
     Globals.btnRenderPreview.addEventListener("click", Render.renderPreview);
-    Globals.btnDownloadGIMP.addEventListener("click", () => {
-        writeGimpPalette(Globals.colorDB);
-    });
     // #endregion
 
     Globals.btnClearSuppressedDOM.addEventListener("click", () => {

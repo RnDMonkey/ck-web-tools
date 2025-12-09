@@ -63,62 +63,67 @@ function makeFallbackDataURL(entry, size) {
     return canvas.toDataURL();
 }
 
-export function preloadFallbackIcons(sizes = [32, 48, 64]) {
+export async function preloadFancyIcons(sizes = [32, 48, 64]) {
+    if (!Globals.colorDB) return;
+
+    for (const entry of Globals.colorDB) {
+        const guid = entry.guid;
+
+        for (const size of sizes) {
+            const cacheKey = `${guid}_${size}_fancy`;
+            if (Globals.iconCache[cacheKey]) continue;
+
+            try {
+                const response = await fetch(entry.imgPNG);
+                if (!response.ok) throw new Error("Image missing");
+
+                const blob = await response.blob();
+                const dataURL = await Utils.blobToDataURL(blob);
+
+                Globals.iconCache[cacheKey] = dataURL;
+            } catch {
+                // fallback to simple
+                Globals.iconCache[cacheKey] = makeFallbackDataURL(entry, size);
+            }
+        }
+    }
+}
+
+export async function preloadSimpleIcons(sizes = [32, 48, 64]) {
     if (!Globals.colorDB) return;
 
     Globals.colorDB.forEach((entry) => {
         const guid = entry.guid;
 
-        // Only preload for entries that don't have image sources defined
-        if (!entry.imageSource) {
-            sizes.forEach((size) => {
-                const cacheKey = `${guid}_${size}`;
-                if (!Globals.fallbackCache[cacheKey]) {
-                    const dataURL = makeFallbackDataURL(entry, size);
-                    Globals.fallbackCache[cacheKey] = dataURL;
-                }
-            });
-        }
+        // preload simple text icons (previously fallback in case image wasn't defined)
+        sizes.forEach((size) => {
+            const cacheKey = `${guid}_${size}_simple`;
+            if (!Globals.iconCache[cacheKey]) {
+                const dataURL = makeFallbackDataURL(entry, size);
+                Globals.iconCache[cacheKey] = dataURL;
+            }
+        });
     });
 }
 
 // Generates an <img> OR a fallback <canvas> with the Name drawn over the RGB background
-export function createItemPreview(entry, size = Globals.ICON_DIMS) {
+export function createItemPreview(entry, size = Globals.ICON_DIMS, fancy = Globals.useFancyIcons) {
     const guid = entry.guid;
-    const cacheKey = `${guid}_${size}`;
+    const mode = fancy ? "fancy" : "simple";
+    const cacheKey = `${guid}_${size}_${mode}`;
+    const img = document.createElement("img");
 
-    // If matching-size fallback exists, reuse it
-    if (Globals.fallbackCache[cacheKey]) {
-        const img = document.createElement("img");
-        img.src = Globals.fallbackCache[cacheKey];
+    // Fetch preloaded icon from iconCache
+    if (Globals.iconCache[cacheKey]) {
+        img.src = Globals.iconCache[cacheKey];
         img.width = size;
         img.height = size;
         img.alt = entry.Name;
         img.dataset.guid = guid;
         return img;
+    } else {
+        console.log("cacheKey, Globals.iconCache[cacheKey]", cacheKey, Globals.iconCache[cacheKey]);
     }
-
-    // Otherwise create normal image
-    const img = document.createElement("img");
-    img.src = entry.imageSource;
-    img.alt = entry.Name;
-    img.width = size;
-    img.height = size;
-    img.dataset.guid = guid;
-
-    // Hook the onerror to generate fallback
-    img.onerror = function () {
-        console.warn("Image missing, generating fallback for:", entry.Name);
-
-        // get fallback canvas PNG
-        const dataURL = makeFallbackDataURL(entry, size);
-
-        // Cache it so we never redraw or re-error again
-        Globals.fallbackCache[cacheKey] = dataURL;
-
-        // load PNG in place
-        img.src = dataURL;
-    };
 
     return img;
 }
@@ -138,9 +143,9 @@ export function renderPreview() {
                 const existingCell = Globals.previewCells[y][x];
                 Globals.previewCells[y][x].style.backgroundColor = "rgba(" + trimBrackets(selection["RGB"]) + ", 255)";
 
-                // Globals.previewCells[y][x].src = selection['imageSource']
+                // Globals.previewCells[y][x].src = selection['imgPNG']
                 // Use fallback-aware preview generator for each preview cell
-                let preview = createItemPreview(selection, Globals.ICON_DIMS); // replace 30px preview grid cells
+                let preview = createItemPreview(selection, Globals.ICON_DIMS, Globals.useFancyIcons); // replace 30px preview grid cells
                 preview.id = existingCell.id;
 
                 Globals.previewCells[y][x].replaceWith(preview);
@@ -238,7 +243,7 @@ export function generateItemSelection() {
             localStorage.setItem("cktool-checkbox-states", JSON.stringify(savedStates));
         });
 
-        let preview = createItemPreview(entry, Globals.ICON_DIMS);
+        let preview = createItemPreview(entry, Globals.ICON_DIMS, Globals.useFancyIcons);
         preview.dataset.guid = guid;
 
         // assemble container
@@ -256,14 +261,14 @@ export function generateItemSelection() {
 
 export function redrawIconImages() {
     const newSize = Globals.ICON_DIMS;
+    const fancy = Globals.useFancyIcons;
 
     // Update item-selection icons
     document.querySelectorAll(".item-selection img").forEach((img) => {
         const guid = Number(img.dataset.guid);
         // const entry = Globals.colorDB.find((e) => e.guid === guid);
         const entry = Globals.paletteEntryByGuid[guid];
-
-        const newPreview = createItemPreview(entry, newSize);
+        const newPreview = createItemPreview(entry, newSize, fancy);
         img.src = newPreview.src;
     });
 
@@ -273,7 +278,7 @@ export function redrawIconImages() {
         // const entry = Globals.colorDB.find((e) => e.guid === guid);
         const entry = Globals.paletteEntryByGuid[guid];
 
-        const newPreview = createItemPreview(entry, newSize);
+        const newPreview = createItemPreview(entry, newSize, fancy);
         img.src = newPreview.src;
     });
 }
