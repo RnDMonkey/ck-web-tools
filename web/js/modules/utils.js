@@ -216,3 +216,43 @@ export function getExcludedColorDB(db, exclusions) {
     console.log("getExcludedColorDB filtered result:", result);
     return result;
 }
+
+function showLiveUpdateToast() {
+    const toast = document.getElementById("update-toast");
+    toast.classList.remove("hidden");
+
+    document.getElementById("refresh-btn").onclick = () => {
+        location.reload(true);
+    };
+}
+
+export function startVersionWatch(url, intervalMs = 0.1 * 60 * 1000) {
+    let lastSeenVersion = localStorage.getItem("cktool-live-version");
+
+    async function check() {
+        try {
+            const response = await fetch(url, { cache: "no-store" });
+
+            // GitHub Pages will send a Last-Modified header
+            const modified = response.headers.get("Last-Modified");
+
+            if (!modified) return;
+
+            if (lastSeenVersion && modified !== lastSeenVersion) {
+                showLiveUpdateToast();
+            }
+
+            // store new version
+            lastSeenVersion = modified;
+            localStorage.setItem("cktool-live-version", modified);
+        } catch (err) {
+            console.warn("Version check failed:", err);
+        }
+    }
+
+    // run immediately
+    check();
+
+    // then run periodically (default 15 mins)
+    setInterval(check, intervalMs);
+}

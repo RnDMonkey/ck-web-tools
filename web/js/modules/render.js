@@ -69,19 +69,24 @@ export async function preloadFancyIcons(sizes = [32, 48, 64]) {
     for (const entry of Globals.colorDB) {
         const guid = entry.guid;
 
-        for (const size of sizes) {
-            const cacheKey = `${guid}_${size}_fancy`;
-            if (Globals.iconCache[cacheKey]) continue;
+        try {
+            const response = await fetch(entry.imgPNG);
+            if (!response.ok) throw new Error("Image missing");
 
-            try {
-                const response = await fetch(entry.imgPNG);
-                if (!response.ok) throw new Error("Image missing");
+            const blob = await response.blob();
+            const dataURL = await Utils.blobToDataURL(blob);
 
-                const blob = await response.blob();
-                const dataURL = await Utils.blobToDataURL(blob);
+            for (const size of sizes) {
+                const cacheKey = `${guid}_${size}_fancy`;
+                if (Globals.iconCache[cacheKey]) continue;
 
                 Globals.iconCache[cacheKey] = dataURL;
-            } catch {
+            }
+        } catch {
+            for (const size of sizes) {
+                const cacheKey = `${guid}_${size}_fancy`;
+                if (Globals.iconCache[cacheKey]) continue;
+
                 // fallback to simple
                 Globals.iconCache[cacheKey] = makeFallbackDataURL(entry, size);
             }

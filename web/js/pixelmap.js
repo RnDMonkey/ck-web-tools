@@ -85,6 +85,7 @@ function loadImageFromDataURL(dataURL, options = {}) {
 export async function Initialize() {
     initGlobals();
     showProgressOverlay("Loading page...");
+    Utils.startVersionWatch("version.txt");
 
     restorePaneSizes();
     setupDragBar("drag-bar-left", "left-pane", true);
