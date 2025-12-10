@@ -226,7 +226,7 @@ function showLiveUpdateToast() {
     };
 }
 
-export function startVersionWatch(url, intervalMs = 0.1 * 60 * 1000) {
+export function startVersionWatch(url, intervalMs = 60 * 60 * 1000) {
     let lastSeenVersion = localStorage.getItem("cktool-live-version");
 
     async function check() {
@@ -253,6 +253,6 @@ export function startVersionWatch(url, intervalMs = 0.1 * 60 * 1000) {
     // run immediately
     check();
 
-    // then run periodically (default 15 mins)
+    // then run periodically (default once per hour)
     setInterval(check, intervalMs);
 }
